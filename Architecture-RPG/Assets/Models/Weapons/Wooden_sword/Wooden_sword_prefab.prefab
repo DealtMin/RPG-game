@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 10ca295f88e77034a9c5aa03ca40066e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -37.20816
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 10ca295f88e77034a9c5aa03ca40066e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -22.8349
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 10ca295f88e77034a9c5aa03ca40066e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -50.616444
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 10ca295f88e77034a9c5aa03ca40066e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 10ca295f88e77034a9c5aa03ca40066e, type: 3}
       propertyPath: m_Name
-      value: Wooden_sword
+      value: Wooden_sword_prefab
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
