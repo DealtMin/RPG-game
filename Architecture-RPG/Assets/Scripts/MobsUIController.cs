@@ -7,6 +7,6 @@ public class MobsUIController : MonoBehaviour
 
     public void ReduceHealth(int currHealth)
     {
-        healthBar.fillAmount = currHealth / 100;
+        healthBar.fillAmount = currHealth*0.01f;
     }
 }

@@ -1,24 +1,32 @@
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerUIController))]
 public class PlayerLifecycle : MonoBehaviour, IDamagable
 {
     private PlayerUIController _playerUIController;
-    public int Health { get; set; }
+    [SerializeField] private int health;
 
     private void Awake()
     {
         _playerUIController = GetComponent<PlayerUIController>();
     }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        WeaponSOViewer weapon = other.GetComponent<WeaponSOViewer>();
+        if (weapon)
+        {
+            Damage(weapon.damage);
+        }
+    }
 
     public void Damage(int damage)
     {
-        Health -= damage;
-        if (Health <= 0)
+        health -= damage;
+        if (health <= 0)
         {
             Death();
         }
-        _playerUIController.ReduceHealth(Health);
+        _playerUIController.ReduceHealth(health);
     }
 
     public void Death()

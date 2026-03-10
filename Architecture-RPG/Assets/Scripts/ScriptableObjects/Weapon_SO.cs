@@ -8,6 +8,6 @@ public class Weapon_SO : ScriptableObject
     [SerializeField] private bool isMelee; //это оружие ближнего боя
     
     public Vector3 weaponInitScale => initScale; 
-    public bool weaponIsMelee => weaponIsMelee;
+    public bool weaponIsMelee => isMelee;
     public int weaponDamage => damage; 
 }
