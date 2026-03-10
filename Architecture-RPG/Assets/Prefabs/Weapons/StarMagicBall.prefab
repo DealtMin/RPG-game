@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6831257382156743959}
   - component: {fileID: 7864977741425540206}
   m_Layer: 0
-  m_Name: BlueMagicBall
+  m_Name: StarMagicBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
