@@ -449,7 +449,6 @@ GameObject:
   - component: {fileID: 8177101157076890066}
   - component: {fileID: 2048774207731852022}
   - component: {fileID: 6537864157836004395}
-  - component: {fileID: 8108752970511732551}
   m_Layer: 5
   m_Name: Restart
   m_TagString: Untagged
@@ -558,64 +557,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2048774207731852022}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1270167079921274925}
-        m_TargetAssemblyTypeName: ButtonBehavior, Assembly-CSharp
-        m_MethodName: OnClick
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 3351322546287770814}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &8108752970511732551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 508808088346473202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1270167079921274925}
-          m_TargetAssemblyTypeName: ButtonBehavior, Assembly-CSharp
-          m_MethodName: OnHover
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 3351322546287770814}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1270167079921274925}
-          m_TargetAssemblyTypeName: ButtonBehavior, Assembly-CSharp
-          m_MethodName: ExitHover
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 3351322546287770814}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+      m_Calls: []
 --- !u!1 &573816276959434448
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,7 +773,6 @@ GameObject:
   - component: {fileID: 1954358513465802540}
   - component: {fileID: 1205384610056779935}
   - component: {fileID: 9035337245484788997}
-  - component: {fileID: 9052394630108021548}
   m_Layer: 5
   m_Name: Continue
   m_TagString: Untagged
@@ -940,64 +881,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1205384610056779935}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1270167079921274925}
-        m_TargetAssemblyTypeName: ButtonBehavior, Assembly-CSharp
-        m_MethodName: OnClick
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 8565566132825581092}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &9052394630108021548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 724175832580768746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1270167079921274925}
-          m_TargetAssemblyTypeName: ButtonBehavior, Assembly-CSharp
-          m_MethodName: OnHover
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 8565566132825581092}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1270167079921274925}
-          m_TargetAssemblyTypeName: ButtonBehavior, Assembly-CSharp
-          m_MethodName: ExitHover
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 8565566132825581092}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+      m_Calls: []
 --- !u!1 &898198451071291587
 GameObject:
   m_ObjectHideFlags: 0
@@ -1239,7 +1123,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7896431626583412728}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SoundController, Assembly-CSharp
         m_MethodName: SetMasterVolume
         m_Mode: 2
@@ -1268,7 +1152,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1270167079921274925}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: ButtonBehavior, Assembly-CSharp
           m_MethodName: OnHover
           m_Mode: 2
@@ -1284,7 +1168,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1270167079921274925}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: ButtonBehavior, Assembly-CSharp
           m_MethodName: ExitHover
           m_Mode: 2
@@ -1442,9 +1326,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3621858067107796301}
-  - component: {fileID: 1270167079921274925}
-  - component: {fileID: 7896431626583412728}
-  - component: {fileID: 4237501791815800097}
   m_Layer: 0
   m_Name: --ForUIScripts--
   m_TagString: Untagged
@@ -1467,134 +1348,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8195568433333504361}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1270167079921274925
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1301508096930547460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce1ff871791417344b6dadf213875e05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ButtonBehavior
-  scaleFactor: 1.07
-  onHoverClip: {fileID: 8300000, guid: 70a99d6d17575a64ca3ec0293be6c1c0, type: 3}
-  onClickClip: {fileID: 8300000, guid: d171200f06e77014cb8a148d5e5591c5, type: 3}
-  source: {fileID: 4237501791815800097}
---- !u!114 &7896431626583412728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1301508096930547460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c4093e76ad17dc4688875862152c15d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SoundController
-  masterMixer: {fileID: 24100000, guid: 1f801e45bd26e454b8bc46c99e6d5c28, type: 2}
-  volumeSlider: {fileID: 0}
-  noVolumeValue: -80
---- !u!82 &4237501791815800097
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1301508096930547460}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: 1f801e45bd26e454b8bc46c99e6d5c28, type: 2}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &1414470125614524247
 GameObject:
   m_ObjectHideFlags: 0
@@ -1819,7 +1572,6 @@ GameObject:
   - component: {fileID: 8193309308879489947}
   - component: {fileID: 7317224476028388024}
   - component: {fileID: 5857501436165487140}
-  - component: {fileID: 3026026549731388319}
   m_Layer: 5
   m_Name: Load
   m_TagString: Untagged
@@ -1928,64 +1680,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7317224476028388024}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1270167079921274925}
-        m_TargetAssemblyTypeName: ButtonBehavior, Assembly-CSharp
-        m_MethodName: OnClick
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1283473851195368382}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &3026026549731388319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1490905696389177485}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1270167079921274925}
-          m_TargetAssemblyTypeName: ButtonBehavior, Assembly-CSharp
-          m_MethodName: OnHover
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 1283473851195368382}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1270167079921274925}
-          m_TargetAssemblyTypeName: ButtonBehavior, Assembly-CSharp
-          m_MethodName: ExitHover
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 1283473851195368382}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+      m_Calls: []
 --- !u!1 &1495655199035093699
 GameObject:
   m_ObjectHideFlags: 0
@@ -3071,7 +2766,6 @@ GameObject:
   - component: {fileID: 4421622039566576678}
   - component: {fileID: 6468915239846057974}
   - component: {fileID: 5920981484585475445}
-  - component: {fileID: 8418365281868378213}
   m_Layer: 5
   m_Name: ToMenu
   m_TagString: Untagged
@@ -3180,64 +2874,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6468915239846057974}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1270167079921274925}
-        m_TargetAssemblyTypeName: ButtonBehavior, Assembly-CSharp
-        m_MethodName: OnClick
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 2037413947548865777}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &8418365281868378213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3938664851540931351}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1270167079921274925}
-          m_TargetAssemblyTypeName: ButtonBehavior, Assembly-CSharp
-          m_MethodName: OnHover
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 2037413947548865777}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1270167079921274925}
-          m_TargetAssemblyTypeName: ButtonBehavior, Assembly-CSharp
-          m_MethodName: ExitHover
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 2037413947548865777}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+      m_Calls: []
 --- !u!1 &3983681500494982405
 GameObject:
   m_ObjectHideFlags: 0
@@ -3293,7 +2930,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1270167079921274925}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: ButtonBehavior, Assembly-CSharp
           m_MethodName: OnHover
           m_Mode: 2
@@ -3309,7 +2946,7 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1270167079921274925}
+        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: ButtonBehavior, Assembly-CSharp
           m_MethodName: ExitHover
           m_Mode: 2
@@ -3728,7 +3365,6 @@ GameObject:
   - component: {fileID: 5299428440826533045}
   - component: {fileID: 8018915723185661535}
   - component: {fileID: 3390665347497483651}
-  - component: {fileID: 8055474178807756501}
   m_Layer: 5
   m_Name: Save
   m_TagString: Untagged
@@ -3837,64 +3473,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8018915723185661535}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1270167079921274925}
-        m_TargetAssemblyTypeName: ButtonBehavior, Assembly-CSharp
-        m_MethodName: OnClick
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 6569238504317042676}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &8055474178807756501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5060115226282034342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1270167079921274925}
-          m_TargetAssemblyTypeName: ButtonBehavior, Assembly-CSharp
-          m_MethodName: OnHover
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 6569238504317042676}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1270167079921274925}
-          m_TargetAssemblyTypeName: ButtonBehavior, Assembly-CSharp
-          m_MethodName: ExitHover
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 6569238504317042676}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+      m_Calls: []
 --- !u!1 &5249398340591314146
 GameObject:
   m_ObjectHideFlags: 0
@@ -4562,7 +4141,7 @@ GameObject:
   - component: {fileID: 7483076128328862425}
   - component: {fileID: 9057816702986793502}
   m_Layer: 5
-  m_Name: Fill
+  m_Name: HP_FILL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5003,7 +4582,6 @@ GameObject:
   - component: {fileID: 1436228920790045024}
   - component: {fileID: 1708558932186833968}
   - component: {fileID: 93590636530736936}
-  - component: {fileID: 560013700395465994}
   m_Layer: 5
   m_Name: ToMenu
   m_TagString: Untagged
@@ -5112,64 +4690,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1708558932186833968}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1270167079921274925}
-        m_TargetAssemblyTypeName: ButtonBehavior, Assembly-CSharp
-        m_MethodName: OnClick
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 9136914134904829240}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &560013700395465994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7962072606315933299}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1270167079921274925}
-          m_TargetAssemblyTypeName: ButtonBehavior, Assembly-CSharp
-          m_MethodName: OnHover
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 9136914134904829240}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1270167079921274925}
-          m_TargetAssemblyTypeName: ButtonBehavior, Assembly-CSharp
-          m_MethodName: ExitHover
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 9136914134904829240}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+      m_Calls: []
 --- !u!1 &8062145741903361033
 GameObject:
   m_ObjectHideFlags: 0
