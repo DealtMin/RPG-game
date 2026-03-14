@@ -4,6 +4,7 @@ public class MobsLifecycle : MonoBehaviour, IDamagable
 {
     private MobsUIController _mobsUIController;
     private EnemyAI _enemyAI;
+
     [SerializeField] private int health;
 
     private void Awake()

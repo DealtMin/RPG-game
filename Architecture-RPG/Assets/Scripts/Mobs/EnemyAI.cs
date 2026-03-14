@@ -12,10 +12,11 @@ public class EnemyAI : MonoBehaviour
     private NavMeshAgent _agent;
     private EnemyAnimationController _enemyAnimation;
     private EnemyState enemyState = EnemyState.idle;
-    private bool attackReady = true;
+    public bool attackReady { get; private set;}
 
     void Awake()
     {
+        attackReady = true;
         _agent = GetComponent<NavMeshAgent>();
         _enemyAnimation = GetComponent<EnemyAnimationController>();
     }
@@ -69,12 +70,12 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
+            _enemyAnimation.Attack(attackReady);
             if (attackReady)
             {
                 attackReady = false;
                 StartCoroutine(AttackPermission(attackCoolDown));
                 Debug.Log("attack");
-                _enemyAnimation.Attack();
                 weaponCollider.enabled = true;
             }   
         }

@@ -21,9 +21,12 @@ public class EnemyAnimationController : MonoBehaviour
         _animator.SetBool("IsChaising", true);
     }
 
-    public void Attack()
+    public void Attack(bool isAttacking)
     {
-        _animator.Play("attack");
         _animator.SetBool("IsChaising", false);
+        if (isAttacking)
+        {
+            _animator.Play("attack", -1, 0f);
+        }
     }
 }
