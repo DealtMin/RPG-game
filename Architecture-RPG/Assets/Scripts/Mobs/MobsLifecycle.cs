@@ -1,21 +1,32 @@
 using UnityEngine;
+using System.Collections;
 
 public class MobsLifecycle : MonoBehaviour, IDamagable
 {
     private MobsUIController _mobsUIController;
+    private EnemyAI _enemyAI;
+    private bool _canDamage;
+    [SerializeField] private float damageInvincibility = 1.5f;
     [SerializeField] private int health;
 
     private void Awake()
     {
+        _canDamage = true;
         _mobsUIController = GetComponent<MobsUIController>();
+        _enemyAI = GetComponent<EnemyAI>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        WeaponSOViewer weapon = other.GetComponent<WeaponSOViewer>();
-        if (weapon)
+        if (_canDamage)
         {
-            Damage(weapon.damage);
+            WeaponSOViewer weapon = other.GetComponent<WeaponSOViewer>();
+            if (weapon)
+            {
+                _canDamage = false;
+                StartCoroutine(DamageCountDown(damageInvincibility));
+                Damage(weapon.damage);
+            }
         }
     }
 
@@ -31,6 +42,11 @@ public class MobsLifecycle : MonoBehaviour, IDamagable
 
     public void Death()
     {
-        Destroy(gameObject);
+        _enemyAI.Death();
+    }
+    public IEnumerator DamageCountDown(float coolDown)
+    {
+        yield return new WaitForSeconds(coolDown);
+        _canDamage = true;        
     }
 }

@@ -4,7 +4,6 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Ground
   - Walls
   layers:
   - Default
@@ -13,7 +12,7 @@ TagManager:
   - Player
   - Water
   - UI
-  - 
+  - Characters
   - 
   - 
   - 
