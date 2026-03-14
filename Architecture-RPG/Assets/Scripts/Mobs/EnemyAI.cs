@@ -5,18 +5,19 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
+    [SerializeField] private EnemyType enemyType;
     [SerializeField] private Transform target;
     [SerializeField] private float attackCoolDown = 1.5f;
     [SerializeField] private float noticeDistance = 10;
     [SerializeField] private Collider weaponCollider;
+    [SerializeField] private GameObject magicAttack;
     private NavMeshAgent _agent;
     private EnemyAnimationController _enemyAnimation;
     private EnemyState enemyState = EnemyState.idle;
-    public bool attackReady { get; private set;}
+    private bool attackReady = true;
 
     void Awake()
     {
-        attackReady = true;
         _agent = GetComponent<NavMeshAgent>();
         _enemyAnimation = GetComponent<EnemyAnimationController>();
     }
@@ -32,6 +33,8 @@ public class EnemyAI : MonoBehaviour
                 break;
             case EnemyState.attack:
                 AttackPlayer();
+                break;
+            case EnemyState.escape:
                 break;
             case EnemyState.death:
                 break;
@@ -66,7 +69,8 @@ public class EnemyAI : MonoBehaviour
         if (Vector3.Distance(target.position, transform.position) > _agent.stoppingDistance) 
         {
             enemyState = EnemyState.chase;
-            weaponCollider.enabled = false;
+            if (enemyType == EnemyType.melee)
+                weaponCollider.enabled = false;
         }
         else
         {
@@ -75,10 +79,21 @@ public class EnemyAI : MonoBehaviour
             {
                 attackReady = false;
                 StartCoroutine(AttackPermission(attackCoolDown));
-                Debug.Log("attack");
-                weaponCollider.enabled = true;
+                switch (enemyType)
+                {
+                    case EnemyType.melee:
+                        weaponCollider.enabled = true;
+                        break;
+                    case EnemyType.range:
+                        RangeAttack();
+                        break;
+                }
             }   
         }
+    }
+    private void RangeAttack()
+    {
+        Instantiate(magicAttack);
     }
     public void Death()
     {
@@ -99,5 +114,11 @@ public enum EnemyState
     idle,
     attack,
     chase,
+    escape,
     death
+}
+public enum EnemyType
+{
+    melee,
+    range
 }
