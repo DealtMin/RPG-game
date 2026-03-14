@@ -3,13 +3,13 @@ using UnityEngine;
 public class MobsLifecycle : MonoBehaviour, IDamagable
 {
     private MobsUIController _mobsUIController;
-    private EnemyAnimationController _enemyAnimation;
+    private EnemyAI _enemyAI;
     [SerializeField] private int health;
 
     private void Awake()
     {
         _mobsUIController = GetComponent<MobsUIController>();
-        _enemyAnimation = GetComponent<EnemyAnimationController>();
+        _enemyAI = GetComponent<EnemyAI>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -33,6 +33,6 @@ public class MobsLifecycle : MonoBehaviour, IDamagable
 
     public void Death()
     {
-        _enemyAnimation.DeathAnimation();
+        _enemyAI.Death();
     }
 }

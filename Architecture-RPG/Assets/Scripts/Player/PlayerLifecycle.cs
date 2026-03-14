@@ -12,6 +12,7 @@ public class PlayerLifecycle : MonoBehaviour, IDamagable
     
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("TRIGGER");
         WeaponSOViewer weapon = other.GetComponent<WeaponSOViewer>();
         if (weapon)
         {
