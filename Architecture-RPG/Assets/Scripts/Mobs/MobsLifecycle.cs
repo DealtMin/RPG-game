@@ -21,7 +21,7 @@ public class MobsLifecycle : MonoBehaviour, IDamagable
         if (_canDamage)
         {
             WeaponSOViewer weapon = other.GetComponent<WeaponSOViewer>();
-            if (weapon & weapon.CompareTag("MainCharacter"))
+            if (weapon)
             {
                 _canDamage = false;
                 StartCoroutine(DamageCountDown(damageInvincibility));

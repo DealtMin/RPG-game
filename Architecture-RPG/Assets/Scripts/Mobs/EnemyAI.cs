@@ -9,8 +9,8 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private float attackCoolDown = 1.5f;
     [SerializeField] private float noticeDistance = 10;
-    [SerializeField] private Collider weaponCollider;
     [SerializeField] private GameObject magicAttack;
+    [SerializeField] private Transform magicSpawmPoint;
     private NavMeshAgent _agent;
     private EnemyAnimationController _enemyAnimation;
     private EnemyState enemyState = EnemyState.idle;
@@ -69,31 +69,26 @@ public class EnemyAI : MonoBehaviour
         if (Vector3.Distance(target.position, transform.position) > _agent.stoppingDistance) 
         {
             enemyState = EnemyState.chase;
-            if (enemyType == EnemyType.melee)
-                weaponCollider.enabled = false;
         }
         else
         {
+            _agent.isStopped = true;
             _enemyAnimation.Attack(attackReady);
             if (attackReady)
             {
                 attackReady = false;
                 StartCoroutine(AttackPermission(attackCoolDown));
-                switch (enemyType)
+                if (enemyType == EnemyType.range)
                 {
-                    case EnemyType.melee:
-                        weaponCollider.enabled = true;
-                        break;
-                    case EnemyType.range:
-                        RangeAttack();
-                        break;
+                    RangeAttack();
                 }
             }   
         }
     }
     private void RangeAttack()
     {
-        Instantiate(magicAttack);
+        Debug.Log("Attack");
+        Instantiate(magicAttack, magicSpawmPoint);
     }
     public void Death()
     {

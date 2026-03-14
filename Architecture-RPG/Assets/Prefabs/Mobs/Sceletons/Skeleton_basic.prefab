@@ -85,6 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82124f86a1d7e5a469a7a23a4cd93ebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MobsLifecycle
+  damageInvincibility: 1.5
   health: 100
 --- !u!114 &290185672156743822
 MonoBehaviour:
@@ -98,10 +99,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 958f196c2c940ed449eb224f8faf7eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MobsAI
+  enemyType: 0
   target: {fileID: 0}
-  attackDelay: 2
+  attackCoolDown: 1.5
   noticeDistance: 10
-  weaponCollider: {fileID: 9003867968995504697}
+  magicAttack: {fileID: 0}
+  magicSpawmPoint: {fileID: 0}
 --- !u!114 &9097659742757735877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,11 +139,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6405781476157271575, guid: a96c768c45053fc4bb20e226de7faaa9, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6405781476157271575, guid: a96c768c45053fc4bb20e226de7faaa9, type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6405781476157271575, guid: a96c768c45053fc4bb20e226de7faaa9, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6674763765052778450, guid: a96c768c45053fc4bb20e226de7faaa9, type: 3}
       propertyPath: m_Layer
@@ -226,11 +233,6 @@ PrefabInstance:
 --- !u!4 &4725876710334309250 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7315092309796437932, guid: a96c768c45053fc4bb20e226de7faaa9, type: 3}
-  m_PrefabInstance: {fileID: 2599072206187076654}
-  m_PrefabAsset: {fileID: 0}
---- !u!65 &9003867968995504697 stripped
-BoxCollider:
-  m_CorrespondingSourceObject: {fileID: 6405781476157271575, guid: a96c768c45053fc4bb20e226de7faaa9, type: 3}
   m_PrefabInstance: {fileID: 2599072206187076654}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3724403479110848677

@@ -18,7 +18,6 @@ public class MagicAttackBehaivour : MonoBehaviour
     }
     void OnTriggerEnter()
     {
-        Debug.Log("ball is ded");
         Destroy(gameObject);
     }
 }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5670949550517132795}
   - component: {fileID: 4932589759504537508}
   - component: {fileID: 4687165571157370463}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Mage_basic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,12 +30,13 @@ Transform:
   m_GameObject: {fileID: 587124131627780011}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.7559056, y: 0.039999932, z: -1.4073184}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1001464763188472644}
   - {fileID: 8213839103109281539}
+  - {fileID: 8790784006324362290}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &7092724915204157122
@@ -85,6 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82124f86a1d7e5a469a7a23a4cd93ebd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MobsLifecycle
+  damageInvincibility: 1.5
   health: 100
 --- !u!114 &4932589759504537508
 MonoBehaviour:
@@ -98,7 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98963942bf79cb44d87829212cc3ca42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimation
-  animator: {fileID: 0}
 --- !u!114 &4687165571157370463
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,8 +112,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 958f196c2c940ed449eb224f8faf7eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MobsAI
-  agent: {fileID: 0}
+  enemyType: 1
   target: {fileID: 0}
+  attackCoolDown: 3
+  noticeDistance: 15
+  magicAttack: {fileID: 9026441651615635683, guid: 2d897bbc98b26e1449140aa73a0a2dc2, type: 3}
+  magicSpawmPoint: {fileID: 8790784006324362290}
+--- !u!1 &2586865222322792152
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8790784006324362290}
+  m_Layer: 3
+  m_Name: magicSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8790784006324362290
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2586865222322792152}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.05, z: 0.78}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7334552434653462247}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &4934897457660609861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -121,6 +157,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7334552434653462247}
     m_Modifications:
+    - target: {fileID: 202118465328643040, guid: 8e8ca9b4ce049e64b8275519c28adacc, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 787539154000262544, guid: 8e8ca9b4ce049e64b8275519c28adacc, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3855411350639243846, guid: 8e8ca9b4ce049e64b8275519c28adacc, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -205,9 +249,25 @@ PrefabInstance:
       propertyPath: m_PresetInfoIsWorld
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5347528030015277931, guid: 8e8ca9b4ce049e64b8275519c28adacc, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6789063693993034124, guid: 8e8ca9b4ce049e64b8275519c28adacc, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7694109305866195916, guid: 8e8ca9b4ce049e64b8275519c28adacc, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 9027154798303879358, guid: 8e8ca9b4ce049e64b8275519c28adacc, type: 3}
       propertyPath: m_Name
       value: Mobs_UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027154798303879358, guid: 8e8ca9b4ce049e64b8275519c28adacc, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
