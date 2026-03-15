@@ -92,12 +92,9 @@ public class EnemyAI : MonoBehaviour
     }
     private void RangeAttack()
     {
-        Debug.Log("Attack");
         GameObject newMagicBall = Instantiate(magicAttack, magicSpawmPoint.position, Quaternion.identity);
         MagicAttackBehaivour magicBeh = newMagicBall.GetComponent<MagicAttackBehaivour>();
         magicBeh.SetParams(_playerTransform);
-        Debug.Log(_playerTransform+"111111111111");
-
     }
     
     public void Death()
