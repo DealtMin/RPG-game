@@ -14,6 +14,7 @@ public class PlayerInputHandler : MonoBehaviour
     private InputAction _sprintAction;
     private InputAction _attackAction;
     private InputAction _magicattackAction;
+    private InputAction _pauseAction;
 
         
     private Vector2 _moveInput;
@@ -30,6 +31,7 @@ public class PlayerInputHandler : MonoBehaviour
     public Action OnInteractPressed;
     public Action OnAttackPressed;
     public Action OnMagicAttackPressed;
+    public Action OnSetPausePressed;
 
 
         
@@ -105,7 +107,12 @@ public class PlayerInputHandler : MonoBehaviour
             _magicattackAction.performed += OnMagicAttack;
 
         }
-            
+        
+        _pauseAction = _playerActionMap.FindAction("Pause");
+        if (_pauseAction != null)
+        {
+            _pauseAction.started += OnSetPause;
+        }
 
     }
         
@@ -156,10 +163,14 @@ public class PlayerInputHandler : MonoBehaviour
         OnMagicAttackPressed?.Invoke();
     }
 
+    private void OnSetPause(InputAction.CallbackContext context)
+    {
+        OnSetPausePressed?.Invoke();
 
-        
+    }
+    
 
-        
+
     public InputActionAsset GetInputActionAsset()
     {
         return inputActions;

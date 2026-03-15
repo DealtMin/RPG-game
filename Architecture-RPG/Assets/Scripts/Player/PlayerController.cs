@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private PlayerMovement _movement;
     private PlayerInputHandler _inputHandler;
     private PlayerCombat _combat;
+    private PlayerUIController _ui;
 
     [Header("Camera")]
     [SerializeField] private PlayerCameraController cameraController;
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float yRotationOffset = 0f;
 
     private Camera _mainCamera;
+    private int _timeScale=1;
 
     public PlayerMovement Movement => _movement;
     public PlayerInputHandler InputHandler => _inputHandler;
@@ -49,21 +51,44 @@ public class PlayerController : MonoBehaviour
 
     private void InitializeComponents()
     {
-        _movement     = GetComponent<PlayerMovement>();
+        _movement = GetComponent<PlayerMovement>();
         _inputHandler = GetComponent<PlayerInputHandler>();
-        _combat       = GetComponent<PlayerCombat>();
+        _combat = GetComponent<PlayerCombat>();
+        _ui = GetComponent<PlayerUIController>();
 
         if (cameraController == null)
         {
             cameraController = GetComponent<PlayerCameraController>()
-                ?? gameObject.AddComponent<PlayerCameraController>();
+                               ?? gameObject.AddComponent<PlayerCameraController>();
         }
 
         if (_combat != null)
         {
             _combat.SetProjectileSpawnPoint(projectileSpawnPoint);
         }
+
+        if (_inputHandler != null)
+        {
+
+            _inputHandler.OnSetPausePressed += SetPause;
+        }
     }
+
+
+    private void OnDisable()
+    {
+        if (_inputHandler == null) return;
+
+        _inputHandler.OnSetPausePressed -= SetPause;
+    }
+
+    void SetPause()
+    {
+        _timeScale = (_timeScale + 1) % 2;
+        Time.timeScale = _timeScale;
+        _ui.Pause(_timeScale==0);
+    }
+
 
     private void HandleInput()
     {
