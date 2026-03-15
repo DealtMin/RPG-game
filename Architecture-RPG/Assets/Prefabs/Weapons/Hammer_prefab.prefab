@@ -66,6 +66,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f8db27de9b29a81458ea1ca466d10073, type: 3}
       insertIndex: -1
       addedObject: {fileID: -1544465909049010564}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f8db27de9b29a81458ea1ca466d10073, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -4283681539486156708}
   m_SourcePrefab: {fileID: 100100000, guid: f8db27de9b29a81458ea1ca466d10073, type: 3}
 --- !u!1 &5394715866186448148 stripped
 GameObject:
@@ -106,3 +109,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSOViewer
   weaponItem: {fileID: 11400000, guid: fbe4d1dff06e742439bbf5d46c44800a, type: 2}
+--- !u!114 &-4283681539486156708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5394715866186448148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b9885f6ff9c07b4d975b693546ed2f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponController

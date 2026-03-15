@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3298065983737301235}
   - component: {fileID: -6929158911217906857}
   - component: {fileID: 905433705043531245}
+  - component: {fileID: 603377179401357003}
   m_Layer: 0
   m_Name: GrassMagicBall
   m_TagString: Untagged
@@ -834,8 +835,8 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: 0, y: 0, z: 0.58}
-    m_Rotation: {x: 0, y: 0, z: 0}
+    m_Position: {x: 0, y: 0, z: -0.58}
+    m_Rotation: {x: 0, y: 180, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
@@ -4972,5 +4973,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f69f5091452733944a728fd064d6d73b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MagicAttackBehaivour
-  player: {fileID: 0}
   speed: 2
+--- !u!114 &603377179401357003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9026441651615635683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b9885f6ff9c07b4d975b693546ed2f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponController

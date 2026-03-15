@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: defc4ba8a6d9dbb4fa0600d949d1f45e, type: 3}
   m_Name: GrassMagicBall_SO
   m_EditorClassIdentifier: Assembly-CSharp::Weapon_SO
-  initScale: {x: 3, y: 3, z: 3}
+  initScaleFactor: 1.5
   damage: 15
   isMelee: 0
-  weaponName: Grass magic ball

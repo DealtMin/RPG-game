@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 734813303373654186}
   - component: {fileID: -3529041928443797124}
   - component: {fileID: 6339515376307261344}
+  - component: {fileID: 1319331206649204962}
   m_Layer: 0
   m_Name: LavaMagicBall
   m_TagString: Untagged
@@ -833,8 +834,8 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: 0, y: 0, z: 0.58}
-    m_Rotation: {x: 0, y: 0, z: 0}
+    m_Position: {x: 0, y: 0, z: -0.58}
+    m_Rotation: {x: 0, y: 180, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
@@ -4959,3 +4960,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponSOViewer
   weaponItem: {fileID: 11400000, guid: 3770a91c5e6cec3438dde227cc499d4f, type: 2}
+--- !u!114 &1319331206649204962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8092937987898722596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b9885f6ff9c07b4d975b693546ed2f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponController

@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: defc4ba8a6d9dbb4fa0600d949d1f45e, type: 3}
   m_Name: PlayerMagicBall_SO
   m_EditorClassIdentifier: Assembly-CSharp::Weapon_SO
-  initScale: {x: 2, y: 2, z: 2}
+  initScaleFactor: 1.25
   damage: 30
   isMelee: 0
-  weaponName: Star magic ball

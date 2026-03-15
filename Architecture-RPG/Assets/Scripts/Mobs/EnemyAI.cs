@@ -15,6 +15,12 @@ public class EnemyAI : MonoBehaviour
     private EnemyAnimationController _enemyAnimation;
     private EnemyState enemyState = EnemyState.idle;
     private bool attackReady = true;
+    private Transform _playerTransform;
+
+    public void SetParams(Transform inputPlayerTransform)
+    {
+        _playerTransform = inputPlayerTransform;
+    }
 
     void Awake()
     {
@@ -87,8 +93,13 @@ public class EnemyAI : MonoBehaviour
     private void RangeAttack()
     {
         Debug.Log("Attack");
-        Instantiate(magicAttack, magicSpawmPoint);
+        GameObject newMagicBall = Instantiate(magicAttack, magicSpawmPoint.position, Quaternion.identity);
+        MagicAttackBehaivour magicBeh = newMagicBall.GetComponent<MagicAttackBehaivour>();
+        magicBeh.SetParams(_playerTransform);
+        Debug.Log(_playerTransform+"111111111111");
+
     }
+    
     public void Death()
     {
         enemyState = EnemyState.death;

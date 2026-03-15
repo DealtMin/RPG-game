@@ -15,6 +15,8 @@ public class PlayerCombat : MonoBehaviour
     private float _lastPhysicalTime;
     private float _lastMagicTime;
 
+    private PlayerUIController _playerUIController;
+
     private bool _physicalOnCooldown => Time.time < _lastPhysicalTime + physicalCooldown;
     private bool _magicOnCooldown => Time.time < _lastMagicTime + magicCooldown;
 
@@ -22,6 +24,7 @@ public class PlayerCombat : MonoBehaviour
     void Awake()
     {
         _playerAnimation = GetComponent<PlayerAnimation>();
+        _playerUIController = GetComponent<PlayerUIController>();
     }
 
     private void OnEnable()
@@ -59,6 +62,7 @@ public class PlayerCombat : MonoBehaviour
 
         _lastMagicTime = Time.time;
         _playerAnimation.MagicAttack();
+        _playerUIController.MagicTimerUI(magicCooldown);
         Debug.Log("[Magic Attack] ПКМ — магическая атака");
 
 
