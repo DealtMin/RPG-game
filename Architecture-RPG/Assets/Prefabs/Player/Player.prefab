@@ -91,7 +91,7 @@ Transform:
   m_GameObject: {fileID: 2886150146824253921}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.8274329, y: 5.1398897, z: -7.2380695}
+  m_LocalPosition: {x: 2.5500011, y: 6.33, z: -10.100002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -281,6 +281,7 @@ GameObject:
   - component: {fileID: 4864823010122338514}
   - component: {fileID: 5841020326807775313}
   - component: {fileID: 6908430320646805753}
+  - component: {fileID: 6035723135407824836}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -442,6 +443,7 @@ MonoBehaviour:
   healthBar: {fileID: 6200216229766667160}
   shootTimer: {fileID: 15161258130248784}
   hpText: {fileID: 1047269405931562032}
+  uiBase: {fileID: 6035723135407824836}
 --- !u!114 &5841020326807775313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -469,6 +471,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimation
   animator: {fileID: 7171711571150948030}
+--- !u!114 &6035723135407824836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4557440811127592839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4bcc52dfbe4b74b8334a41dc5f4001, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIControllerBase
 --- !u!1 &6585194382964897877
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,7 +512,7 @@ Transform:
   m_GameObject: {fileID: 6585194382964897877}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.8274329, y: 5.1398897, z: -7.2380695}
+  m_LocalPosition: {x: 2.5500011, y: 6.33, z: -10.100002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

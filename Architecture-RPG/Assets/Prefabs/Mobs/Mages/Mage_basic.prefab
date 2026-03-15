@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4932589759504537508}
   - component: {fileID: 4687165571157370463}
   - component: {fileID: 8843009830202772564}
+  - component: {fileID: 6272220320428386364}
   m_Layer: 6
   m_Name: Mage_basic
   m_TagString: Untagged
@@ -75,6 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MobsUIController
   healthBar: {fileID: 5376318593655804386}
+  uiBase: {fileID: 6272220320428386364}
 --- !u!114 &5670949550517132795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,6 +144,18 @@ CapsuleCollider:
   m_Height: 1.68
   m_Direction: 1
   m_Center: {x: 0, y: 0.8, z: 0}
+--- !u!114 &6272220320428386364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587124131627780011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4bcc52dfbe4b74b8334a41dc5f4001, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIControllerBase
 --- !u!1 &2586865222322792152
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,9 +4,11 @@ using UnityEngine.UI;
 public class MobsUIController : MonoBehaviour
 {
     [SerializeField] private Image healthBar;
+    [SerializeField] private UIControllerBase uiBase;
+
 
     public void ReduceHealth(int currHealth)
     {
-        healthBar.fillAmount = currHealth*0.01f;
+       uiBase.SetFillAmountImage(healthBar, currHealth);
     }
 }
