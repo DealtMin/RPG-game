@@ -20,6 +20,7 @@ public class PlayerInputHandler : MonoBehaviour
     private Vector2 _lookInput;
     private bool _sprintPressed;
 
+    private PlayerAnimation _playerAnimation;
         
     public Action<Vector2> OnMoveInput;
     public Action<Vector2> OnLookInput;
@@ -35,10 +36,12 @@ public class PlayerInputHandler : MonoBehaviour
     public Vector2 MoveInput => _moveInput;
     public Vector2 LookInput => _lookInput;
     public bool SprintPressed => _sprintPressed;
+
   
         
     private void Awake()
     {
+        _playerAnimation = GetComponent<PlayerAnimation>();
         InitializeInput();
     }
         
@@ -119,6 +122,7 @@ public class PlayerInputHandler : MonoBehaviour
     private void OnMove(InputAction.CallbackContext context)
     {
         _moveInput = context.ReadValue<Vector2>();
+        _playerAnimation.Walk(_moveInput);
         OnMoveInput?.Invoke(_moveInput);
     }
         
@@ -132,22 +136,23 @@ public class PlayerInputHandler : MonoBehaviour
     {
         _sprintPressed = true;
         OnSprintPressed?.Invoke();
+        _playerAnimation.Sprint(_sprintPressed);
     }
         
     private void SprintReleased(InputAction.CallbackContext context)
     {
         _sprintPressed = false;
         OnSprintReleased?.Invoke();
+        _playerAnimation.Sprint(_sprintPressed);
     }
         
     private void OnAttack(InputAction.CallbackContext context)
     {
-
         OnAttackPressed?.Invoke();
     }
 
     private void OnMagicAttack(InputAction.CallbackContext context)
-    {
+    {        
         OnMagicAttackPressed?.Invoke();
     }
 

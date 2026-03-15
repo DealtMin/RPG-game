@@ -18,6 +18,7 @@ public class EnemyAI : MonoBehaviour
 
     void Awake()
     {
+        target = FindAnyObjectByType<PlayerLifecycle>().transform;
         _agent = GetComponent<NavMeshAgent>();
         _enemyAnimation = GetComponent<EnemyAnimationController>();
     }
@@ -35,8 +36,6 @@ public class EnemyAI : MonoBehaviour
                 AttackPlayer();
                 break;
             case EnemyState.escape:
-                break;
-            case EnemyState.death:
                 break;
         }
 
