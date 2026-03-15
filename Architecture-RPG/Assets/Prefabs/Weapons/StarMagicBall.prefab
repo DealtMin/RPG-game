@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 5518293444996237209}
   - component: {fileID: 1884031391795740290}
   - component: {fileID: 5162810730838987679}
+  - component: {fileID: -183730186266374178}
   m_Layer: 0
   m_Name: StarMagicBall
   m_TagString: Untagged
@@ -34,8 +35,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.43, y: 0.43, z: 0.43}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -200,8 +201,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 2
-      minScalar: 0.5
+      scalar: 1.5
+      minScalar: 0.3
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4942,10 +4943,10 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 4
   m_CollisionDetection: 0
 --- !u!114 &1884031391795740290
 MonoBehaviour:
@@ -4972,3 +4973,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b9885f6ff9c07b4d975b693546ed2f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponController
+--- !u!114 &-183730186266374178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3356042824953193245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f69f5091452733944a728fd064d6d73b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MagicAttackBehaivour
+  speed: 5

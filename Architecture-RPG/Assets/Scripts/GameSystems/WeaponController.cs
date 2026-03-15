@@ -11,7 +11,7 @@ public class WeaponController : MonoBehaviour
         _weaplonParameters = GetComponent<WeaponSOViewer>();
         _weaponDamage = _weaplonParameters.damage;
         if (!_weaplonParameters.isMelee)
-        transform.localScale *= _weaplonParameters.initScaleFactor;
+            transform.localScale *= _weaplonParameters.initScaleFactor;
 
     }
 
