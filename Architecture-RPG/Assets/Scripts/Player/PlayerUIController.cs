@@ -28,7 +28,7 @@ public class PlayerUIController : MonoBehaviour
     public void ReduceHealth(int health)
     {
         uiBase.SetFillAmountImage(healthBar, health);
-        uiBase.SetTMPRoText(hpText, ""+health);
+        uiBase.SetTMPRoText(hpText, health);
     }
     
     public void MagicTimerUI(float coolDown)
