@@ -3574,7 +3574,7 @@ MonoBehaviour:
   enemies:
   - {fileID: 587124131627780011, guid: 0095ec4698096894e857826a0788e25a, type: 3}
   - {fileID: 2084805061245644690, guid: f606b3868f4aca54c83edc80cacc8c5c, type: 3}
-  enemiesCount: 0a0000000a000000
+  enemiesCount: 0900000009000000
   maxBound: {fileID: 78114932}
   minBound: {fileID: 421735757}
 --- !u!1001 &1779106061
