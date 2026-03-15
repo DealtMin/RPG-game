@@ -7,15 +7,24 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Transform maxBound;
     [SerializeField] private Transform minBound;
 
+    [SerializeField] private Transform playerTransform;
+
 
     private void Awake()
     {
+        if (playerTransform == null)
+        {
+            playerTransform = FindAnyObjectByType<PlayerController>().transform;
+        }
         for (int i=0; i<enemies.Length; i++)
         {
             for (int j = 0; j < enemiesCount[i]; j++)
             {
                 Vector3 newpos = RandomPosition(minBound, maxBound);
-               Instantiate(enemies[i], newpos, Quaternion.identity);
+                
+                GameObject newEnemy = Instantiate(enemies[i], newpos, Quaternion.identity);
+                EnemyAI enemyai = newEnemy.GetComponent<EnemyAI>();
+                enemyai.SetParams(playerTransform);
             }
         }
     }

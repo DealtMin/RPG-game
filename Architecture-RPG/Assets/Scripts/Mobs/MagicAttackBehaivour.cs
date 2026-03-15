@@ -2,20 +2,30 @@ using UnityEngine;
 
 public class MagicAttackBehaivour : MonoBehaviour
 {
-    [SerializeField] private GameObject player;
+    private Transform _playerTransform;
     [SerializeField] private float speed = 1f;
     private Rigidbody _rb;
     private Vector3 _direction;
-    void Awake()
+
+    public void SetParams(Transform inputPlayerTransform)
     {
-        player = FindAnyObjectByType<PlayerLifecycle>().gameObject;
-        _rb = GetComponent<Rigidbody>();
-        _direction = Vector3.Normalize(player.transform.position - transform.position);
+        _playerTransform = inputPlayerTransform;
+        Preapre();
+
     }
+    
+    void Preapre()
+    {
+        _rb = GetComponent<Rigidbody>();
+        _direction = Vector3.Normalize(_playerTransform.position - transform.position);
+        transform.forward = _direction;
+    }
+    
     void FixedUpdate()
     {
         _rb.AddForce(_direction * speed, ForceMode.Force);
     }
+    
     void OnTriggerEnter()
     {
         Destroy(gameObject);

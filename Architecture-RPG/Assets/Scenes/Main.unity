@@ -1199,6 +1199,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1476635396350600757, guid: fc9bc09aa2b92ab4ca324e33735c5ad4, type: 3}
   m_PrefabInstance: {fileID: 440130579}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &504816022 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2100631493172806075, guid: b0a7e6d8378c77540963a52415cbf3bd, type: 3}
+  m_PrefabInstance: {fileID: 541599251}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &516261218
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1376,11 +1381,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7842435010300380205, guid: b0a7e6d8378c77540963a52415cbf3bd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.8274133
+      value: 1.8274329
       objectReference: {fileID: 0}
     - target: {fileID: 7842435010300380205, guid: b0a7e6d8378c77540963a52415cbf3bd, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.13989
+      value: 5.1398897
       objectReference: {fileID: 0}
     - target: {fileID: 7842435010300380205, guid: b0a7e6d8378c77540963a52415cbf3bd, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3577,6 +3582,7 @@ MonoBehaviour:
   enemiesCount: 0900000009000000
   maxBound: {fileID: 78114932}
   minBound: {fileID: 421735757}
+  playerTransform: {fileID: 504816022}
 --- !u!1001 &1779106061
 PrefabInstance:
   m_ObjectHideFlags: 0

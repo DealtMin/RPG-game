@@ -10,6 +10,7 @@ public class WeaponController : MonoBehaviour
     {
         _weaplonParameters = GetComponent<WeaponSOViewer>();
         _weaponDamage = _weaplonParameters.damage;
+        transform.localScale *= _weaplonParameters.initScaleFactor;
 
     }
 
