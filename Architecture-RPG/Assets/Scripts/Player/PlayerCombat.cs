@@ -18,6 +18,12 @@ public class PlayerCombat : MonoBehaviour
     private bool _physicalOnCooldown => Time.time < _lastPhysicalTime + physicalCooldown;
     private bool _magicOnCooldown => Time.time < _lastMagicTime + magicCooldown;
 
+    private PlayerAnimation _playerAnimation;
+    void Awake()
+    {
+        _playerAnimation = GetComponent<PlayerAnimation>();
+    }
+
     private void OnEnable()
     {
         if (inputHandler == null) return;
@@ -42,10 +48,9 @@ public class PlayerCombat : MonoBehaviour
     private void HandlePhysicalAttack()
     {
         if (_physicalOnCooldown) return;
-
+        _playerAnimation.PhysicAttack();
         _lastPhysicalTime = Time.time;
 
-        Debug.Log("[Physical Attack] ЛКМ — обычная атака");
     }
 
     private void HandleMagicAttack()
@@ -53,7 +58,7 @@ public class PlayerCombat : MonoBehaviour
         if (_magicOnCooldown) return;
 
         _lastMagicTime = Time.time;
-
+        _playerAnimation.MagicAttack();
         Debug.Log("[Magic Attack] ПКМ — магическая атака");
 
 
