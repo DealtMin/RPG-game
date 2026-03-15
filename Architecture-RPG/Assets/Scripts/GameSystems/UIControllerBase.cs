@@ -9,9 +9,9 @@ public class UIControllerBase : MonoBehaviour
         fillImage.fillAmount = value * 0.01f;
     }
 
-    public void SetTMPRoText(TMP_Text targetText, string value)
+    public void SetTMPRoText<T>(TMP_Text targetText, T value)
     {
-        targetText.text = value;
+        targetText.text = ""+value;
     }
 
     public void StartFillCoroutine(Image fillImage, float coolDown)
