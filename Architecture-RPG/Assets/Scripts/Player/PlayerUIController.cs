@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using TMPro;
 
 public class PlayerUIController : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class PlayerUIController : MonoBehaviour
     [SerializeField] private GameObject deathPanel;
     [SerializeField] private Image healthBar;
     [SerializeField] private Image shootTimer;
+    [SerializeField] private TMP_Text hpText;
 
     public void Pause(bool pauseOn)
     {
@@ -23,6 +25,7 @@ public class PlayerUIController : MonoBehaviour
     public void ReduceHealth(int currHealth)
     {
         healthBar.fillAmount = currHealth * 0.01f;
+        hpText.text = "" + currHealth;
     }
 
     public void MagicTimerUI(float coolDown)

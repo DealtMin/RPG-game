@@ -14,30 +14,24 @@ public class PlayerLifecycle : MonoBehaviour, IDamagable
         _playerUIController = GetComponent<PlayerUIController>();
     }
     
-    private void OnTriggerEnter(Collider other)
-    {
-        if (_canDamage)
-        {
-            WeaponSOViewer weapon = other.GetComponent<WeaponSOViewer>();
-            if (weapon)
-            {
-                _canDamage = false;
-                StartCoroutine(DamageCountDown(damageInvincibility));
-                Damage(weapon.damage);
-            }
-        }
-    }
 
     public void Damage(int damage)
     {
-        health -= damage;
-        Debug.Log(health);
-        if (health <= 0)
+        if (_canDamage)
         {
-            Death();
+            health -= damage;
+            Debug.Log(health);
+            if (health <= 0)
+            {
+                Death();
+            }
+            _canDamage = false;
+            StartCoroutine(DamageCountDown(damageInvincibility));
+            _playerUIController.ReduceHealth(health);
         }
-        _playerUIController.ReduceHealth(health);
     }
+
+    
     public IEnumerator DamageCountDown(float coolDown)
     {
         yield return new WaitForSeconds(coolDown);
@@ -47,5 +41,6 @@ public class PlayerLifecycle : MonoBehaviour, IDamagable
     public void Death()
     {
         _playerUIController.Death();
+        Time.timeScale = 0f;
     }
 }

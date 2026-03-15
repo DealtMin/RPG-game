@@ -440,6 +440,7 @@ MonoBehaviour:
   deathPanel: {fileID: 7751504894913470754}
   healthBar: {fileID: 6200216229766667160}
   shootTimer: {fileID: 15161258130248784}
+  hpText: {fileID: 1047269405931562032}
 --- !u!114 &5841020326807775313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1139,6 +1140,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &1047269405931562032 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2679895195370474934, guid: c29fc093ca0fbfd45a387bbe4f4e6906, type: 3}
+  m_PrefabInstance: {fileID: 3150342167654443398}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &5939248535465693954 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8778694976382646916, guid: c29fc093ca0fbfd45a387bbe4f4e6906, type: 3}

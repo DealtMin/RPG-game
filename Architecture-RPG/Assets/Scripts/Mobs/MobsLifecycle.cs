@@ -16,34 +16,26 @@ public class MobsLifecycle : MonoBehaviour, IDamagable
         _enemyAI = GetComponent<EnemyAI>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void Damage(int damage)
     {
         if (_canDamage)
         {
-            WeaponSOViewer weapon = other.GetComponent<WeaponSOViewer>();
-            if (weapon)
+            health -= damage;
+            if (health <= 0)
             {
-                _canDamage = false;
-                StartCoroutine(DamageCountDown(damageInvincibility));
-                Damage(weapon.damage);
+                Death();
             }
+            _canDamage = false;
+            StartCoroutine(DamageCountDown(damageInvincibility));
+            _mobsUIController.ReduceHealth(health);
         }
-    }
-
-    public void Damage(int damage)
-    {
-        health -= damage;
-        if (health <= 0)
-        {
-            Death();
-        }
-        _mobsUIController.ReduceHealth(health);
     }
 
     public void Death()
     {
         _enemyAI.Death();
     }
+    
     public IEnumerator DamageCountDown(float coolDown)
     {
         yield return new WaitForSeconds(coolDown);
