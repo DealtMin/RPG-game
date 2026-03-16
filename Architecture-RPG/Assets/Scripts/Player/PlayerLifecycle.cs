@@ -10,6 +10,7 @@ public class PlayerLifecycle : MonoBehaviour, IDamagable
     private bool _canDamage;
     [SerializeField] private int health;
     [SerializeField] private float damageInvincibility = 2f;
+    [SerializeField] private ParticleSystem damageParticles;
 
     private void Awake()
     {
@@ -33,6 +34,7 @@ public class PlayerLifecycle : MonoBehaviour, IDamagable
             _canDamage = false;
             StartCoroutine(DamageCountDown(damageInvincibility));
             _playerUIController.ReduceHealth(health);
+            damageParticles.Play();
         }
     }
        

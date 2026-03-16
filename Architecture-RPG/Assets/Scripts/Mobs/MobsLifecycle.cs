@@ -8,6 +8,7 @@ public class MobsLifecycle : MonoBehaviour, IDamagable
     private bool _canDamage;
     [SerializeField] private float damageInvincibility = 1.5f;
     [SerializeField] private int health;
+    [SerializeField] private ParticleSystem damageParticles;
 
     private void Awake()
     {
@@ -28,12 +29,15 @@ public class MobsLifecycle : MonoBehaviour, IDamagable
             _canDamage = false;
             StartCoroutine(DamageCountDown(damageInvincibility));
             _mobsUIController.ReduceHealth(health);
+            damageParticles.Play();
+
         }
     }
 
     public void Death()
     {
         _enemyAI.Death();
+        damageParticles.Play();
     }
     
     public IEnumerator DamageCountDown(float coolDown)
