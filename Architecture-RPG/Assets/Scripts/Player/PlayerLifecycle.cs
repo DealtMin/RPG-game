@@ -33,9 +33,10 @@ public class PlayerLifecycle : MonoBehaviour, IDamagable
             _playerUIController.ReduceHealth(health);
         }
     }
+       
 
     
-    public IEnumerator DamageCountDown(float coolDown)
+    private IEnumerator DamageCountDown(float coolDown)
     {
         yield return new WaitForSeconds(coolDown);
         _canDamage = true;        

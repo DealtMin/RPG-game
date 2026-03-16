@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using TMPro;
+using UnityEngine.SceneManagement;
+
 public class UIControllerBase : MonoBehaviour
 {
     public void SetFillAmountImage(Image fillImage, int value)
@@ -12,6 +14,11 @@ public class UIControllerBase : MonoBehaviour
     public void SetTMPRoText<T>(TMP_Text targetText, T value)
     {
         targetText.text = ""+value;
+    }
+
+    public void OpenSceneByIndex(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 
     public void StartFillCoroutine(Image fillImage, float coolDown)

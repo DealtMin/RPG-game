@@ -19,6 +19,27 @@ public class PlayerUIController : MonoBehaviour
         uiBase.ShowHideElement(pausePanel, pauseOn);
     }
 
+    public void GoToMenu()
+    {
+        uiBase.OpenSceneByIndex("Menu");
+    }
+    
+    public void ReloadGame()
+    {
+        uiBase.OpenSceneByIndex("Main");
+    }
+
+    public void SaveData()
+    {
+        
+    }
+
+
+    public void LoadData()
+    {
+        
+    }
+    
     public void Death()
     {
         uiBase.ShowHideElement(pausePanel, false);
