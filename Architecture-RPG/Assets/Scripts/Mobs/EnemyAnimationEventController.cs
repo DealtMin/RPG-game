@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyAnimationEventController : MonoBehaviour
+public class EnemyAnimationEvent : MonoBehaviour
 {
     public void DestroyAfterAnimation()
     {

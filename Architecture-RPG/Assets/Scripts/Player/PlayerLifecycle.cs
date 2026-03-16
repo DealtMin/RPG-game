@@ -5,6 +5,7 @@ using System.Collections;
 public class PlayerLifecycle : MonoBehaviour, IDamagable
 {
     private PlayerUIController _playerUIController;
+    private PlayerAnimation _playerAnimation;
     private bool _canDamage;
     [SerializeField] private int health;
     [SerializeField] private float damageInvincibility = 2f;
@@ -13,6 +14,7 @@ public class PlayerLifecycle : MonoBehaviour, IDamagable
     {
         _canDamage = true;
         _playerUIController = GetComponent<PlayerUIController>();
+        _playerAnimation = GetComponent<PlayerAnimation>();
     }
     
 
@@ -41,7 +43,6 @@ public class PlayerLifecycle : MonoBehaviour, IDamagable
 
     public void Death()
     {
-        _playerUIController.Death();
-        Time.timeScale = 0f;
+        _playerAnimation.Death();
     }
 }
