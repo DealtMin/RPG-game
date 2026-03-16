@@ -121,7 +121,7 @@ public class PlayerInputHandler : MonoBehaviour
         _playerActionMap?.Enable();
     }
         
-    private void DisableInput()
+    public void DisableInput()
     {
         _playerActionMap?.Disable();
     }
