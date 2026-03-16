@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PlayerMagicBall_SO
   m_EditorClassIdentifier: Assembly-CSharp::Weapon_SO
   initScaleFactor: 1.25
-  damage: 30
+  damage: 25
   isMelee: 0

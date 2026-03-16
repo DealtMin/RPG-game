@@ -21,4 +21,8 @@ public class PlayerAnimation : MonoBehaviour
     {
         animator.Play("m_attack");
     }
+    public void Death()
+    {
+        animator.Play("death");
+    }
 }
