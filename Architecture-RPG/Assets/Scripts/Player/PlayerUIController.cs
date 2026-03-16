@@ -12,6 +12,7 @@ public class PlayerUIController : MonoBehaviour
     [SerializeField] private Image shootTimer;
     [SerializeField] private TMP_Text hpText;
     [SerializeField] private UIControllerBase uiBase;
+    [SerializeField] private float uiScaleFactor=1.07f;
     
 
     public void Pause(bool pauseOn)
@@ -21,12 +22,12 @@ public class PlayerUIController : MonoBehaviour
 
     public void GoToMenu()
     {
-        uiBase.OpenSceneByIndex("Menu");
+        uiBase.OpenSceneByName("Menu");
     }
     
     public void ReloadGame()
     {
-        uiBase.OpenSceneByIndex("Main");
+        uiBase.OpenSceneByName("Main");
     }
 
     public void SaveData()
@@ -38,6 +39,17 @@ public class PlayerUIController : MonoBehaviour
     public void LoadData()
     {
         
+    }
+    
+  
+    public void OnHoverEnter(Transform obj)
+    {
+        uiBase.IncreaseScale(obj, uiScaleFactor);
+    }
+    
+    public void OnHoverExit(Transform obj)
+    {
+        uiBase.DecreaseScale(obj, uiScaleFactor);
     }
     
     public void Death()

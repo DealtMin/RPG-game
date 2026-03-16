@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class UIControllerBase : MonoBehaviour
 {
+   
     public void SetFillAmountImage(Image fillImage, int value)
     {
         fillImage.fillAmount = value * 0.01f;
@@ -16,7 +17,7 @@ public class UIControllerBase : MonoBehaviour
         targetText.text = ""+value;
     }
 
-    public void OpenSceneByIndex(string sceneName)
+    public void OpenSceneByName(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
@@ -39,6 +40,17 @@ public class UIControllerBase : MonoBehaviour
             fillImage.fillAmount += 0.01f;
             yield return new WaitForSeconds(coolDown/100f);
         }
+    }
+    
+
+    public void IncreaseScale(Transform obj, float scaleFactor)
+    {
+        obj.localScale *= scaleFactor;
+    }
+
+    public void DecreaseScale(Transform obj, float scaleFactor)
+    {
+        obj.localScale /= scaleFactor;
     }
     
     
