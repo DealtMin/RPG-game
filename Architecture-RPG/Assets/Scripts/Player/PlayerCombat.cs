@@ -5,12 +5,15 @@ public class PlayerCombat : MonoBehaviour
     [Header("References")]
     [SerializeField] private PlayerInputHandler inputHandler;
     [SerializeField] private Transform projectileSpawnPoint;
+    [SerializeField] private GameObject magicAttack;
 
     [Header("Physical Attack (ЛКМ)")]
     [SerializeField] private float physicalCooldown = 0.5f;
 
     [Header("Magic Attack (ПКМ)")]
     [SerializeField] private float magicCooldown = 2f;
+    
+    
 
     private float _lastPhysicalTime;
     private float _lastMagicTime;
@@ -55,12 +58,20 @@ public class PlayerCombat : MonoBehaviour
         _lastPhysicalTime = Time.time;
 
     }
+    
+    private void RangeAttack()
+    {
+        GameObject newMagicBall = Instantiate(magicAttack, projectileSpawnPoint.position, Quaternion.identity);
+        MagicAttackBehaivour magicBeh = newMagicBall.GetComponent<MagicAttackBehaivour>();
+        magicBeh.SetParams(null, projectileSpawnPoint);
+    }
 
     private void HandleMagicAttack()
     {
         if (_magicOnCooldown) return;
 
         _lastMagicTime = Time.time;
+        RangeAttack();
         _playerAnimation.MagicAttack();
         _playerUIController.MagicTimerUI(magicCooldown);
         Debug.Log("[Magic Attack] ПКМ — магическая атака");

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
@@ -10,36 +11,62 @@ public class PlayerUIController : MonoBehaviour
     [SerializeField] private Image healthBar;
     [SerializeField] private Image shootTimer;
     [SerializeField] private TMP_Text hpText;
+    [SerializeField] private UIControllerBase uiBase;
+    [SerializeField] private float uiScaleFactor=1.07f;
+    
 
     public void Pause(bool pauseOn)
     {
-        pausePanel.SetActive(pauseOn);
+        uiBase.ShowHideElement(pausePanel, pauseOn);
     }
 
+    public void GoToMenu()
+    {
+        uiBase.OpenSceneByName("Menu");
+    }
+    
+    public void ReloadGame()
+    {
+        uiBase.OpenSceneByName("Main");
+    }
+
+    public void SaveData()
+    {
+        
+    }
+
+
+    public void LoadData()
+    {
+        
+    }
+    
+  
+    public void OnHoverEnter(Transform obj)
+    {
+        uiBase.IncreaseScale(obj, uiScaleFactor);
+    }
+    
+    public void OnHoverExit(Transform obj)
+    {
+        uiBase.DecreaseScale(obj, uiScaleFactor);
+    }
+    
     public void Death()
     {
-        pausePanel.SetActive(false);
-        deathPanel.SetActive(true);
+        uiBase.ShowHideElement(pausePanel, false);
+        uiBase.ShowHideElement(deathPanel, true);
     }
-
-    public void ReduceHealth(int currHealth)
+    
+    public void ReduceHealth(int health)
     {
-        healthBar.fillAmount = currHealth * 0.01f;
-        hpText.text = "" + currHealth;
+        uiBase.SetFillAmountImage(healthBar, health);
+        uiBase.SetTMPRoText(hpText, health);
     }
-
+    
     public void MagicTimerUI(float coolDown)
     {
         shootTimer.fillAmount =0;
-        StartCoroutine(CoolMagic(coolDown));
-    }
-    
-    private IEnumerator CoolMagic(float coolDown)
-    {
-        for (int i=0; i<100; i++)
-        {
-            shootTimer.fillAmount += 0.01f;
-            yield return new WaitForSeconds(coolDown/100f);
-        }
+        uiBase.StartFillCoroutine(shootTimer, coolDown);
     }
 }

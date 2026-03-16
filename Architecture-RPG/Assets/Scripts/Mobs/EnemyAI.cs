@@ -94,7 +94,7 @@ public class EnemyAI : MonoBehaviour
     {
         GameObject newMagicBall = Instantiate(magicAttack, magicSpawmPoint.position, Quaternion.identity);
         MagicAttackBehaivour magicBeh = newMagicBall.GetComponent<MagicAttackBehaivour>();
-        magicBeh.SetParams(_playerTransform);
+        magicBeh.SetParams(_playerTransform, gameObject.transform);
     }
     
     public void Death()

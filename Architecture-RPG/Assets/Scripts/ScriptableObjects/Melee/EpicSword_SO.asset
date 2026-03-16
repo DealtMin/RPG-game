@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: EpicSword_SO
   m_EditorClassIdentifier: Assembly-CSharp::Weapon_SO
   initScaleFactor: 1
-  damage: 30
+  damage: 15
   isMelee: 1

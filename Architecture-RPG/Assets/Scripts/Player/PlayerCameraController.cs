@@ -28,8 +28,8 @@ public class PlayerCameraController : MonoBehaviour
         SetupCameraTargets();
         SetupMainCamera();
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
 
         _yRotation = transform.eulerAngles.y;
     }
