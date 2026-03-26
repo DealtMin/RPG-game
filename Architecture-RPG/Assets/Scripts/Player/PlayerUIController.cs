@@ -74,4 +74,14 @@ public class PlayerUIController : MonoBehaviour
         _uiService.SetFillAmountImage(shootTimer, 0);
         _uiService.StartFillCoroutine(shootTimer, coolDown);
     }
+    
+    public void PlaySound(AudioClip clip)
+    {
+        _audio.PlaySound(clip);
+    }
+    
+    public void SetVolumeBySlider()
+    {
+        _audio.SetMasterVolume();
+    }
 }

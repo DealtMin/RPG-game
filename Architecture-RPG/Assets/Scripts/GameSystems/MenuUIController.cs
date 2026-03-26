@@ -14,6 +14,7 @@ public class MenuUIController : MonoBehaviour
     {
         _audio = ServiceLocator.Get<IAudioService>();
         _uiService = ServiceLocator.Get<IUIService>();
+        _audio.SetVolumeFromMixer();
 
         Time.timeScale = 1;
     }
@@ -37,5 +38,15 @@ public class MenuUIController : MonoBehaviour
     public void OnHoverExit(Transform obj)
     {
         _uiService.DecreaseScale(obj, uiScaleFactor);
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        _audio.PlaySound(clip);
+    }
+
+    public void SetVolumeBySlider()
+    {
+        _audio.SetMasterVolume();
     }
 }
