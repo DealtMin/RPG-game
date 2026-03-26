@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 1884031391795740290}
   - component: {fileID: 5162810730838987679}
   - component: {fileID: -183730186266374178}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: StarMagicBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,10 +107,10 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 119
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
