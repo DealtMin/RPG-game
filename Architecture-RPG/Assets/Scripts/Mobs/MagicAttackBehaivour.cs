@@ -10,7 +10,7 @@ public class MagicAttackBehaivour : MonoBehaviour
     private Vector3 _direction;
     private Transform _parentObject;
 
-    public void SetParams(Transform inputPlayerTransform, Transform parentObject)
+    public void Construct(Transform inputPlayerTransform, Transform parentObject)
     {
         _playerTransform = inputPlayerTransform;
         _parentObject = parentObject;

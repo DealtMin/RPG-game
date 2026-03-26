@@ -63,7 +63,7 @@ public class PlayerCombat : MonoBehaviour
     {
         GameObject newMagicBall = Instantiate(magicAttack, projectileSpawnPoint.position, Quaternion.identity);
         MagicAttackBehaivour magicBeh = newMagicBall.GetComponent<MagicAttackBehaivour>();
-        magicBeh.SetParams(null, projectileSpawnPoint);
+        magicBeh.Construct(null, projectileSpawnPoint);
     }
 
     private void HandleMagicAttack()

@@ -17,7 +17,7 @@ public class EnemyAI : MonoBehaviour
     private bool attackReady = true;
     private Transform _playerTransform;
 
-    public void SetParams(Transform inputPlayerTransform)
+    public void Construct(Transform inputPlayerTransform)
     {
         _playerTransform = inputPlayerTransform;
     }
@@ -94,7 +94,7 @@ public class EnemyAI : MonoBehaviour
     {
         GameObject newMagicBall = Instantiate(magicAttack, magicSpawmPoint.position, Quaternion.identity);
         MagicAttackBehaivour magicBeh = newMagicBall.GetComponent<MagicAttackBehaivour>();
-        magicBeh.SetParams(_playerTransform, gameObject.transform);
+        magicBeh.Construct(_playerTransform, gameObject.transform);
     }
     
     public void Death()
