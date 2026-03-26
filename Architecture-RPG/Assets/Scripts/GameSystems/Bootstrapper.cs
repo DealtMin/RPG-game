@@ -23,7 +23,9 @@ public class Bootstrapper : MonoBehaviour
     private void Awake()
     {
         ServiceLocator.Register<IAudioService>(new AudioService(source, slider, mixer));
-        // UI base
+        GameObject uiBase = new GameObject("Ui controller service");
+        UIService uiServ = uiBase.AddComponent<UIService>();
+        ServiceLocator.Register<IUIService>(uiServ);
         // Saver
         
         GameObject spawnerObj = new GameObject("EnemiesSpawner");
@@ -31,8 +33,8 @@ public class Bootstrapper : MonoBehaviour
         spawner.Construct(enemies, enemiesCount, maxBound, minBound, playerObject.transform);
         spawner.Spawn();
         
-        
-        LoadGameScene();
+        Time.timeScale = 1f;
+        //LoadGameScene();
     }
     
     
