@@ -458,6 +458,7 @@ MonoBehaviour:
   health: 100
   damageInvincibility: 1.5
   damageParticles: {fileID: 3238987795099825534}
+  hitClip: {fileID: 8300000, guid: be91e1fcd3709d1428a0d3e063e13f1e, type: 3}
 --- !u!114 &6908430320646805753
 MonoBehaviour:
   m_ObjectHideFlags: 0

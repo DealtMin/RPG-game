@@ -9,6 +9,7 @@ public class MobsLifecycle : MonoBehaviour, IDamagable
     [SerializeField] private float damageInvincibility = 1.5f;
     [SerializeField] private int health;
     [SerializeField] private ParticleSystem damageParticles;
+    [SerializeField] private AudioClip hitClip;
     private IAudioService _audio;
 
     private void Start()
@@ -32,7 +33,7 @@ public class MobsLifecycle : MonoBehaviour, IDamagable
             StartCoroutine(DamageCountDown(damageInvincibility));
             _mobsUIController.ReduceHealth(health);
             damageParticles.Play();
-
+            _audio.PlaySound(hitClip);
         }
     }
 

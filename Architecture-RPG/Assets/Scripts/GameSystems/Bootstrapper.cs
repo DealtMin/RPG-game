@@ -19,10 +19,14 @@ public class Bootstrapper : MonoBehaviour
     [SerializeField] private int[] enemiesCount;
     [SerializeField] private Transform maxBound;
     [SerializeField] private Transform minBound;
+
+    [Header("Other")]
+    [SerializeField] private AudioClip mainTheme;
     
     private void Awake()
     {
         ServiceLocator.Register<IAudioService>(new AudioService(source, slider, mixer));
+        ServiceLocator.Get<IAudioService>().PlayMusic(mainTheme);
         GameObject uiBase = new GameObject("Ui controller service");
         UIService uiServ = uiBase.AddComponent<UIService>();
         ServiceLocator.Register<IUIService>(uiServ);

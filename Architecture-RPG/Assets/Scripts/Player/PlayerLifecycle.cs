@@ -12,6 +12,7 @@ public class PlayerLifecycle : MonoBehaviour, IDamagable
     [SerializeField] private int health;
     [SerializeField] private float damageInvincibility = 2f;
     [SerializeField] private ParticleSystem damageParticles;
+    [SerializeField] private AudioClip hitClip;
     
     
     void Start()
@@ -27,16 +28,20 @@ public class PlayerLifecycle : MonoBehaviour, IDamagable
     {
         if (_canDamage)
         {
-            health = Math.Clamp(health-damage, 0, 100);
-            Debug.Log(health);
+            health = Math.Clamp(health - damage, 0, 100);
+            _canDamage = false;
+            _playerUIController.ReduceHealth(health);
+            damageParticles.Play();
+            
             if (health <= 0)
             {
                 Death();
             }
-            _canDamage = false;
-            StartCoroutine(DamageCountDown(damageInvincibility));
-            _playerUIController.ReduceHealth(health);
-            damageParticles.Play();
+            else
+            {
+                StartCoroutine(DamageCountDown(damageInvincibility));
+                _audio.PlaySound(hitClip);
+            }
         }
     }
        

@@ -77,7 +77,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MobsUIController
   healthBar: {fileID: 5376318593655804386}
-  uiBase: {fileID: 6272220320428386364}
 --- !u!114 &5670949550517132795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,6 +92,7 @@ MonoBehaviour:
   damageInvincibility: 1.5
   health: 100
   damageParticles: {fileID: 2822229034176777714}
+  hitClip: {fileID: 8300000, guid: 65aa2de912d43f14e9d752055192cb88, type: 3}
 --- !u!114 &4932589759504537508
 MonoBehaviour:
   m_ObjectHideFlags: 0

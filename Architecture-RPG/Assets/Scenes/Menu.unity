@@ -424,6 +424,7 @@ MonoBehaviour:
   source: {fileID: 467945180}
   slider: {fileID: 921327234}
   mixer: {fileID: 24100000, guid: 1f801e45bd26e454b8bc46c99e6d5c28, type: 2}
+  mainTheme: {fileID: 8300000, guid: 16f47a019f0863c448dd770610e2e399, type: 3}
 --- !u!4 &467945182
 Transform:
   m_ObjectHideFlags: 0
@@ -576,7 +577,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2662282773715445779, guid: e82c0f4d3b47e0f46ad90bba2648ba98, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.1
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 2662282773715445779, guid: e82c0f4d3b47e0f46ad90bba2648ba98, type: 3}
       propertyPath: m_LocalPosition.y
@@ -935,7 +936,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2662282773715445779, guid: e82c0f4d3b47e0f46ad90bba2648ba98, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.09
+      value: -1.44
       objectReference: {fileID: 0}
     - target: {fileID: 2662282773715445779, guid: e82c0f4d3b47e0f46ad90bba2648ba98, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1190,9 +1191,9 @@ MonoBehaviour:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 467945182}
   - {fileID: 1993333656}
   - {fileID: 550066078}
   - {fileID: 252349640}
   - {fileID: 717591230}
   - {fileID: 721744561}
-  - {fileID: 467945182}
