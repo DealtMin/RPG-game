@@ -7,4 +7,8 @@ public class PlayerAnimationEvent : MonoBehaviour
     {
         playerUI.Death();
     }
+    public void StartDeath()
+    {
+        playerUI.ReduceHealth(0);
+    }
 }

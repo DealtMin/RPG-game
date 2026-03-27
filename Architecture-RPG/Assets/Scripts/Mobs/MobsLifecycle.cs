@@ -5,7 +5,7 @@ using System;
 public class MobsLifecycle : MonoBehaviour, IDamagable
 {
     public event Action<int> EnemyTakeDamage;
-    private EnemyAI _enemyAI;
+    public event Action EnemyDeath;
     private bool _canDamage;
     [SerializeField] private float damageInvincibility = 1.5f;
     [SerializeField] private int health;
@@ -16,7 +16,6 @@ public class MobsLifecycle : MonoBehaviour, IDamagable
     private void Start()
     {
         _canDamage = true;
-        _enemyAI = GetComponent<EnemyAI>();
         _audio = ServiceLocator.Get<IAudioService>();
     }
 
@@ -39,7 +38,7 @@ public class MobsLifecycle : MonoBehaviour, IDamagable
 
     public void Death()
     {
-        _enemyAI.Death();
+        EnemyDeath.Invoke();
         damageParticles.Play();
     }
     

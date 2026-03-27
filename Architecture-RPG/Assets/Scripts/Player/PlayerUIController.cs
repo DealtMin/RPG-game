@@ -62,9 +62,9 @@ public class PlayerUIController : MonoBehaviour
     
     public void Death()
     {
-        Time.timeScale = 0f;
         _uiService.ShowHideElement(pausePanel, false);
         _uiService.ShowHideElement(deathPanel, true);
+        Time.timeScale = 0f;
     }
     
     public void ReduceHealth(int health)

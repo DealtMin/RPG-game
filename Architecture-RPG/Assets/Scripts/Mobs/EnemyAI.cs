@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
-    public event Action EnemyDeath;
     public event Action EnemyIdle;
     public event Action EnemyChaising;
     public event Action<bool> EnemyAttack;
@@ -20,6 +19,7 @@ public class EnemyAI : MonoBehaviour
     private EnemyState enemyState = EnemyState.idle;
     private bool attackReady = true;
     private Transform _playerTransform;
+    private MobsLifecycle _mobsLifecycle;
 
     public void Construct(Transform inputPlayerTransform)
     {
@@ -30,6 +30,12 @@ public class EnemyAI : MonoBehaviour
     {
         target = FindAnyObjectByType<PlayerLifecycle>().transform;
         _agent = GetComponent<NavMeshAgent>();
+        _mobsLifecycle = GetComponent<MobsLifecycle>();
+        _mobsLifecycle.EnemyDeath += Death;
+    }
+    void OnDestroy()
+    {
+        _mobsLifecycle.EnemyDeath -= Death;
     }
     void Update()
     {
@@ -101,7 +107,6 @@ public class EnemyAI : MonoBehaviour
     public void Death()
     {
         enemyState = EnemyState.death;
-        EnemyDeath.Invoke();
         _agent.isStopped = true;
     }
 

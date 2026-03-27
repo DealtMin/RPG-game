@@ -4,10 +4,12 @@ public class EnemyAnimationController : MonoBehaviour
 {
     private Animator _animator;
     private EnemyAI _enemyAI;
+    private MobsLifecycle _mobsLifecycle;
     void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
         _enemyAI = GetComponent<EnemyAI>();
+        _mobsLifecycle = GetComponent<MobsLifecycle>();
         EventHandle();
     }
     private void EventHandle()
@@ -15,7 +17,7 @@ public class EnemyAnimationController : MonoBehaviour
         _enemyAI.EnemyAttack += Attack;
         _enemyAI.EnemyChaising += Chase;
         _enemyAI.EnemyIdle += Idle;
-        _enemyAI.EnemyDeath += DeathAnimation;
+        _mobsLifecycle.EnemyDeath += DeathAnimation;
     }
     public void Idle()
     {
@@ -44,6 +46,6 @@ public class EnemyAnimationController : MonoBehaviour
         _enemyAI.EnemyAttack -= Attack;
         _enemyAI.EnemyChaising -= Chase;
         _enemyAI.EnemyIdle -= Idle;
-        _enemyAI.EnemyDeath -= DeathAnimation;
+        _mobsLifecycle.EnemyDeath -= DeathAnimation;
     }
 }
