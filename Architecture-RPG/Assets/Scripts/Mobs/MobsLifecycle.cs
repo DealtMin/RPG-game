@@ -9,12 +9,15 @@ public class MobsLifecycle : MonoBehaviour, IDamagable
     [SerializeField] private float damageInvincibility = 1.5f;
     [SerializeField] private int health;
     [SerializeField] private ParticleSystem damageParticles;
+    [SerializeField] private AudioClip hitClip;
+    private IAudioService _audio;
 
-    private void Awake()
+    private void Start()
     {
         _canDamage = true;
         _mobsUIController = GetComponent<MobsUIController>();
         _enemyAI = GetComponent<EnemyAI>();
+        _audio = ServiceLocator.Get<IAudioService>();
     }
 
     public void Damage(int damage)
@@ -30,7 +33,7 @@ public class MobsLifecycle : MonoBehaviour, IDamagable
             StartCoroutine(DamageCountDown(damageInvincibility));
             _mobsUIController.ReduceHealth(health);
             damageParticles.Play();
-
+            _audio.PlaySound(hitClip);
         }
     }
 

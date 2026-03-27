@@ -8,33 +8,40 @@ public class PlayerLifecycle : MonoBehaviour, IDamagable
     private PlayerAnimation _playerAnimation;
     private PlayerInputHandler _inputHandler;
     private bool _canDamage;
+    private IAudioService _audio;
     [SerializeField] private int health;
     [SerializeField] private float damageInvincibility = 2f;
     [SerializeField] private ParticleSystem damageParticles;
-
-    private void Awake()
+    [SerializeField] private AudioClip hitClip;
+    
+    
+    void Start()
     {
         _canDamage = true;
         _playerUIController = GetComponent<PlayerUIController>();
         _playerAnimation = GetComponent<PlayerAnimation>();
         _inputHandler = GetComponent<PlayerInputHandler>();
+        _audio = ServiceLocator.Get<IAudioService>();
     }
-    
 
     public void Damage(int damage)
     {
         if (_canDamage)
         {
-            health = Math.Clamp(health-damage, 0, 100);
-            Debug.Log(health);
+            health = Math.Clamp(health - damage, 0, 100);
+            _canDamage = false;
+            _playerUIController.ReduceHealth(health);
+            damageParticles.Play();
+            
             if (health <= 0)
             {
                 Death();
             }
-            _canDamage = false;
-            StartCoroutine(DamageCountDown(damageInvincibility));
-            _playerUIController.ReduceHealth(health);
-            damageParticles.Play();
+            else
+            {
+                StartCoroutine(DamageCountDown(damageInvincibility));
+                _audio.PlaySound(hitClip);
+            }
         }
     }
        

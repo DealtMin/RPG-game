@@ -4,11 +4,15 @@ using UnityEngine.UI;
 public class MobsUIController : MonoBehaviour
 {
     [SerializeField] private Image healthBar;
-    [SerializeField] private UIControllerBase uiBase;
+    private IUIService _uiService;
 
+    private void Start()
+    {
+        _uiService = ServiceLocator.Get<IUIService>();
+    }
 
     public void ReduceHealth(int currHealth)
     {
-       uiBase.SetFillAmountImage(healthBar, currHealth);
+        _uiService.SetFillAmountImage(healthBar, currHealth);
     }
 }

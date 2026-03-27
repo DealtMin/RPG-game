@@ -2,29 +2,36 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject[] enemies;
-    [SerializeField] private int[] enemiesCount;
-    [SerializeField] private Transform maxBound;
-    [SerializeField] private Transform minBound;
+    private GameObject[] _enemies;
+    private int[] _enemiesCount;
+    private Transform _maxBound;
+    private Transform _minBound;
 
-    [SerializeField] private Transform playerTransform;
+    private Transform _playerTransform;
 
-
-    private void Awake()
+    public void Construct(GameObject[] enemies, int[] enemiesCount, Transform maxBound, Transform minBound, Transform playerTransform)
     {
-        if (playerTransform == null)
+        _enemies = enemies;
+        _enemiesCount = enemiesCount;
+        _maxBound = maxBound;
+        _minBound = minBound;
+    }
+
+    public void Spawn()
+    {
+        if (_playerTransform == null)
         {
-            playerTransform = FindAnyObjectByType<PlayerController>().transform;
+            _playerTransform = FindAnyObjectByType<PlayerController>().transform;
         }
-        for (int i=0; i<enemies.Length; i++)
+        for (int i=0; i<_enemies.Length; i++)
         {
-            for (int j = 0; j < enemiesCount[i]; j++)
+            for (int j = 0; j < _enemiesCount[i]; j++)
             {
-                Vector3 newpos = RandomPosition(minBound, maxBound);
+                Vector3 newpos = RandomPosition(_minBound, _maxBound);
                 
-                GameObject newEnemy = Instantiate(enemies[i], newpos, Quaternion.identity);
+                GameObject newEnemy = Instantiate(_enemies[i], newpos, Quaternion.identity);
                 EnemyAI enemyai = newEnemy.GetComponent<EnemyAI>();
-                enemyai.SetParams(playerTransform);
+                enemyai.Construct(_playerTransform);
             }
         }
     }
