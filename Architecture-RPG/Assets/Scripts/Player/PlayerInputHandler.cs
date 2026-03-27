@@ -19,10 +19,7 @@ public class PlayerInputHandler : MonoBehaviour
         
     private Vector2 _moveInput;
     private Vector2 _lookInput;
-    private bool _sprintPressed;
-
-    private PlayerAnimation _playerAnimation;
-        
+    private bool _sprintPressed;        
     public Action<Vector2> OnMoveInput;
     public Action<Vector2> OnLookInput;
 
@@ -43,7 +40,6 @@ public class PlayerInputHandler : MonoBehaviour
         
     private void Awake()
     {
-        _playerAnimation = GetComponent<PlayerAnimation>();
         InitializeInput();
     }
         
@@ -125,11 +121,47 @@ public class PlayerInputHandler : MonoBehaviour
     {
         _playerActionMap?.Disable();
     }
+    private void OnDestroy()
+    {  
+        if (_moveAction != null)
+        {
+            _moveAction.performed -= OnMove;
+            _moveAction.canceled -= OnMove;
+        }
+            
+        if (_lookAction != null)
+        {
+            _lookAction.performed -= OnLook;
+            _lookAction.canceled -= OnLook;
+        }
+            
+        if (_sprintAction != null)
+        {
+            _sprintAction.performed -= OnSprint;
+            _sprintAction.canceled -= SprintReleased;
+        }
+
+        if (_attackAction != null)
+        {
+            _attackAction.performed -= OnAttack;
+
+        }
+        if (_magicattackAction != null)
+        {
+            _magicattackAction.performed -= OnMagicAttack;
+
+        }
+        
+        _pauseAction = _playerActionMap.FindAction("Pause");
+        if (_pauseAction != null)
+        {
+            _pauseAction.started -= OnSetPause;
+        }
+    }
         
     private void OnMove(InputAction.CallbackContext context)
     {
         _moveInput = context.ReadValue<Vector2>();
-        _playerAnimation.Walk(_moveInput);
         OnMoveInput?.Invoke(_moveInput);
     }
         
@@ -143,14 +175,12 @@ public class PlayerInputHandler : MonoBehaviour
     {
         _sprintPressed = true;
         OnSprintPressed?.Invoke();
-        _playerAnimation.Sprint(_sprintPressed);
     }
         
     private void SprintReleased(InputAction.CallbackContext context)
     {
         _sprintPressed = false;
         OnSprintReleased?.Invoke();
-        _playerAnimation.Sprint(_sprintPressed);
     }
         
     private void OnAttack(InputAction.CallbackContext context)

@@ -14,8 +14,11 @@ public class PlayerUIController : MonoBehaviour
     [SerializeField] private float uiScaleFactor=1.07f;
     private IAudioService _audio;
     private IUIService _uiService;
+    private PlayerLifecycle _playerLifeCycle;
     private void Start()
     {
+        _playerLifeCycle = GetComponent<PlayerLifecycle>();
+        _playerLifeCycle.PlayerTakeDamage += ReduceHealth;
         _audio = ServiceLocator.Get<IAudioService>();
         _uiService = ServiceLocator.Get<IUIService>();
     }
@@ -59,6 +62,7 @@ public class PlayerUIController : MonoBehaviour
     
     public void Death()
     {
+        Time.timeScale = 0f;
         _uiService.ShowHideElement(pausePanel, false);
         _uiService.ShowHideElement(deathPanel, true);
     }
@@ -83,5 +87,9 @@ public class PlayerUIController : MonoBehaviour
     public void SetVolumeBySlider()
     {
         _audio.SetMasterVolume();
+    }
+    void OnDestroy()
+    {
+        _playerLifeCycle.PlayerTakeDamage -= ReduceHealth;
     }
 }
