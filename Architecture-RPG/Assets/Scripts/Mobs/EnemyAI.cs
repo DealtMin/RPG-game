@@ -5,6 +5,11 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
+    public event Action EnemyDeath;
+    public event Action EnemyIdle;
+    public event Action EnemyChaising;
+    public event Action<bool> EnemyAttack;
+
     [SerializeField] private EnemyType enemyType;
     [SerializeField] private Transform target;
     [SerializeField] private float attackCoolDown = 1.5f;
@@ -12,7 +17,6 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private GameObject magicAttack;
     [SerializeField] private Transform magicSpawmPoint;
     private NavMeshAgent _agent;
-    private EnemyAnimationController _enemyAnimation;
     private EnemyState enemyState = EnemyState.idle;
     private bool attackReady = true;
     private Transform _playerTransform;
@@ -26,7 +30,6 @@ public class EnemyAI : MonoBehaviour
     {
         target = FindAnyObjectByType<PlayerLifecycle>().transform;
         _agent = GetComponent<NavMeshAgent>();
-        _enemyAnimation = GetComponent<EnemyAnimationController>();
     }
     void Update()
     {
@@ -41,14 +44,12 @@ public class EnemyAI : MonoBehaviour
             case EnemyState.attack:
                 AttackPlayer();
                 break;
-            case EnemyState.escape:
-                break;
         }
 
     }
     private void Idle()
     {
-        _enemyAnimation.Idle();
+        EnemyIdle.Invoke();
         _agent.isStopped = true;
         if (Vector3.Distance(target.position, transform.position) < noticeDistance)
         {
@@ -65,7 +66,7 @@ public class EnemyAI : MonoBehaviour
         {
             enemyState = EnemyState.idle;
         }
-        _enemyAnimation.Chase();
+        EnemyChaising.Invoke();
         _agent.destination = target.position;
         _agent.isStopped = false;
     }
@@ -78,7 +79,7 @@ public class EnemyAI : MonoBehaviour
         else
         {
             _agent.isStopped = true;
-            _enemyAnimation.Attack(attackReady);
+            EnemyAttack.Invoke(attackReady);
             if (attackReady)
             {
                 attackReady = false;
@@ -100,7 +101,7 @@ public class EnemyAI : MonoBehaviour
     public void Death()
     {
         enemyState = EnemyState.death;
-        _enemyAnimation.DeathAnimation();
+        EnemyDeath.Invoke();
         _agent.isStopped = true;
     }
 
@@ -116,7 +117,6 @@ public enum EnemyState
     idle,
     attack,
     chase,
-    escape,
     death
 }
 public enum EnemyType

@@ -3,9 +3,19 @@ using UnityEngine;
 public class EnemyAnimationController : MonoBehaviour
 {
     private Animator _animator;
+    private EnemyAI _enemyAI;
     void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
+        _enemyAI = GetComponent<EnemyAI>();
+        EventHandle();
+    }
+    private void EventHandle()
+    {
+        _enemyAI.EnemyAttack += Attack;
+        _enemyAI.EnemyChaising += Chase;
+        _enemyAI.EnemyIdle += Idle;
+        _enemyAI.EnemyDeath += DeathAnimation;
     }
     public void Idle()
     {
@@ -28,5 +38,12 @@ public class EnemyAnimationController : MonoBehaviour
         {
             _animator.Play("attack", -1, 0f);
         }
+    }
+    void OnDestroy()
+    {
+        _enemyAI.EnemyAttack -= Attack;
+        _enemyAI.EnemyChaising -= Chase;
+        _enemyAI.EnemyIdle -= Idle;
+        _enemyAI.EnemyDeath -= DeathAnimation;
     }
 }
