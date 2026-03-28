@@ -46,80 +46,96 @@ public class Bootstrapper : MonoBehaviour
         //LoadGameScene();
     }
 
-    public void SaveGame()
+public void SaveGame()
+{
+    var interactor = ServiceLocator.Get<GameInteractor>();
+    var playerLC = playerObject.GetComponent<PlayerLifecycle>();
+
+    PlayerData data = new PlayerData();
+    data.Position = playerObject.transform.position;
+    data.Hp = playerLC.GetHealth();
+
+    // 1. Сохраняем мобов
+    data.Enemies.Clear();
+    MobsLifecycle[] sceneMobs = Object.FindObjectsByType<MobsLifecycle>(FindObjectsSortMode.None);
+    foreach (var mob in sceneMobs)
     {
-        var interactor = ServiceLocator.Get<GameInteractor>();
-        var playerLC = playerObject.GetComponent<PlayerLifecycle>();
-
-        PlayerData data = new PlayerData();
-        data.Position = playerObject.transform.position;
-        data.Hp = playerLC.GetHealth();
-
-        data.Enemies.Clear();
-
-        MobsLifecycle[] sceneMobs = Object.FindObjectsByType<MobsLifecycle>(FindObjectsSortMode.None);
-
-        foreach (var mob in sceneMobs)
+        if (mob.GetHealth() > 0)
         {
-            data.Enemies.Add(new EnemySaveData
-            {
-                // ОЧЕНЬ ВАЖНО: сохраняем чистое имя без "(Clone)"
+            data.Enemies.Add(new EnemySaveData {
                 Type = mob.gameObject.name.Replace("(Clone)", "").Trim(),
                 Position = mob.transform.position,
                 CurrentHp = mob.GetHealth()
             });
         }
-        interactor.SaveGame(data);
-        Debug.Log($"[Save] Сохранено! Игрок (HP:{data.Hp}) и {data.Enemies.Count} мобов.");
     }
-    public void LoadGame()
+
+    // 2. СОХРАНЯЕМ СНАРЯДЫ (с направлением)
+    data.Projectiles.Clear();
+    MagicAttackBehaivour[] activeProjectiles = Object.FindObjectsByType<MagicAttackBehaivour>(FindObjectsSortMode.None);
+    foreach (var p in activeProjectiles)
     {
-        var interactor = ServiceLocator.Get<GameInteractor>();
-        interactor.LoadGame();
-        PlayerData data = interactor.Data;
+        data.Projectiles.Add(new ProjectileSaveData {
+            Position = p.transform.position,
+            Direction = p.transform.forward // Сохраняем куда он летел в этот момент
+        });
+    }
 
-        if (data == null || data.Position == Vector3.zero)
+    interactor.SaveGame(data);
+}
+
+public void LoadGame()
+{
+    var interactor = ServiceLocator.Get<GameInteractor>();
+    interactor.LoadGame();
+    PlayerData data = interactor.Data;
+
+    if (data == null || data.Position == Vector3.zero) return;
+
+    // Очистка
+    foreach (var m in Object.FindObjectsByType<MobsLifecycle>(FindObjectsSortMode.None)) Destroy(m.gameObject);
+    foreach (var p in Object.FindObjectsByType<MagicAttackBehaivour>(FindObjectsSortMode.None)) Destroy(p.gameObject);
+
+    // 1. Игрок
+    playerObject.transform.position = data.Position;
+    playerObject.GetComponent<PlayerLifecycle>().RestoreHealth((int)data.Hp);
+
+    // 2. Мобы
+    foreach (var savedEnemy in data.Enemies)
+    {
+        GameObject prefab = System.Array.Find(enemies, e => e.name == savedEnemy.Type);
+        if (prefab != null)
         {
-            Debug.LogWarning("Нет данных для загрузки");
-            return;
+            GameObject newEnemy = Instantiate(prefab, savedEnemy.Position, Quaternion.identity);
+            newEnemy.GetComponent<EnemyAI>()?.Construct(playerObject.transform);
+            newEnemy.GetComponent<MobsLifecycle>()?.RestoreHealth((int)savedEnemy.CurrentHp);
         }
+    }
 
-        // 1. Восстанавливаем игрока
-        playerObject.transform.position = data.Position;
-        playerObject.GetComponent<PlayerLifecycle>().RestoreHealth((int)data.Hp);
-
-        // 2. ОЧИСТКА СЦЕНЫ
-        // Находим всех мобов, которые заспавнились случайно при старте, и удаляем их
-        MobsLifecycle[] currentMobs = Object.FindObjectsByType<MobsLifecycle>(FindObjectsSortMode.None);
-        foreach (var m in currentMobs)
-        {
-            Destroy(m.gameObject);
-        }
-
-        // 3. ВОССТАНОВЛЕНИЕ ИЗ СОХРАНЕНИЯ
-        // Теперь создаем только тех мобов, которые были в списке сохранения
-        foreach (var savedEnemy in data.Enemies)
-        {
-            // Ищем нужный префаб в массиве enemies по имени
-            GameObject prefab = System.Array.Find(enemies, e => e.name == savedEnemy.Type);
-
-            if (prefab != null)
-            {
-                // Создаем моба
-                GameObject newEnemy = Instantiate(prefab, savedEnemy.Position, Quaternion.identity);
-                
-                // Настраиваем его AI (так же, как это делал спавнер)
-                EnemyAI enemyai = newEnemy.GetComponent<EnemyAI>();
-                if (enemyai != null) enemyai.Construct(playerObject.transform);
-
-                // Восстанавливаем ему ХП
-                MobsLifecycle lifecycle = newEnemy.GetComponent<MobsLifecycle>();
-                if (lifecycle != null) lifecycle.RestoreHealth((int)savedEnemy.CurrentHp);
+    // 3. СНАРЯДЫ (Восстановление полета)
+    foreach (var pData in data.Projectiles)
+    {
+        // Находим префаб шара у первого попавшегося Range врага в массиве enemies
+        GameObject ballPrefab = null;
+        foreach(var e in enemies) {
+            var ai = e.GetComponent<EnemyAI>();
+            if(ai != null && ai.MagicAttackPrefab != null) {
+                ballPrefab = ai.MagicAttackPrefab;
+                break;
             }
         }
 
-        Debug.Log($"[Load] Сцена очищена. Восстановлено мобов из сейва: {data.Enemies.Count}");
+        if (ballPrefab != null)
+        {
+            // Спавним шар
+            GameObject newBall = Instantiate(ballPrefab, pData.Position, Quaternion.identity);
+            
+            // ВАЖНО: вызываем Restore вместо Construct!
+            // Передаем сохраненный вектор направления
+            newBall.GetComponent<MagicAttackBehaivour>().Restore(playerObject.transform, pData.Direction);
+        }
     }
+}
     
     
     private void LoadGameScene()
