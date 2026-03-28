@@ -51,10 +51,9 @@ public class Bootstrapper : MonoBehaviour
         var interactor = ServiceLocator.Get<GameInteractor>();
         var playerLC = playerObject.GetComponent<PlayerLifecycle>();
 
-        PlayerData data= new PlayerData();
-
-        data.Position= playerObject.transform.position;
-        data.Hp=playerLC.GetHealth();
+        PlayerData data = new PlayerData();
+        data.Position = playerObject.transform.position;
+        data.Hp = playerLC.GetHealth();
 
         data.Enemies.Clear();
 
@@ -64,7 +63,8 @@ public class Bootstrapper : MonoBehaviour
         {
             data.Enemies.Add(new EnemySaveData
             {
-                Type = mob.gameObject.name,
+                // ОЧЕНЬ ВАЖНО: сохраняем чистое имя без "(Clone)"
+                Type = mob.gameObject.name.Replace("(Clone)", "").Trim(),
                 Position = mob.transform.position,
                 CurrentHp = mob.GetHealth()
             });
@@ -84,30 +84,41 @@ public class Bootstrapper : MonoBehaviour
             return;
         }
 
-        // --- ЗАГРУЗКА ИГРОКА ---
+        // 1. Восстанавливаем игрока
         playerObject.transform.position = data.Position;
         playerObject.GetComponent<PlayerLifecycle>().RestoreHealth((int)data.Hp);
 
-        // --- ЗАГРУЗКА МОБОВ ---
+        // 2. ОЧИСТКА СЦЕНЫ
+        // Находим всех мобов, которые заспавнились случайно при старте, и удаляем их
         MobsLifecycle[] currentMobs = Object.FindObjectsByType<MobsLifecycle>(FindObjectsSortMode.None);
-
-        // Для лабы: перемещаем тех мобов, что есть на сцене, на сохраненные позиции
-        for (int i = 0; i < currentMobs.Length; i++)
+        foreach (var m in currentMobs)
         {
-            if (i < data.Enemies.Count)
+            Destroy(m.gameObject);
+        }
+
+        // 3. ВОССТАНОВЛЕНИЕ ИЗ СОХРАНЕНИЯ
+        // Теперь создаем только тех мобов, которые были в списке сохранения
+        foreach (var savedEnemy in data.Enemies)
+        {
+            // Ищем нужный префаб в массиве enemies по имени
+            GameObject prefab = System.Array.Find(enemies, e => e.name == savedEnemy.Type);
+
+            if (prefab != null)
             {
-                currentMobs[i].transform.position = data.Enemies[i].Position;
-                currentMobs[i].RestoreHealth((int)data.Enemies[i].CurrentHp);
-                currentMobs[i].gameObject.SetActive(true);
-            }
-            else
-            {
-                // Если мобов в сейве меньше — отключаем лишних
-                currentMobs[i].gameObject.SetActive(false);
+                // Создаем моба
+                GameObject newEnemy = Instantiate(prefab, savedEnemy.Position, Quaternion.identity);
+                
+                // Настраиваем его AI (так же, как это делал спавнер)
+                EnemyAI enemyai = newEnemy.GetComponent<EnemyAI>();
+                if (enemyai != null) enemyai.Construct(playerObject.transform);
+
+                // Восстанавливаем ему ХП
+                MobsLifecycle lifecycle = newEnemy.GetComponent<MobsLifecycle>();
+                if (lifecycle != null) lifecycle.RestoreHealth((int)savedEnemy.CurrentHp);
             }
         }
 
-        Debug.Log("[Load] Данные восстановлены.");
+        Debug.Log($"[Load] Сцена очищена. Восстановлено мобов из сейва: {data.Enemies.Count}");
     }
     
     

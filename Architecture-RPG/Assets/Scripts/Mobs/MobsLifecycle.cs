@@ -12,7 +12,7 @@ public class MobsLifecycle : MonoBehaviour, IDamagable
     [SerializeField] private AudioClip hitClip;
     private IAudioService _audio;
 
-    private void Start()
+    private void Awake()
     {
         _canDamage = true;
         _mobsUIController = GetComponent<MobsUIController>();

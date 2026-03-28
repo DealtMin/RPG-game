@@ -6,7 +6,7 @@ public class MobsUIController : MonoBehaviour
     [SerializeField] private Image healthBar;
     private IUIService _uiService;
 
-    private void Start()
+    private void Awake()
     {
         _uiService = ServiceLocator.Get<IUIService>();
     }
