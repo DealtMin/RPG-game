@@ -37,13 +37,13 @@ public class PlayerUIController : MonoBehaviour
 
     public void SaveData()
     {
-        
+        FindObjectOfType<Bootstrapper>().SaveGame();
     }
 
 
     public void LoadData()
     {
-        
+        FindObjectOfType<Bootstrapper>().LoadGame();
     }
     
   

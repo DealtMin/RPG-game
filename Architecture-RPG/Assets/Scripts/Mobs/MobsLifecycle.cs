@@ -48,4 +48,12 @@ public class MobsLifecycle : MonoBehaviour, IDamagable
         yield return new WaitForSeconds(coolDown);
         _canDamage = true;        
     }
+
+    public int GetHealth() => health;
+
+    public void RestoreHealth(int value) {
+        health = value;
+        if (_mobsUIController != null) 
+            _mobsUIController.ReduceHealth(health);
+    }
 }

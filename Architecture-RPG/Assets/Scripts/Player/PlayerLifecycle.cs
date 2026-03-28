@@ -58,4 +58,12 @@ public class PlayerLifecycle : MonoBehaviour, IDamagable
         _playerAnimation.Death();
         _inputHandler.DisableInput();
     }
+
+    public int GetHealth() => health;
+
+// Позволяет загрузить ХП и обновить UI
+    public void RestoreHealth(int value) {
+        health = value;
+        _playerUIController.ReduceHealth(health); 
+    }
 }
