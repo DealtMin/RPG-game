@@ -24,6 +24,8 @@ public class PlayerCombat : MonoBehaviour
     private bool _magicOnCooldown => Time.time < _lastMagicTime + magicCooldown;
 
     private PlayerAnimation _playerAnimation;
+
+    public GameObject MagicAttackPrefab => magicAttack;
     void Awake()
     {
         _playerAnimation = GetComponent<PlayerAnimation>();

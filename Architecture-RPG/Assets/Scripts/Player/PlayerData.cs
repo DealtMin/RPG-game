@@ -10,7 +10,7 @@ public class EnemySaveData
 [System.Serializable]
 public class ProjectileSaveData
 {
-
+    public string Type;
     public Vector3 Position;
     public Vector3 Direction;
 }

@@ -55,7 +55,7 @@ public void SaveGame()
     data.Position = playerObject.transform.position;
     data.Hp = playerLC.GetHealth();
 
-    // 1. Сохраняем мобов
+    // 1. СОХРАНЯЕМ МОБОВ
     data.Enemies.Clear();
     MobsLifecycle[] sceneMobs = Object.FindObjectsByType<MobsLifecycle>(FindObjectsSortMode.None);
     foreach (var mob in sceneMobs)
@@ -70,18 +70,20 @@ public void SaveGame()
         }
     }
 
-    // 2. СОХРАНЯЕМ СНАРЯДЫ (с направлением)
+    // 2. СОХРАНЯЕМ СНАРЯДЫ (Автоматически)
     data.Projectiles.Clear();
     MagicAttackBehaivour[] activeProjectiles = Object.FindObjectsByType<MagicAttackBehaivour>(FindObjectsSortMode.None);
     foreach (var p in activeProjectiles)
     {
         data.Projectiles.Add(new ProjectileSaveData {
+            Type = p.gameObject.name.Replace("(Clone)", "").Trim(),
             Position = p.transform.position,
-            Direction = p.transform.forward // Сохраняем куда он летел в этот момент
+            Direction = p.transform.forward 
         });
     }
 
     interactor.SaveGame(data);
+    Debug.Log($"[Save] Сохранено! Живых мобов: {data.Enemies.Count}, Летящей магии: {data.Projectiles.Count}");
 }
 
 public void LoadGame()
@@ -92,15 +94,18 @@ public void LoadGame()
 
     if (data == null || data.Position == Vector3.zero) return;
 
-    // Очистка
+    // --- ОЧИСТКА ---
     foreach (var m in Object.FindObjectsByType<MobsLifecycle>(FindObjectsSortMode.None)) Destroy(m.gameObject);
     foreach (var p in Object.FindObjectsByType<MagicAttackBehaivour>(FindObjectsSortMode.None)) Destroy(p.gameObject);
 
-    // 1. Игрок
+    // 1. ИГРОК
     playerObject.transform.position = data.Position;
     playerObject.GetComponent<PlayerLifecycle>().RestoreHealth((int)data.Hp);
 
-    // 2. Мобы
+    // Достаем префаб магии игрока для сравнения
+    GameObject playerMagicPrefab = playerObject.GetComponent<PlayerCombat>().MagicAttackPrefab;
+
+    // 2. МОБЫ
     foreach (var savedEnemy in data.Enemies)
     {
         GameObject prefab = System.Array.Find(enemies, e => e.name == savedEnemy.Type);
@@ -112,29 +117,42 @@ public void LoadGame()
         }
     }
 
-    // 3. СНАРЯДЫ (Восстановление полета)
+    // 3. СНАРЯДЫ (Восстановление типов)
     foreach (var pData in data.Projectiles)
     {
-        // Находим префаб шара у первого попавшегося Range врага в массиве enemies
-        GameObject ballPrefab = null;
-        foreach(var e in enemies) {
-            var ai = e.GetComponent<EnemyAI>();
-            if(ai != null && ai.MagicAttackPrefab != null) {
-                ballPrefab = ai.MagicAttackPrefab;
-                break;
+        GameObject finalPrefab = null;
+        Transform target = null;
+
+        // ПРОВЕРКА: Это магия игрока?
+        if (playerMagicPrefab != null && playerMagicPrefab.name == pData.Type)
+        {
+            finalPrefab = playerMagicPrefab;
+            target = null; // Для игрока таргет не нужен
+        }
+        else
+        {
+            // ПРОВЕРКА: Если не игрока, ищем во врагах из массива
+            foreach (var ePrefab in enemies)
+            {
+                var ai = ePrefab.GetComponent<EnemyAI>();
+                if (ai != null && ai.MagicAttackPrefab != null && ai.MagicAttackPrefab.name == pData.Type)
+                {
+                    finalPrefab = ai.MagicAttackPrefab;
+                    target = playerObject.transform; // Вражеской магии нужен таргет
+                    break;
+                }
             }
         }
 
-        if (ballPrefab != null)
+        // Спавним шар и запускаем Restore
+        if (finalPrefab != null)
         {
-            // Спавним шар
-            GameObject newBall = Instantiate(ballPrefab, pData.Position, Quaternion.identity);
-            
-            // ВАЖНО: вызываем Restore вместо Construct!
-            // Передаем сохраненный вектор направления
-            newBall.GetComponent<MagicAttackBehaivour>().Restore(playerObject.transform, pData.Direction);
+            GameObject newBall = Instantiate(finalPrefab, pData.Position, Quaternion.identity);
+            newBall.GetComponent<MagicAttackBehaivour>().Restore(target, pData.Direction);
         }
     }
+
+    Debug.Log("[Load] Все данные восстановлены автоматически!");
 }
     
     
