@@ -13,7 +13,7 @@ public class MobsLifecycle : MonoBehaviour, IDamagable
     [SerializeField] private AudioClip hitClip;
     private IAudioService _audio;
 
-    private void Start()
+    private void Awake()
     {
         _canDamage = true;
         _audio = ServiceLocator.Get<IAudioService>();
@@ -46,5 +46,13 @@ public class MobsLifecycle : MonoBehaviour, IDamagable
     {
         yield return new WaitForSeconds(coolDown);
         _canDamage = true;        
+    }
+
+    public int GetHealth() => health;
+
+    public void RestoreHealth(int value) {
+        health = value;
+        if (_mobsUIController != null) 
+            _mobsUIController.ReduceHealth(health);
     }
 }

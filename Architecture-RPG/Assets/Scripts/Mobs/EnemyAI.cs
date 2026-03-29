@@ -19,6 +19,7 @@ public class EnemyAI : MonoBehaviour
     private EnemyState enemyState = EnemyState.idle;
     private bool attackReady = true;
     private Transform _playerTransform;
+    public GameObject MagicAttackPrefab => magicAttack;
     private MobsLifecycle _mobsLifecycle;
 
     public void Construct(Transform inputPlayerTransform)

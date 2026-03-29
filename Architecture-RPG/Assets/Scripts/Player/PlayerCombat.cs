@@ -25,6 +25,8 @@ public class PlayerCombat : MonoBehaviour
     private bool _physicalOnCooldown => Time.time < _lastPhysicalTime + physicalCooldown;
     private bool _magicOnCooldown => Time.time < _lastMagicTime + magicCooldown;
 
+    public GameObject MagicAttackPrefab => magicAttack;
+
     void Awake()
     {
         _playerUIController = GetComponent<PlayerUIController>();

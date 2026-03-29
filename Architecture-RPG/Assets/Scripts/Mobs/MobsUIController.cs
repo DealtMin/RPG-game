@@ -7,7 +7,7 @@ public class MobsUIController : MonoBehaviour
     private MobsLifecycle _mobsLifecycle;
     private IUIService _uiService;
 
-    private void Start()
+    private void Awake()
     {
         _mobsLifecycle = GetComponent<MobsLifecycle>();
         _mobsLifecycle.EnemyTakeDamage += ReduceHealth;

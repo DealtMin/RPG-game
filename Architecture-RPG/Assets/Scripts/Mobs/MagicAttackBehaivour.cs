@@ -48,4 +48,14 @@ public class MagicAttackBehaivour : MonoBehaviour
     {
         Destroy(gameObject);
     }
+    public void Restore(Transform inputPlayerTransform, Vector3 savedDirection)
+{
+    _playerTransform = inputPlayerTransform;
+    _rb = GetComponent<Rigidbody>();
+    _direction = savedDirection; // Используем сохраненное направление
+    transform.forward = _direction;
+    
+    // Запускаем корутину роста (опционально, можно убрать для загрузки)
+    StartCoroutine(Scaler(scalingTime));
+}
 }
