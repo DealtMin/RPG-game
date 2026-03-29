@@ -62,6 +62,6 @@ public class PlayerLifecycle : MonoBehaviour, IDamagable
 // Позволяет загрузить ХП и обновить UI
     public void RestoreHealth(int value) {
         health = value;
-        _playerUIController.ReduceHealth(health); 
+        PlayerTakeDamage.Invoke(value);
     }
 }
