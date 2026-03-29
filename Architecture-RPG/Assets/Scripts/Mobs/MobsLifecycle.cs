@@ -52,7 +52,6 @@ public class MobsLifecycle : MonoBehaviour, IDamagable
 
     public void RestoreHealth(int value) {
         health = value;
-        if (_mobsUIController != null) 
-            _mobsUIController.ReduceHealth(health);
+        EnemyTakeDamage.Invoke(value);
     }
 }
