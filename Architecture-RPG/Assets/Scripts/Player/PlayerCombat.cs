@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerCombat : MonoBehaviour
@@ -12,7 +13,8 @@ public class PlayerCombat : MonoBehaviour
 
     [Header("Magic Attack (ПКМ)")]
     [SerializeField] private float magicCooldown = 2f;
-    
+    public event Action PlayerAttackMagic;
+    public event Action PlayerAttackPhysical;
     
 
     private float _lastPhysicalTime;
@@ -23,12 +25,10 @@ public class PlayerCombat : MonoBehaviour
     private bool _physicalOnCooldown => Time.time < _lastPhysicalTime + physicalCooldown;
     private bool _magicOnCooldown => Time.time < _lastMagicTime + magicCooldown;
 
-    private PlayerAnimation _playerAnimation;
-
     public GameObject MagicAttackPrefab => magicAttack;
+
     void Awake()
     {
-        _playerAnimation = GetComponent<PlayerAnimation>();
         _playerUIController = GetComponent<PlayerUIController>();
     }
 
@@ -56,7 +56,7 @@ public class PlayerCombat : MonoBehaviour
     private void HandlePhysicalAttack()
     {
         if (_physicalOnCooldown) return;
-        _playerAnimation.PhysicAttack();
+        PlayerAttackPhysical.Invoke();
         _lastPhysicalTime = Time.time;
 
     }
@@ -74,7 +74,7 @@ public class PlayerCombat : MonoBehaviour
 
         _lastMagicTime = Time.time;
         RangeAttack();
-        _playerAnimation.MagicAttack();
+        PlayerAttackMagic.Invoke();
         _playerUIController.MagicTimerUI(magicCooldown);
         Debug.Log("[Magic Attack] ПКМ — магическая атака");
 

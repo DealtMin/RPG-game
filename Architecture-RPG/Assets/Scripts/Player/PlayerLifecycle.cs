@@ -4,8 +4,8 @@ using System.Collections;
 
 public class PlayerLifecycle : MonoBehaviour, IDamagable
 {
-    private PlayerUIController _playerUIController;
-    private PlayerAnimation _playerAnimation;
+    public event Action<int> PlayerTakeDamage;
+    public event Action PlayerDeath;
     private PlayerInputHandler _inputHandler;
     private bool _canDamage;
     private IAudioService _audio;
@@ -18,8 +18,6 @@ public class PlayerLifecycle : MonoBehaviour, IDamagable
     void Start()
     {
         _canDamage = true;
-        _playerUIController = GetComponent<PlayerUIController>();
-        _playerAnimation = GetComponent<PlayerAnimation>();
         _inputHandler = GetComponent<PlayerInputHandler>();
         _audio = ServiceLocator.Get<IAudioService>();
     }
@@ -28,9 +26,9 @@ public class PlayerLifecycle : MonoBehaviour, IDamagable
     {
         if (_canDamage)
         {
+            PlayerTakeDamage.Invoke(health);
             health = Math.Clamp(health - damage, 0, 100);
             _canDamage = false;
-            _playerUIController.ReduceHealth(health);
             damageParticles.Play();
             
             if (health <= 0)
@@ -55,7 +53,7 @@ public class PlayerLifecycle : MonoBehaviour, IDamagable
 
     public void Death()
     {
-        _playerAnimation.Death();
+        PlayerDeath.Invoke();
         _inputHandler.DisableInput();
     }
 

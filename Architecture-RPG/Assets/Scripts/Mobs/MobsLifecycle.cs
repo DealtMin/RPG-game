@@ -1,10 +1,11 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class MobsLifecycle : MonoBehaviour, IDamagable
 {
-    private MobsUIController _mobsUIController;
-    private EnemyAI _enemyAI;
+    public event Action<int> EnemyTakeDamage;
+    public event Action EnemyDeath;
     private bool _canDamage;
     [SerializeField] private float damageInvincibility = 1.5f;
     [SerializeField] private int health;
@@ -15,8 +16,6 @@ public class MobsLifecycle : MonoBehaviour, IDamagable
     private void Awake()
     {
         _canDamage = true;
-        _mobsUIController = GetComponent<MobsUIController>();
-        _enemyAI = GetComponent<EnemyAI>();
         _audio = ServiceLocator.Get<IAudioService>();
     }
 
@@ -31,7 +30,7 @@ public class MobsLifecycle : MonoBehaviour, IDamagable
             }
             _canDamage = false;
             StartCoroutine(DamageCountDown(damageInvincibility));
-            _mobsUIController.ReduceHealth(health);
+            EnemyTakeDamage.Invoke(health);
             damageParticles.Play();
             _audio.PlaySound(hitClip);
         }
@@ -39,7 +38,7 @@ public class MobsLifecycle : MonoBehaviour, IDamagable
 
     public void Death()
     {
-        _enemyAI.Death();
+        EnemyDeath.Invoke();
         damageParticles.Play();
     }
     
