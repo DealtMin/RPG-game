@@ -15,12 +15,14 @@ public class PlayerUIController : MonoBehaviour
     private IAudioService _audio;
     private IUIService _uiService;
     private PlayerLifecycle _playerLifeCycle;
+    private ISaveSystem _saver;
     private void Start()
     {
         _playerLifeCycle = GetComponent<PlayerLifecycle>();
         _playerLifeCycle.PlayerTakeDamage += ReduceHealth;
         _audio = ServiceLocator.Get<IAudioService>();
         _uiService = ServiceLocator.Get<IUIService>();
+        _saver = ServiceLocator.Get<ISaveSystem>();
     }
 
     public void Pause(bool pauseOn)
@@ -40,13 +42,13 @@ public class PlayerUIController : MonoBehaviour
 
     public void SaveData()
     {
-        FindObjectOfType<Bootstrapper>().SaveGame();
+        _saver.SaveGame();
     }
 
 
     public void LoadData()
     {
-        FindObjectOfType<Bootstrapper>().LoadGame();
+        _saver.LoadGame();
     }
     
   
