@@ -5,7 +5,10 @@ public class PlayerAnimationEvent : MonoBehaviour
     [SerializeField] PlayerUIController playerUI;
     public void AfterDeathUI()
     {
-        Time.timeScale = 0f;
         playerUI.Death();
+    }
+    public void StartDeath()
+    {
+        playerUI.ReduceHealth(0);
     }
 }

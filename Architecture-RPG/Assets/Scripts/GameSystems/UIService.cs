@@ -4,7 +4,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-public class UIControllerBase : MonoBehaviour
+public class UIService : MonoBehaviour, IUIService
 {
    
     public void SetFillAmountImage(Image fillImage, int value)
@@ -21,7 +21,8 @@ public class UIControllerBase : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
-
+    
+    
     public void StartFillCoroutine(Image fillImage, float coolDown)
     {
         StartCoroutine(FillAmountImage(fillImage, coolDown));

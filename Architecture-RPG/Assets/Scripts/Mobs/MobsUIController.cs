@@ -4,11 +4,22 @@ using UnityEngine.UI;
 public class MobsUIController : MonoBehaviour
 {
     [SerializeField] private Image healthBar;
-    [SerializeField] private UIControllerBase uiBase;
+    private MobsLifecycle _mobsLifecycle;
+    private IUIService _uiService;
 
+    private void Awake()
+    {
+        _mobsLifecycle = GetComponent<MobsLifecycle>();
+        _mobsLifecycle.EnemyTakeDamage += ReduceHealth;
+        _uiService = ServiceLocator.Get<IUIService>();
+    }
 
     public void ReduceHealth(int currHealth)
     {
-       uiBase.SetFillAmountImage(healthBar, currHealth);
+        _uiService.SetFillAmountImage(healthBar, currHealth);
+    }
+    void OnDestroy()
+    {
+        _mobsLifecycle.EnemyTakeDamage -= ReduceHealth;
     }
 }

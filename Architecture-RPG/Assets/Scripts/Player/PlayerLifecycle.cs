@@ -4,37 +4,42 @@ using System.Collections;
 
 public class PlayerLifecycle : MonoBehaviour, IDamagable
 {
-    private PlayerUIController _playerUIController;
-    private PlayerAnimation _playerAnimation;
+    public event Action<int> PlayerTakeDamage;
+    public event Action PlayerDeath;
     private PlayerInputHandler _inputHandler;
     private bool _canDamage;
+    private IAudioService _audio;
     [SerializeField] private int health;
     [SerializeField] private float damageInvincibility = 2f;
     [SerializeField] private ParticleSystem damageParticles;
-
-    private void Awake()
+    [SerializeField] private AudioClip hitClip;
+    
+    
+    void Start()
     {
         _canDamage = true;
-        _playerUIController = GetComponent<PlayerUIController>();
-        _playerAnimation = GetComponent<PlayerAnimation>();
         _inputHandler = GetComponent<PlayerInputHandler>();
+        _audio = ServiceLocator.Get<IAudioService>();
     }
-    
 
     public void Damage(int damage)
     {
         if (_canDamage)
         {
-            health = Math.Clamp(health-damage, 0, 100);
-            Debug.Log(health);
+            PlayerTakeDamage.Invoke(health);
+            health = Math.Clamp(health - damage, 0, 100);
+            _canDamage = false;
+            damageParticles.Play();
+            
             if (health <= 0)
             {
                 Death();
             }
-            _canDamage = false;
-            StartCoroutine(DamageCountDown(damageInvincibility));
-            _playerUIController.ReduceHealth(health);
-            damageParticles.Play();
+            else
+            {
+                StartCoroutine(DamageCountDown(damageInvincibility));
+                _audio.PlaySound(hitClip);
+            }
         }
     }
        
@@ -48,7 +53,15 @@ public class PlayerLifecycle : MonoBehaviour, IDamagable
 
     public void Death()
     {
-        _playerAnimation.Death();
+        PlayerDeath.Invoke();
         _inputHandler.DisableInput();
+    }
+
+    public int GetHealth() => health;
+
+// Позволяет загрузить ХП и обновить UI
+    public void RestoreHealth(int value) {
+        health = value;
+        PlayerTakeDamage.Invoke(value);
     }
 }

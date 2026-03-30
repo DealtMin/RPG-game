@@ -3,34 +3,50 @@ using UnityEngine;
 
 public class MenuUIController : MonoBehaviour
 {
-    [SerializeField] private UIControllerBase uiBase;
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject mainPanel;
     [SerializeField] private float uiScaleFactor = 1.07f;
+    private IAudioService _audio;
+    private IUIService _uiService;
+    
 
-    private void Awake() // !!!!!!!! убрать при бустстрапе
+    private void Start()
     {
+        _audio = ServiceLocator.Get<IAudioService>();
+        _uiService = ServiceLocator.Get<IUIService>();
+        _audio.SetVolumeFromMixer();
+
         Time.timeScale = 1;
     }
 
     public void LoadGame()
     {
-        uiBase.OpenSceneByName("Main");
+        _uiService.OpenSceneByName("Main");
     }
 
     public void OpenUIPanel(GameObject panel)
     {
-        uiBase.ShowHideElement(settingsPanel, settingsPanel==panel);
-        uiBase.ShowHideElement(mainPanel, mainPanel==panel);
+        _uiService.ShowHideElement(settingsPanel, settingsPanel==panel);
+        _uiService.ShowHideElement(mainPanel, mainPanel==panel);
     }
     
     public void OnHoverEnter(Transform obj)
     {
-        uiBase.IncreaseScale(obj, uiScaleFactor);
+        _uiService.IncreaseScale(obj, uiScaleFactor);
     }
     
     public void OnHoverExit(Transform obj)
     {
-        uiBase.DecreaseScale(obj, uiScaleFactor);
+        _uiService.DecreaseScale(obj, uiScaleFactor);
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        _audio.PlaySound(clip);
+    }
+
+    public void SetVolumeBySlider()
+    {
+        _audio.SetMasterVolume();
     }
 }

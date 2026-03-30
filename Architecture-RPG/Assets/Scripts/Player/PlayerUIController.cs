@@ -11,62 +11,87 @@ public class PlayerUIController : MonoBehaviour
     [SerializeField] private Image healthBar;
     [SerializeField] private Image shootTimer;
     [SerializeField] private TMP_Text hpText;
-    [SerializeField] private UIControllerBase uiBase;
     [SerializeField] private float uiScaleFactor=1.07f;
-    
+    private IAudioService _audio;
+    private IUIService _uiService;
+    private PlayerLifecycle _playerLifeCycle;
+    private ISaveSystem _saver;
+    private void Start()
+    {
+        _playerLifeCycle = GetComponent<PlayerLifecycle>();
+        _playerLifeCycle.PlayerTakeDamage += ReduceHealth;
+        _audio = ServiceLocator.Get<IAudioService>();
+        _uiService = ServiceLocator.Get<IUIService>();
+        _saver = ServiceLocator.Get<ISaveSystem>();
+    }
 
     public void Pause(bool pauseOn)
     {
-        uiBase.ShowHideElement(pausePanel, pauseOn);
+        _uiService.ShowHideElement(pausePanel, pauseOn);
     }
 
     public void GoToMenu()
     {
-        uiBase.OpenSceneByName("Menu");
+        _uiService.OpenSceneByName("Menu");
     }
     
     public void ReloadGame()
     {
-        uiBase.OpenSceneByName("Main");
+        _uiService.OpenSceneByName("Main");
     }
 
     public void SaveData()
     {
-        
+        _saver.SaveGame();
     }
 
 
     public void LoadData()
     {
-        
+        _saver.LoadGame();
     }
     
   
     public void OnHoverEnter(Transform obj)
     {
-        uiBase.IncreaseScale(obj, uiScaleFactor);
+        _uiService.IncreaseScale(obj, uiScaleFactor);
     }
     
     public void OnHoverExit(Transform obj)
     {
-        uiBase.DecreaseScale(obj, uiScaleFactor);
+        _uiService.DecreaseScale(obj, uiScaleFactor);
     }
     
     public void Death()
     {
-        uiBase.ShowHideElement(pausePanel, false);
-        uiBase.ShowHideElement(deathPanel, true);
+        _uiService.ShowHideElement(pausePanel, false);
+        _uiService.ShowHideElement(deathPanel, true);
+        Time.timeScale = 0f;
     }
     
     public void ReduceHealth(int health)
     {
-        uiBase.SetFillAmountImage(healthBar, health);
-        uiBase.SetTMPRoText(hpText, health);
+        _uiService.SetFillAmountImage(healthBar, health);
+        _uiService.SetTMPRoText(hpText, health);
     }
     
     public void MagicTimerUI(float coolDown)
     {
-        shootTimer.fillAmount =0;
-        uiBase.StartFillCoroutine(shootTimer, coolDown);
+        _uiService.SetFillAmountImage(shootTimer, 0);
+        _uiService.StartFillCoroutine(shootTimer, coolDown);
+    }
+    
+    public void PlaySound(AudioClip clip)
+    {
+        _audio.PlaySound(clip);
+    }
+    
+    public void SetVolumeBySlider()
+    {
+        _audio.SetMasterVolume();
+    }
+    void OnDestroy()
+    {
+        _playerLifeCycle.PlayerTakeDamage -= ReduceHealth;
     }
 }
