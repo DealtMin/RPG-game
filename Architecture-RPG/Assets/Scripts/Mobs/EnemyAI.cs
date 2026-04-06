@@ -101,8 +101,15 @@ public class EnemyAI : MonoBehaviour
     private void RangeAttack()
     {
         GameObject newMagicBall = Instantiate(magicAttack, magicSpawmPoint.position, Quaternion.identity);
-        MagicAttackBehaivour magicBeh = newMagicBall.GetComponent<MagicAttackBehaivour>();
-        magicBeh.Construct(_playerTransform, gameObject.transform);
+        if (newMagicBall.TryGetComponent(out MushroomBallBehaviour mushroomBall))
+        {
+            mushroomBall.Construct(_playerTransform, gameObject.transform);
+        }
+        else
+        {
+            MagicAttackBehaivour magicBeh = newMagicBall.GetComponent<MagicAttackBehaivour>();
+            magicBeh.Construct(_playerTransform, gameObject.transform);
+        }
     }
     
     public void Death()

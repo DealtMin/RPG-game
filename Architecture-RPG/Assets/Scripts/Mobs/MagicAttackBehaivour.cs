@@ -6,7 +6,7 @@ public class MagicAttackBehaivour : MonoBehaviour
     private Transform _playerTransform;
     [SerializeField] private float speed = 1f;
     [SerializeField] private float scalingTime=0.2f;
-    private Rigidbody _rb;
+    protected Rigidbody _rb;
     private Vector3 _direction;
     private Transform _parentObject;
 
