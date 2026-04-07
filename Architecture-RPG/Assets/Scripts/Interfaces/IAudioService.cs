@@ -9,4 +9,6 @@ public interface IAudioService
     void SetVolumeFromMixer();
 
     void SetMasterVolume();
+    void SetVolumeSettings(float volume);
+    float GetVolumeFromMixer();
 }

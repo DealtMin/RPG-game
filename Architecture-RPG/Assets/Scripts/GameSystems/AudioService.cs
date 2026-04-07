@@ -28,7 +28,7 @@ public class AudioService : IAudioService
     
     public void SetVolumeFromMixer()
     {
-        _mixer.GetFloat("musicVolume", out float currVolume);
+        float currVolume=GetVolumeFromMixer();
         if (currVolume==-80f)
             _slider.value = 0;
         else
@@ -41,5 +41,21 @@ public class AudioService : IAudioService
             _mixer.SetFloat("musicVolume", -80);
         else    
             _mixer.SetFloat("musicVolume", Mathf.Lerp(-20, 0, _slider.value));
+    }
+
+    public void SetVolumeSettings(float volume)
+    {
+        if (volume==-80f)
+            _slider.value = 0;
+        else
+            _slider.value =  Mathf.Lerp(1, 0, volume/-20);
+
+        SetMasterVolume();
+    }
+
+    public float GetVolumeFromMixer()
+    {
+        _mixer.GetFloat("musicVolume", out float currVolume);
+        return currVolume;
     }
 }

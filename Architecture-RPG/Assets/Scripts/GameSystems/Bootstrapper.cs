@@ -26,7 +26,15 @@ public class Bootstrapper : MonoBehaviour
     private void Awake()
     {
         ServiceLocator.Register<IAudioService>(new AudioService(source, slider, mixer));
+        
+        ServiceLocator.Register<ISettingsService>(new SettingsServicePP());
+        
+        ServiceLocator.Register<ISettingsSaver>(new SettingsControllerSaver());
+        
+        ServiceLocator.Register<ISettingsLoader>(new SettingsControllerLoader());
+        
         ServiceLocator.Get<IAudioService>().PlayMusic(mainTheme);
+        
         GameObject uiBase = new GameObject("Ui controller service");
         UIService uiServ = uiBase.AddComponent<UIService>();
         ServiceLocator.Register<IUIService>(uiServ);
@@ -46,6 +54,7 @@ public class Bootstrapper : MonoBehaviour
         SaveSystem saver = saverObj.AddComponent<SaveSystem>();
         saver.Construct(playerObject, enemies);
         ServiceLocator.Register<ISaveSystem>(saver);
+        
         
         Time.timeScale = 1f;
         //LoadGameScene();

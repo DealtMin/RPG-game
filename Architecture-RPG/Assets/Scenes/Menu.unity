@@ -644,7 +644,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &717591230
 Transform:
   m_ObjectHideFlags: 0
@@ -674,6 +674,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1341044681399243218, guid: 6678b9fa3eb3e5646a77f2f84920f09f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.000036239624
+      objectReference: {fileID: 0}
     - target: {fileID: 2427804341813201391, guid: 6678b9fa3eb3e5646a77f2f84920f09f, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -761,6 +765,10 @@ PrefabInstance:
     - target: {fileID: 2467927392140044169, guid: 6678b9fa3eb3e5646a77f2f84920f09f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3175901005963397973, guid: 6678b9fa3eb3e5646a77f2f84920f09f, type: 3}
+      propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3942855682341062464, guid: 6678b9fa3eb3e5646a77f2f84920f09f, type: 3}
       propertyPath: m_IsActive
