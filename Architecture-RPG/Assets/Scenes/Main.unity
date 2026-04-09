@@ -475,6 +475,38 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &220654980 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1943244100501702565, guid: d9be0e8c619fa5c4e842838ff8aa2567, type: 3}
+  m_PrefabInstance: {fileID: 1558096515}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &220654986
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 220654980}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1001 &269602883
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4019,7 +4051,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1943244100501702565, guid: d9be0e8c619fa5c4e842838ff8aa2567, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 220654986}
   m_SourcePrefab: {fileID: 100100000, guid: d9be0e8c619fa5c4e842838ff8aa2567, type: 3}
 --- !u!1001 &1559552360
 PrefabInstance:

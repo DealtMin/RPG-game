@@ -447,6 +447,7 @@ GameObject:
   - component: {fileID: 1258856127}
   - component: {fileID: 1258856126}
   - component: {fileID: 1258856125}
+  - component: {fileID: 1258856128}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -548,6 +549,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1258856123}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &1258856128
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1258856123}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &1822134605
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,12 +605,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b7002ec9b2b9e488d15b5d03390e9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  enemies:
-  - {fileID: 8599235222423254649, guid: 34ed41cc4b7095f499e7ec4c74d7f62c, type: 3}
-  - {fileID: 2434003047417431565, guid: b3b1b3fcb2cf3c244bd7e7911f140522, type: 3}
-  enemiesCount: a0000000a0000000
-  maxBound: {fileID: 966552302}
-  minBound: {fileID: 1828851415}
 --- !u!4 &1822134607
 Transform:
   m_ObjectHideFlags: 0

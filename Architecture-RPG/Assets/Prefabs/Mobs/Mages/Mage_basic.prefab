@@ -121,7 +121,7 @@ MonoBehaviour:
   target: {fileID: 0}
   attackCoolDown: 3
   noticeDistance: 15
-  magicAttack: {fileID: 9026441651615635683, guid: 2d897bbc98b26e1449140aa73a0a2dc2, type: 3}
+  magicAttack: {fileID: 1976600953557367964, guid: de7e3376411af3b488cca36212c8bfc6, type: 3}
   magicSpawmPoint: {fileID: 8790784006324362290}
 --- !u!136 &8843009830202772564
 CapsuleCollider:
