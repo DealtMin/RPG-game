@@ -7,7 +7,7 @@ public class SettingsControllerSaver : ISettingsSaver
     private string _playModeString = "PlayMode";
     private string _audioString = "AudioVolume";
     private IAudioService _audio;
-    private int _playModeIndex=0;
+    private int _playModeIndex;
 
     public void SetPlayModeIndex(int index)
     {

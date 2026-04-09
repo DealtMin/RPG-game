@@ -20,9 +20,7 @@ public class PlayerLifecycle : MonoBehaviour, IDamagable
         _canDamage = true;
         _inputHandler = GetComponent<PlayerInputHandler>();
         _audio = ServiceLocator.Get<IAudioService>();
-        ServiceLocator.Get<ISettingsLoader>().LoadAllSettings();
-
-    }
+        }
 
     public void Damage(int damage)
     {

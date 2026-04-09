@@ -8,7 +8,7 @@ public class SettingsControllerLoader : ISettingsLoader
     private string _playModeString = "PlayMode";
     private string _audioString = "AudioVolume";
     private IAudioService _audio;
-    public int playModeIndex = 0;
+    private int _playModeIndex;
 
     public SettingsControllerLoader()
     {
@@ -18,7 +18,7 @@ public class SettingsControllerLoader : ISettingsLoader
 
     public int GetPlayModeIndex()
     {
-        return playModeIndex;
+        return _playModeIndex;
     }
     
     public void LoadAllSettings()
@@ -33,9 +33,10 @@ public class SettingsControllerLoader : ISettingsLoader
         _audio.SetVolumeSettings(volume);
     }
 
-    private void LoadPlayMode()
+    public int LoadPlayMode()
     {
-        playModeIndex = _settingsService.LoadSettingsInt(_playModeString);
+        _playModeIndex = _settingsService.LoadSettingsInt(_playModeString);
+        return _playModeIndex;
     }
 
     

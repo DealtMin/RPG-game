@@ -361,10 +361,10 @@ MonoBehaviour:
       - m_Target: {fileID: 3587366141155168347}
         m_TargetAssemblyTypeName: MenuUIController, Assembly-CSharp
         m_MethodName: SetPlayModeIndex
-        m_Mode: 2
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 7676190375780266821}
-          m_ObjectArgumentAssemblyTypeName: TMPro.TMP_Dropdown, Unity.TextMeshPro
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3075,7 +3075,7 @@ MonoBehaviour:
   settingsPanel: {fileID: 8061262797424185162}
   mainPanel: {fileID: 3942855682341062464}
   uiScaleFactor: 1.07
-  dd: {fileID: 0}
+  dropdown: {fileID: 7676190375780266821}
 --- !u!1 &5883584924737098733
 GameObject:
   m_ObjectHideFlags: 0

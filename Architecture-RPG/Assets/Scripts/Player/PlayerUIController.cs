@@ -1,9 +1,6 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using TMPro;
-
 public class PlayerUIController : MonoBehaviour
 {
     [SerializeField] private GameObject pausePanel;
@@ -23,6 +20,7 @@ public class PlayerUIController : MonoBehaviour
         _audio = ServiceLocator.Get<IAudioService>();
         _uiService = ServiceLocator.Get<IUIService>();
         _saver = ServiceLocator.Get<ISaveSystem>();
+        ServiceLocator.Get<ISettingsLoader>().LoadAllSettings();
     }
 
     public void Pause(bool pauseOn)
