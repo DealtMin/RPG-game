@@ -58,8 +58,15 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
     public void LoadGame()
     {
         var interactor = ServiceLocator.Get<GameInteractor>();
-        interactor.LoadGame();
-        PlayerData data = interactor.Data;
+        
+        PlayerData data = interactor.LoadGame();
+
+        // Проверка: если данных нет или позиция нулевая - выходим
+        if (data == null || data.Position == Vector3.zero) 
+        {
+            Debug.LogWarning("[SaveSystem] Не удалось получить данные из LoadGame()");
+            return;
+        }
 
         if (data == null || data.Position == Vector3.zero) return;
 
