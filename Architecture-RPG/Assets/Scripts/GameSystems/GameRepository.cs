@@ -1,20 +1,28 @@
 using UnityEngine;
+using System.IO; 
 
 public class GameRepository : ISaveService
 {
-    private const string SaveKey = "PlayerSave";
+    
+    private readonly string _filePath = Path.Combine(Application.persistentDataPath, "save.json");
 
     public void Save(PlayerData data)
     {
-        string json = JsonUtility.ToJson(data);
-        PlayerPrefs.SetString(SaveKey, json);
-        PlayerPrefs.Save();
+        string json = JsonUtility.ToJson(data, true); 
+        File.WriteAllText(_filePath, json);
+        Debug.Log($"[Repository] Данные сохранены в файл: {_filePath}");
     }
 
-    public PlayerData Load()
+    public PlayerData LoadGame()
     {
-        if (!PlayerPrefs.HasKey(SaveKey)) return null;
-        string json = PlayerPrefs.GetString(SaveKey);
-        return JsonUtility.FromJson<PlayerData>(json);
+        if (!File.Exists(_filePath))
+        {
+            Debug.LogWarning("[Repository] Файл сохранения не найден.");
+            return null;
+        }
+
+        string json = File.ReadAllText(_filePath);
+        PlayerData data = JsonUtility.FromJson<PlayerData>(json);
+        return data; // Возвращаем загруженный объект
     }
 }
