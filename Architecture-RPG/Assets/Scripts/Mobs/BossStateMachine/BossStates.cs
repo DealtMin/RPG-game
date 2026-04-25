@@ -1,18 +1,18 @@
-public class StayState : AbstractBossState
+public class BossStayState : AbstractBossState
 {
-    public StayState(BossStateMachine stateMachine) : base(stateMachine) { }
+    public BossStayState(BossStateMachine stateMachine) : base(stateMachine) { }
     public override void Enter() =>
    _stateMachine.Boss.Animator.SetTrigger("Idle");
     public override void LogicUpdate()
     {
         if (_stateMachine.Boss.IsPlayerInView())
-            _stateMachine.ChangeState(new AggresiveState(_stateMachine));
+            _stateMachine.ChangeState(new BossAggresiveState(_stateMachine));
     }
 }
-public class AggresiveState : AbstractBossState
+public class BossAggresiveState : AbstractBossState
 {
 
-    public AggresiveState(BossStateMachine stateMachine) : base(stateMachine) { }
+    public BossAggresiveState(BossStateMachine stateMachine) : base(stateMachine) { }
     public override void Enter()
     {
         _stateMachine.Boss.SetChaising(true);
@@ -30,19 +30,19 @@ public class AggresiveState : AbstractBossState
             _stateMachine.ChangeState(_stateMachine.CreateAttackState());
         else if (!_stateMachine.Boss.IsPlayerInView())
         {
-            _stateMachine.ChangeState(new StayState(_stateMachine));
+            _stateMachine.ChangeState(new BossStayState(_stateMachine));
         }
     }
 }
-public class AttackState : AbstractBossState
+public class BossAttackState : AbstractBossState
 {
-    public AttackState(BossStateMachine stateMachine) : base(stateMachine) { }
+    public BossAttackState(BossStateMachine stateMachine) : base(stateMachine) { }
     public override void Enter() =>
     _stateMachine.Boss.Animator.SetTrigger("RangeAttack");
     public override void LogicUpdate()
     {
         if (!_stateMachine.Boss.IsAttackReady())
-            _stateMachine.ChangeState(new WaitToAttackState(_stateMachine));
+            _stateMachine.ChangeState(new BossWaitToAttackState(_stateMachine));
         else 
         {
             _stateMachine.Boss.RangeAttack();
@@ -51,24 +51,24 @@ public class AttackState : AbstractBossState
     }
 }
 
-public class WaitToAttackState : AbstractBossState
+public class BossWaitToAttackState : AbstractBossState
 {
-    public WaitToAttackState(BossStateMachine stateMachine) : base(stateMachine) { }
+    public BossWaitToAttackState(BossStateMachine stateMachine) : base(stateMachine) { }
     public override void Enter() =>
     _stateMachine.Boss.Animator.SetTrigger("Stop");
     public override void LogicUpdate()
     {
 
         if (!_stateMachine.Boss.IsPlayerNear())
-            _stateMachine.ChangeState(new AggresiveState(_stateMachine));
+            _stateMachine.ChangeState(new BossAggresiveState(_stateMachine));
         if (_stateMachine.Boss.IsPlayerNear() && _stateMachine.Boss.IsAttackReady())
             _stateMachine.ChangeState(_stateMachine.CreateAttackState());
     }
 }
 
-public class DeathState : AbstractBossState
+public class BossDeathState : AbstractBossState
 {
-    public DeathState(BossStateMachine stateMachine) : base(stateMachine) { }
+    public BossDeathState(BossStateMachine stateMachine) : base(stateMachine) { }
     public override void Enter() =>
     _stateMachine.Boss.Animator.SetTrigger("Death");
     public override void LogicUpdate()
@@ -84,7 +84,7 @@ public class Phase2AttackState : AbstractBossState
     public override void LogicUpdate()
     {
         if (!_stateMachine.Boss.IsAttackReady())
-            _stateMachine.ChangeState(new WaitToAttackState(_stateMachine));
+            _stateMachine.ChangeState(new BossWaitToAttackState(_stateMachine));
         else _stateMachine.Boss.SetAttackCoolDown();
     }
 }

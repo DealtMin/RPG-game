@@ -1,6 +1,8 @@
+using UnityEngine;
+using System.Collections;
 using System;
 
-public class BossHealthController : IHealthController
+public class EnemyHealthController : IHealthController
 {
     public event Action<int> TakeDamage;
     public event Action DeathEvent;
@@ -8,7 +10,7 @@ public class BossHealthController : IHealthController
     private int maxHealth;
     private int health;
 
-    public BossHealthController(int health)
+    public EnemyHealthController(int health)
     {
         maxHealth = health;
         this.health = health;

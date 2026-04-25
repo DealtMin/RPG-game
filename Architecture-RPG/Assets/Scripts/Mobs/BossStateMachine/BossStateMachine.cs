@@ -5,7 +5,7 @@ public class BossStateMachine
     public BossStateMachine(EnemyBoss boss)
     {
         Boss = boss;
-        CurrentState = new StayState(this);
+        CurrentState = new BossStayState(this);
     }
 
     public virtual void ChangeState(AbstractBossState newState)
@@ -17,7 +17,7 @@ public class BossStateMachine
     public virtual void Initialize() =>
     CurrentState.Enter();
     public virtual AbstractBossState CreateAttackState() =>
-    new AttackState(this);
+    new BossAttackState(this);
 }
 
 public class Phase2BossFightStateMachine : BossStateMachine
