@@ -24,7 +24,7 @@ public class EnemyBoss : MonoBehaviour, IDamagable, IMobController
         _audio = ServiceLocator.Get<IAudioService>();
         target = FindAnyObjectByType<PlayerLifecycle>().transform;
         _agent = GetComponent<NavMeshAgent>();
-        Animator = GetComponent<Animator>();
+        Animator = GetComponentInChildren<Animator>();
         _stateMachine = new BossStateMachine(this);
     }
     public void Damage(int damage)

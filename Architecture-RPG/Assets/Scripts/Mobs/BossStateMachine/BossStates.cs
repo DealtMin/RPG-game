@@ -49,6 +49,34 @@ public class AttackState : AbstractBossState
     public override void LogicUpdate()
     {
         _stateMachine.Boss.Say("ATTAC");
+        _stateMachine.ChangeState(new WaitToAttackState(_stateMachine));
+    }
+}
+
+public class WaitToAttackState : AbstractBossState
+{
+    public WaitToAttackState(BossStateMachine stateMachine) : base(stateMachine) { }
+    public override void Enter() =>
+    _stateMachine.Boss.Animator.SetTrigger("Stop");
+    public override void LogicUpdate()
+    {
+        if (_stateMachine.Boss.IsPlayerNear() && _stateMachine.Boss.IsAttackReady())
+            _stateMachine.ChangeState(new AttackState(_stateMachine));
+        else if (!_stateMachine.Boss.IsPlayerNear())
+        {
+            _stateMachine.ChangeState(new StayState(_stateMachine));
+        }
+    }
+}
+
+public class DeathState : AbstractBossState
+{
+    public DeathState(BossStateMachine stateMachine) : base(stateMachine) { }
+    public override void Enter() =>
+    _stateMachine.Boss.Animator.SetTrigger("Death");
+    public override void LogicUpdate()
+    {
+        _stateMachine.Boss.Say("ATTAC");
         _stateMachine.ChangeState(new AggresiveState(_stateMachine));
     }
 }
