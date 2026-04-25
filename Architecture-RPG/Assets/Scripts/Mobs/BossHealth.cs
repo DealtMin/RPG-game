@@ -27,7 +27,7 @@ public class BossHealthController : IHealthController
 
     public void Death()
     {
-        //DeathEvent.Invoke();
+        DeathEvent.Invoke();
     }
 
 

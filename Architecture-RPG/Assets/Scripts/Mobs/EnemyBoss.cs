@@ -10,7 +10,7 @@ public class EnemyBoss : MonoBehaviour, IDamagable, IMobController
     [SerializeField] private float secondPhaseStoppingDistance = 2f;
     public GameObject MagicAttackPrefab => magicAttack;
     public Animator Animator { get; protected set; }
-    public int MaxHealth { get; private set; } = 100;
+    [SerializeField] private int MaxHealth = 120;
     [SerializeField] private float attackCoolDown = 1.5f;
     [SerializeField] private float noticeDistance = 10;
     [SerializeField] private float damageInvincibility = 1.5f;
@@ -18,7 +18,7 @@ public class EnemyBoss : MonoBehaviour, IDamagable, IMobController
     private Transform target;
     private NavMeshAgent _agent;
     private bool attackReady = true;
-    private bool _canDamage;
+    private bool _canDamage = true;
     private BossHealthController healthController;
     [SerializeField] private AudioClip hitClip;
     [SerializeField] private ParticleSystem damageParticles;
@@ -32,19 +32,24 @@ public class EnemyBoss : MonoBehaviour, IDamagable, IMobController
         Animator = GetComponentInChildren<Animator>();
         _stateMachine = new BossStateMachine(this);
         healthController.SecondPhase += SecondPhase;
+        healthController.DeathEvent += Death;
     }
     void Update()
     {
         _stateMachine?.CurrentState.LogicUpdate();
     }
+    void Oestroy() => healthController.SecondPhase -= SecondPhase;
     public void Damage(int damage)
     {
-        _canDamage = false;
-        StartCoroutine(DamageCountDown(damageInvincibility));
-        damageParticles.Play();
-        _audio.PlaySound(hitClip);
-        healthController.Damage(damage);
-        Debug.Log($"Босс получил {damage} урона. HP: {healthController.GetHealth()}/{MaxHealth}");
+        if (_canDamage)
+        {
+            _canDamage = false;
+            StartCoroutine(DamageCountDown(damageInvincibility));
+            damageParticles.Play();
+            _audio.PlaySound(hitClip);
+            healthController.Damage(damage);
+            Debug.Log($"Босс получил {damage} урона. HP: {healthController.GetHealth()}/{MaxHealth}");
+        }
     }
     public void RangeAttack()
     {
@@ -88,7 +93,9 @@ public class EnemyBoss : MonoBehaviour, IDamagable, IMobController
     }
     private void Death()
     {
+        _stateMachine.ChangeState(new DeathState(_stateMachine));
         damageParticles.Play();
+        
     }
 
     public IHealthController GetHealthController()
