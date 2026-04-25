@@ -3,9 +3,8 @@ using System.Diagnostics;
 public class StayState : AbstractBossState
 {
     public StayState(BossStateMachine stateMachine) : base(stateMachine) { }
-    public override void AnimationUpdate() =>
-    _stateMachine.Boss.Animator.Play("Stay");
-    public override void PhysicsUpdate(){}
+     public override void Enter() =>
+    _stateMachine.Boss.Animator.SetTrigger("Stop");
     public override void LogicUpdate()
     {
         if (_stateMachine.Boss.IsPlayerInView())
@@ -18,6 +17,8 @@ public class AggresiveState : AbstractBossState
     public AggresiveState(BossStateMachine stateMachine) : base(stateMachine) { }
     public override void Enter()
     {
+        _stateMachine.Boss.SetChaising(true);
+        _stateMachine.Boss.Animator.SetTrigger("Walk");
         _stateMachine.Boss.Say("Я вижу тебя! Ха-Ха-Ха-Ха");
         _playerLost = false;
     }
@@ -25,14 +26,14 @@ public class AggresiveState : AbstractBossState
     {
         if (_playerLost)
             _stateMachine.Boss.Say("Черт! Куда он делся?");
+        _stateMachine.Boss.SetChaising(false);
     }
-    public override void AnimationUpdate() =>
-    _stateMachine.Boss.Animator.Play("Ходьба");
-    public override void PhysicsUpdate(){}
+    
     public override void LogicUpdate()
     {
+        _stateMachine.Boss.ChasePlayer();
         if (_stateMachine.Boss.IsPlayerNear() && _stateMachine.Boss.IsAttackReady())
-            _stateMachine.ChangeState(_stateMachine.CreateAttackState());
+            _stateMachine.ChangeState(new AttackState(_stateMachine));
         else if (!_stateMachine.Boss.IsPlayerInView())
         {
             _playerLost = true;
@@ -44,10 +45,10 @@ public class AttackState : AbstractBossState
 {
     public AttackState(BossStateMachine stateMachine) : base(stateMachine) { }
     public override void Enter() =>
-    _stateMachine.Boss.Say("Тебе конец!");
-    public override void AnimationUpdate() =>
-    _stateMachine.Boss.Animator.Play("Удар");
-    public override void PhysicsUpdate(){}
-    public override void LogicUpdate() =>
-    _stateMachine.ChangeState(new AggresiveState(_stateMachine));
+    _stateMachine.Boss.Animator.SetTrigger("Attack");
+    public override void LogicUpdate()
+    {
+        _stateMachine.Boss.Say("ATTAC");
+        _stateMachine.ChangeState(new AggresiveState(_stateMachine));
+    }
 }

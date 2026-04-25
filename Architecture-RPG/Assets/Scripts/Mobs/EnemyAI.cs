@@ -32,11 +32,11 @@ public class EnemyAI : MonoBehaviour
         target = FindAnyObjectByType<PlayerLifecycle>().transform;
         _agent = GetComponent<NavMeshAgent>();
         _mobsLifecycle = GetComponent<MobsLifecycle>();
-        _mobsLifecycle.EnemyDeath += Death;
+        _mobsLifecycle.DeathEvent += Death;
     }
     void OnDestroy()
     {
-        _mobsLifecycle.EnemyDeath -= Death;
+        _mobsLifecycle.DeathEvent -= Death;
     }
     void Update()
     {

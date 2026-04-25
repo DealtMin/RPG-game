@@ -2,10 +2,11 @@ using UnityEngine;
 using System.Collections;
 using System;
 
-public class MobsLifecycle : MonoBehaviour, IDamagable
+public class MobsLifecycle : MonoBehaviour, IHealthController, IDamagable
 {
-    public event Action<int> EnemyTakeDamage;
-    public event Action EnemyDeath;
+    public event Action<int> TakeDamage;
+    public event Action DeathEvent;
+
     private bool _canDamage;
     [SerializeField] private float damageInvincibility = 1.5f;
     [SerializeField] private int health;
@@ -29,8 +30,7 @@ public class MobsLifecycle : MonoBehaviour, IDamagable
                 Death();
             }
             _canDamage = false;
-            StartCoroutine(DamageCountDown(damageInvincibility));
-            EnemyTakeDamage.Invoke(health);
+            TakeDamage.Invoke(health);
             damageParticles.Play();
             _audio.PlaySound(hitClip);
         }
@@ -38,7 +38,7 @@ public class MobsLifecycle : MonoBehaviour, IDamagable
 
     public void Death()
     {
-        EnemyDeath.Invoke();
+        DeathEvent.Invoke();
         damageParticles.Play();
     }
     
@@ -52,6 +52,6 @@ public class MobsLifecycle : MonoBehaviour, IDamagable
 
     public void RestoreHealth(int value) {
         health = value;
-        EnemyTakeDamage.Invoke(value);
+        TakeDamage.Invoke(value);
     }
 }

@@ -7,7 +7,5 @@ public abstract class AbstractBossState
     }
     public virtual void Enter() { }
     public virtual void Exit() { }
-    public abstract void AnimationUpdate();
-    public abstract void PhysicsUpdate();
     public abstract void LogicUpdate();
 }

@@ -17,7 +17,7 @@ public class EnemyAnimationController : MonoBehaviour
         _enemyAI.EnemyAttack += Attack;
         _enemyAI.EnemyChaising += Chase;
         _enemyAI.EnemyIdle += Idle;
-        _mobsLifecycle.EnemyDeath += DeathAnimation;
+        _mobsLifecycle.DeathEvent += DeathAnimation;
     }
     public void Idle()
     {
@@ -46,6 +46,6 @@ public class EnemyAnimationController : MonoBehaviour
         _enemyAI.EnemyAttack -= Attack;
         _enemyAI.EnemyChaising -= Chase;
         _enemyAI.EnemyIdle -= Idle;
-        _mobsLifecycle.EnemyDeath -= DeathAnimation;
+        _mobsLifecycle.DeathEvent -= DeathAnimation;
     }
 }

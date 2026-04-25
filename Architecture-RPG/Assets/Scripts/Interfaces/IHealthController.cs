@@ -1,0 +1,10 @@
+using UnityEngine;
+using System;
+
+public interface IHealthController
+{
+    event Action<int> TakeDamage;
+    event Action DeathEvent;
+    void Damage(int damage);
+    int GetHealth();
+}
