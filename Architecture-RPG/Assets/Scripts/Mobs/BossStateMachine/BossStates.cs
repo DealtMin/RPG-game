@@ -3,8 +3,8 @@ using System.Diagnostics;
 public class StayState : AbstractBossState
 {
     public StayState(BossStateMachine stateMachine) : base(stateMachine) { }
-     public override void Enter() =>
-    _stateMachine.Boss.Animator.SetTrigger("Stop");
+    public override void Enter() =>
+   _stateMachine.Boss.Animator.SetTrigger("Idle");
     public override void LogicUpdate()
     {
         if (_stateMachine.Boss.IsPlayerInView())
@@ -20,7 +20,6 @@ public class AggresiveState : AbstractBossState
         _stateMachine.Boss.SetChaising(true);
         _stateMachine.Boss.Animator.SetTrigger("Walk");
         _stateMachine.Boss.Say("Я вижу тебя! Ха-Ха-Ха-Ха");
-        _playerLost = false;
     }
     public override void Exit()
     {
@@ -28,11 +27,11 @@ public class AggresiveState : AbstractBossState
             _stateMachine.Boss.Say("Черт! Куда он делся?");
         _stateMachine.Boss.SetChaising(false);
     }
-    
+
     public override void LogicUpdate()
     {
         _stateMachine.Boss.ChasePlayer();
-        if (_stateMachine.Boss.IsPlayerNear() && _stateMachine.Boss.IsAttackReady())
+        if (_stateMachine.Boss.IsPlayerNear())
             _stateMachine.ChangeState(new AttackState(_stateMachine));
         else if (!_stateMachine.Boss.IsPlayerInView())
         {
@@ -48,8 +47,8 @@ public class AttackState : AbstractBossState
     _stateMachine.Boss.Animator.SetTrigger("Attack");
     public override void LogicUpdate()
     {
-        _stateMachine.Boss.Say("ATTAC");
-        _stateMachine.ChangeState(new WaitToAttackState(_stateMachine));
+        if (!_stateMachine.Boss.IsAttackReady())
+            _stateMachine.ChangeState(new WaitToAttackState(_stateMachine));
     }
 }
 
@@ -60,12 +59,11 @@ public class WaitToAttackState : AbstractBossState
     _stateMachine.Boss.Animator.SetTrigger("Stop");
     public override void LogicUpdate()
     {
+
+        if (!_stateMachine.Boss.IsPlayerNear())
+            _stateMachine.ChangeState(new AggresiveState(_stateMachine));
         if (_stateMachine.Boss.IsPlayerNear() && _stateMachine.Boss.IsAttackReady())
             _stateMachine.ChangeState(new AttackState(_stateMachine));
-        else if (!_stateMachine.Boss.IsPlayerNear())
-        {
-            _stateMachine.ChangeState(new StayState(_stateMachine));
-        }
     }
 }
 
@@ -76,7 +74,5 @@ public class DeathState : AbstractBossState
     _stateMachine.Boss.Animator.SetTrigger("Death");
     public override void LogicUpdate()
     {
-        _stateMachine.Boss.Say("ATTAC");
-        _stateMachine.ChangeState(new AggresiveState(_stateMachine));
     }
 }

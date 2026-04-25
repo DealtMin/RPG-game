@@ -4873,6 +4873,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BOSS
       objectReference: {fileID: 0}
+    - target: {fileID: 7186647253216001966, guid: 56569b7746471f84d9a8e2761880d142, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8248530213354042861, guid: 56569b7746471f84d9a8e2761880d142, type: 3}
       propertyPath: damageParticles
       value: 
