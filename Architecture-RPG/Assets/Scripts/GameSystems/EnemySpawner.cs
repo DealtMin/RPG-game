@@ -30,8 +30,8 @@ public class EnemySpawner : MonoBehaviour
                 Vector3 newpos = RandomPosition(_minBound, _maxBound);
                 
                 GameObject newEnemy = Instantiate(_enemies[i], newpos, Quaternion.identity);
-                EnemyAI enemyai = newEnemy.GetComponent<EnemyAI>();
-                enemyai.Construct(_playerTransform);
+                Enemy enemy = newEnemy.GetComponent<Enemy>();
+                enemy.Construct(_playerTransform);
             }
         }
     }

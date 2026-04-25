@@ -11,11 +11,9 @@ GameObject:
   - component: {fileID: 7334552434653462247}
   - component: {fileID: 7092724915204157122}
   - component: {fileID: 7902159211081091451}
-  - component: {fileID: 5670949550517132795}
-  - component: {fileID: 4932589759504537508}
-  - component: {fileID: 4687165571157370463}
   - component: {fileID: 8843009830202772564}
   - component: {fileID: 6272220320428386364}
+  - component: {fileID: 9068572517315180755}
   m_Layer: 6
   m_Name: Mage_basic
   m_TagString: Untagged
@@ -77,52 +75,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MobsUIController
   healthBar: {fileID: 5376318593655804386}
---- !u!114 &5670949550517132795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 587124131627780011}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82124f86a1d7e5a469a7a23a4cd93ebd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MobsLifecycle
-  damageInvincibility: 1.5
-  health: 100
-  damageParticles: {fileID: 2822229034176777714}
-  hitClip: {fileID: 8300000, guid: 65aa2de912d43f14e9d752055192cb88, type: 3}
---- !u!114 &4932589759504537508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 587124131627780011}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98963942bf79cb44d87829212cc3ca42, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimation
---- !u!114 &4687165571157370463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 587124131627780011}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 958f196c2c940ed449eb224f8faf7eb1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MobsAI
-  enemyType: 1
-  target: {fileID: 0}
-  attackCoolDown: 3
-  noticeDistance: 15
-  magicAttack: {fileID: 1976600953557367964, guid: de7e3376411af3b488cca36212c8bfc6, type: 3}
-  magicSpawmPoint: {fileID: 8790784006324362290}
 --- !u!136 &8843009830202772564
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -158,6 +110,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b4bcc52dfbe4b74b8334a41dc5f4001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIControllerBase
+--- !u!114 &9068572517315180755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587124131627780011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597fb27fc88883e4b9d7c110e0aa8931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  magicAttack: {fileID: 0}
+  magicSpawmPoint: {fileID: 0}
+  isRange: 1
+  MaxHealth: 120
+  attackCoolDown: 1.5
+  noticeDistance: 10
+  damageInvincibility: 1.5
+  hitClip: {fileID: 0}
+  damageParticles: {fileID: 0}
 --- !u!1 &2586865222322792152
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,11 +239,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e441bd9830d3a0f479f14ece3ce968ba, type: 3}
---- !u!198 &2822229034176777714 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 706910001049880045, guid: e441bd9830d3a0f479f14ece3ce968ba, type: 3}
-  m_PrefabInstance: {fileID: 3379354193945511967}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8832593116374557607 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6086135614402046904, guid: e441bd9830d3a0f479f14ece3ce968ba, type: 3}
