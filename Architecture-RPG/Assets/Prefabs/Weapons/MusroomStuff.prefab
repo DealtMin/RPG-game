@@ -88,14 +88,14 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.1300211, y: 1.2641692, z: 0.18539704}
-  m_Center: {x: 0.0074567795, y: 0.6434461, z: 0.0024186447}
+  m_Size: {x: 0.29357463, y: 1.2641692, z: 0.24830206}
+  m_Center: {x: 0.0074567795, y: 0.6434461, z: 0.0055639073}
 --- !u!114 &-2809647513274836469
 MonoBehaviour:
   m_ObjectHideFlags: 0

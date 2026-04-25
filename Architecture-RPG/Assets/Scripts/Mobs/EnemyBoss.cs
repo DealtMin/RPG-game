@@ -4,6 +4,11 @@ using UnityEngine.AI;
 
 public class EnemyBoss : MonoBehaviour, IDamagable, IMobController
 {
+
+    [SerializeField] private GameObject magicAttack;
+    [SerializeField] private Transform magicSpawmPoint;
+    [SerializeField] private float secondPhaseStoppingDistance = 2f;
+    public GameObject MagicAttackPrefab => magicAttack;
     public Animator Animator { get; protected set; }
     public int MaxHealth { get; private set; } = 100;
     [SerializeField] private float attackCoolDown = 1.5f;
@@ -14,7 +19,7 @@ public class EnemyBoss : MonoBehaviour, IDamagable, IMobController
     private NavMeshAgent _agent;
     private bool attackReady = true;
     private bool _canDamage;
-    private IHealthController healthController;
+    private BossHealthController healthController;
     [SerializeField] private AudioClip hitClip;
     [SerializeField] private ParticleSystem damageParticles;
     private IAudioService _audio;
@@ -26,6 +31,11 @@ public class EnemyBoss : MonoBehaviour, IDamagable, IMobController
         _agent = GetComponent<NavMeshAgent>();
         Animator = GetComponentInChildren<Animator>();
         _stateMachine = new BossStateMachine(this);
+        healthController.SecondPhase += SecondPhase;
+    }
+    void Update()
+    {
+        _stateMachine?.CurrentState.LogicUpdate();
     }
     public void Damage(int damage)
     {
@@ -36,10 +46,14 @@ public class EnemyBoss : MonoBehaviour, IDamagable, IMobController
         healthController.Damage(damage);
         Debug.Log($"Босс получил {damage} урона. HP: {healthController.GetHealth()}/{MaxHealth}");
     }
-    void Update()
+    public void RangeAttack()
     {
-        _stateMachine?.CurrentState.LogicUpdate();
+        GameObject newMagicBall = Instantiate(magicAttack, magicSpawmPoint.position, Quaternion.identity);
+        MushroomBallBehaviour mushroomBall = newMagicBall.GetComponent<MushroomBallBehaviour>();
+
+        mushroomBall.Construct(target, gameObject.transform);
     }
+
     public void Say(string message) =>
     Debug.Log($"Босс: \"{message}\"");
     public bool IsPlayerInView()
@@ -50,15 +64,14 @@ public class EnemyBoss : MonoBehaviour, IDamagable, IMobController
     {
         return Vector3.Distance(target.position, transform.position) < _agent.stoppingDistance;
     }
-    public bool IsAttackReady()
+    public bool IsAttackReady() => attackReady;
+    public void SetAttackCoolDown()
     {
         if (attackReady)
         {
             attackReady = false;
             StartCoroutine(AttackPermission(attackCoolDown));
-            return !attackReady;
         }
-        return attackReady;
     }
     private IEnumerator AttackPermission(float coolDown)
     {
@@ -82,9 +95,19 @@ public class EnemyBoss : MonoBehaviour, IDamagable, IMobController
     {
         return healthController;
     }
-    public IEnumerator DamageCountDown(float coolDown)
+    private IEnumerator DamageCountDown(float coolDown)
     {
         yield return new WaitForSeconds(coolDown);
         _canDamage = true;
+    }
+    private void SetFightStateMachine(BossStateMachine fightSM)
+    {
+        _stateMachine = fightSM;
+        _stateMachine.Initialize();
+    }
+    public void SecondPhase()
+    {
+        _agent.stoppingDistance = secondPhaseStoppingDistance;
+        SetFightStateMachine(new Phase2BossFightStateMachine(this));
     }
 }
