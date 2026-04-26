@@ -59,7 +59,7 @@ public class EnemyAggresiveState : AbstractEnemyState
     {
         _stateMachine.Enemy.ChasePlayer();
         if (_stateMachine.Enemy.IsPlayerNear())
-            _stateMachine.ChangeState(new EnemyAttackState(_stateMachine));
+            _stateMachine.ChangeState(new EnemyWaitToAttackState(_stateMachine));
         else if (!_stateMachine.Enemy.IsPlayerInView())
         {
             _stateMachine.ChangeState(new EnemyStayState(_stateMachine));
@@ -73,13 +73,9 @@ public class EnemyAttackState : AbstractEnemyState
     _stateMachine.Enemy.Animator.SetTrigger("Attack");
     public override void LogicUpdate()
     {
-        if (!_stateMachine.Enemy.IsAttackReady())
-            _stateMachine.ChangeState(new EnemyWaitToAttackState(_stateMachine));
-        else 
-        {
-            _stateMachine.Enemy.Attack();
-            _stateMachine.Enemy.SetAttackCoolDown();
-        }
+        _stateMachine.Enemy.Attack();
+        _stateMachine.Enemy.SetAttackCoolDown();
+        _stateMachine.ChangeState(new EnemyWaitToAttackState(_stateMachine));
     }
 }
 
@@ -90,8 +86,9 @@ public class EnemyWaitToAttackState : AbstractEnemyState
     _stateMachine.Enemy.Animator.SetTrigger("Stop");
     public override void LogicUpdate()
     {
-
-        if (!_stateMachine.Enemy.IsPlayerNear())
+        if (!_stateMachine.Enemy.IsPlayerInView())
+            _stateMachine.ChangeState(new EnemyStayState(_stateMachine));
+        if (!_stateMachine.Enemy.IsPlayerNear() && _stateMachine.Enemy.IsPlayerInView())
             _stateMachine.ChangeState(new EnemyAggresiveState(_stateMachine));
         if (_stateMachine.Enemy.IsPlayerNear() && _stateMachine.Enemy.IsAttackReady())
             _stateMachine.ChangeState(new EnemyAttackState(_stateMachine));

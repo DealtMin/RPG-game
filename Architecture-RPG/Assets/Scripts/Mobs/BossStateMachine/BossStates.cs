@@ -38,7 +38,7 @@ public class BossAggresiveState : AbstractBossState
     {
         _stateMachine.Boss.ChasePlayer();
         if (_stateMachine.Boss.IsPlayerNear())
-            _stateMachine.ChangeState(_stateMachine.CreateAttackState());
+            _stateMachine.ChangeState(new BossWaitToAttackState(_stateMachine));
         else if (!_stateMachine.Boss.IsPlayerInView())
         {
             _stateMachine.ChangeState(new BossStayState(_stateMachine));
@@ -52,13 +52,9 @@ public class BossAttackState : AbstractBossState
     _stateMachine.Boss.Animator.SetTrigger("RangeAttack");
     public override void LogicUpdate()
     {
-        if (!_stateMachine.Boss.IsAttackReady())
-            _stateMachine.ChangeState(new BossWaitToAttackState(_stateMachine));
-        else 
-        {
-            _stateMachine.Boss.RangeAttack();
-            _stateMachine.Boss.SetAttackCoolDown();
-        }
+        _stateMachine.Boss.RangeAttack();
+        _stateMachine.Boss.SetAttackCoolDown();
+        _stateMachine.ChangeState(new BossWaitToAttackState(_stateMachine));
     }
 }
 
@@ -69,8 +65,9 @@ public class BossWaitToAttackState : AbstractBossState
     _stateMachine.Boss.Animator.SetTrigger("Stop");
     public override void LogicUpdate()
     {
-
-        if (!_stateMachine.Boss.IsPlayerNear())
+        if (!_stateMachine.Boss.IsPlayerInView())
+            _stateMachine.ChangeState(new BossStayState(_stateMachine));
+        if (!_stateMachine.Boss.IsPlayerNear() && _stateMachine.Boss.IsPlayerInView())
             _stateMachine.ChangeState(new BossAggresiveState(_stateMachine));
         if (_stateMachine.Boss.IsPlayerNear() && _stateMachine.Boss.IsAttackReady())
             _stateMachine.ChangeState(_stateMachine.CreateAttackState());
@@ -82,9 +79,7 @@ public class BossDeathState : AbstractBossState
     public BossDeathState(BossStateMachine stateMachine) : base(stateMachine) { }
     public override void Enter() =>
     _stateMachine.Boss.Animator.SetTrigger("Death");
-    public override void LogicUpdate()
-    {
-    }
+    public override void LogicUpdate(){}
 }
 
 public class Phase2AttackState : AbstractBossState
@@ -94,8 +89,7 @@ public class Phase2AttackState : AbstractBossState
     _stateMachine.Boss.Animator.SetTrigger("Attack");
     public override void LogicUpdate()
     {
-        if (!_stateMachine.Boss.IsAttackReady())
-            _stateMachine.ChangeState(new BossWaitToAttackState(_stateMachine));
-        else _stateMachine.Boss.SetAttackCoolDown();
+        _stateMachine.Boss.SetAttackCoolDown();
+        _stateMachine.ChangeState(new BossWaitToAttackState(_stateMachine));
     }
 }
