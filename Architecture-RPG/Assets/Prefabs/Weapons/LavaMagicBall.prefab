@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 6339515376307261344}
   - component: {fileID: 1319331206649204962}
   - component: {fileID: -687009016432194482}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LavaMagicBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}

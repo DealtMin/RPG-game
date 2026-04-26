@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 7007182121978166464}
   - component: {fileID: 7637486522270477570}
   - component: {fileID: 2972305683981176395}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WaterMagicBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
