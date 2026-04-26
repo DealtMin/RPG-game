@@ -23,16 +23,16 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
 
         // 1. СОХРАНЯЕМ МОБОВ
         data.Enemies.Clear();
-        MobsLifecycle[] sceneMobs = Object.FindObjectsByType<MobsLifecycle>(FindObjectsSortMode.None);
+        Enemy[] sceneMobs = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
         foreach (var mob in sceneMobs)
         {
-            if (mob.GetHealth() > 0)
+            if (mob.GetHealthController().GetHealth() > 0)
             {
                 data.Enemies.Add(new EnemySaveData
                 {
                     Type = mob.gameObject.name.Replace("(Clone)", "").Trim(),
                     Position = mob.transform.position,
-                    CurrentHp = mob.GetHealth()
+                    CurrentHp = mob.GetHealthController().GetHealth()
                 });
             }
         }
@@ -58,20 +58,14 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
     public void LoadGame()
     {
         var interactor = ServiceLocator.Get<GameInteractor>();
+        var settings = ServiceLocator.Get<ISettingsLoader>();
         
         PlayerData data = interactor.LoadGame();
-
-        // Проверка: если данных нет или позиция нулевая - выходим
-        if (data == null || data.Position == Vector3.zero) 
-        {
-            Debug.LogWarning("[SaveSystem] Не удалось получить данные из LoadGame()");
-            return;
-        }
 
         if (data == null || data.Position == Vector3.zero) return;
 
         // --- ОЧИСТКА ---
-        foreach (var m in Object.FindObjectsByType<MobsLifecycle>(FindObjectsSortMode.None)) Destroy(m.gameObject);
+        foreach (var m in Object.FindObjectsByType<Enemy>(FindObjectsSortMode.None)) Destroy(m.gameObject);
         foreach (var p in Object.FindObjectsByType<MagicAttackBehaivour>(FindObjectsSortMode.None))
             Destroy(p.gameObject);
 
@@ -89,8 +83,9 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
             if (prefab != null)
             {
                 GameObject newEnemy = Instantiate(prefab, savedEnemy.Position, Quaternion.identity);
-                newEnemy.GetComponent<EnemyAI>()?.Construct(_playerObject.transform);
-                newEnemy.GetComponent<MobsLifecycle>()?.RestoreHealth((int)savedEnemy.CurrentHp);
+                Enemy enemy = newEnemy.GetComponent<Enemy>();
+                enemy?.Construct(_playerObject.transform, settings.LoadPlayMode());
+                enemy.GetHealthController().RestoreHealth((int)savedEnemy.CurrentHp);
             }
         }
 
@@ -111,7 +106,7 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
                 // ПРОВЕРКА: Если не игрока, ищем во врагах из массива
                 foreach (var ePrefab in _enemies)
                 {
-                    var ai = ePrefab.GetComponent<EnemyAI>();
+                    var ai = ePrefab.GetComponent<Enemy>();
                     if (ai != null && ai.MagicAttackPrefab != null && ai.MagicAttackPrefab.name == pData.Type)
                     {
                         finalPrefab = ai.MagicAttackPrefab;

@@ -4,8 +4,8 @@ using System.Collections;
 
 public class PlayerLifecycle : MonoBehaviour, IDamagable
 {
-    public event Action<int> PlayerTakeDamage;
-    public event Action PlayerDeath;
+    public event Action<int> TakeDamage;
+    public event Action DeathEvent;
     private PlayerInputHandler _inputHandler;
     private bool _canDamage;
     private IAudioService _audio;
@@ -26,7 +26,7 @@ public class PlayerLifecycle : MonoBehaviour, IDamagable
     {
         if (_canDamage)
         {
-            PlayerTakeDamage.Invoke(health);
+            TakeDamage.Invoke(health);
             health = Math.Clamp(health - damage, 0, 100);
             _canDamage = false;
             damageParticles.Play();
@@ -53,7 +53,7 @@ public class PlayerLifecycle : MonoBehaviour, IDamagable
 
     public void Death()
     {
-        PlayerDeath.Invoke();
+        DeathEvent.Invoke();
         _inputHandler.DisableInput();
     }
 
@@ -62,6 +62,6 @@ public class PlayerLifecycle : MonoBehaviour, IDamagable
 // Позволяет загрузить ХП и обновить UI
     public void RestoreHealth(int value) {
         health = value;
-        PlayerTakeDamage.Invoke(value);
+        TakeDamage.Invoke(value);
     }
 }

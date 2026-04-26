@@ -16,7 +16,7 @@ public class PlayerUIController : MonoBehaviour
     private void Start()
     {
         _playerLifeCycle = GetComponent<PlayerLifecycle>();
-        _playerLifeCycle.PlayerTakeDamage += ReduceHealth;
+        _playerLifeCycle.TakeDamage += ReduceHealth;
         _audio = ServiceLocator.Get<IAudioService>();
         _uiService = ServiceLocator.Get<IUIService>();
         _saver = ServiceLocator.Get<ISaveSystem>();
@@ -90,6 +90,6 @@ public class PlayerUIController : MonoBehaviour
     }
     void OnDestroy()
     {
-        _playerLifeCycle.PlayerTakeDamage -= ReduceHealth;
+        _playerLifeCycle.TakeDamage -= ReduceHealth;
     }
 }
