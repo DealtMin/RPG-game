@@ -94,6 +94,18 @@ PrefabInstance:
       value: IceParticles
       objectReference: {fileID: 0}
     - target: {fileID: 5661910416155421724, guid: 50d0cb2ea3689104baafaa8d7d9f7f47, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.36000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 5661910416155421724, guid: 50d0cb2ea3689104baafaa8d7d9f7f47, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 5661910416155421724, guid: 50d0cb2ea3689104baafaa8d7d9f7f47, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 5661910416155421724, guid: 50d0cb2ea3689104baafaa8d7d9f7f47, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.007461548
       objectReference: {fileID: 0}
@@ -131,6 +143,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5661910416155421724, guid: 50d0cb2ea3689104baafaa8d7d9f7f47, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5661910416155421724, guid: 50d0cb2ea3689104baafaa8d7d9f7f47, type: 3}
+      propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

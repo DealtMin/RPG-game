@@ -2762,11 +2762,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1476635396350600757, guid: fc9bc09aa2b92ab4ca324e33735c5ad4, type: 3}
   m_PrefabInstance: {fileID: 842118189}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &900208674 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3238987795099825534, guid: b0a7e6d8378c77540963a52415cbf3bd, type: 3}
-  m_PrefabInstance: {fileID: 541599251}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &900478353
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3559,6 +3554,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1476635396350600757, guid: fc9bc09aa2b92ab4ca324e33735c5ad4, type: 3}
   m_PrefabInstance: {fileID: 1197993083}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &1310078335 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3032657738752839895, guid: 56569b7746471f84d9a8e2761880d142, type: 3}
+  m_PrefabInstance: {fileID: 5377039369382879959}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1401354884
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3794,7 +3794,7 @@ MonoBehaviour:
   enemies:
   - {fileID: 587124131627780011, guid: 0095ec4698096894e857826a0788e25a, type: 3}
   - {fileID: 2084805061245644690, guid: f606b3868f4aca54c83edc80cacc8c5c, type: 3}
-  enemiesCount: 0500000019000000
+  enemiesCount: 0000000000000000
   maxBound: {fileID: 78114932}
   minBound: {fileID: 421735757}
   mainTheme: {fileID: 8300000, guid: c5515ede317232049b4101be962561ad, type: 3}
@@ -4837,6 +4837,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 174545198445071597, guid: 56569b7746471f84d9a8e2761880d142, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 590816220944959026, guid: 56569b7746471f84d9a8e2761880d142, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.08906731
@@ -4877,6 +4881,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2754690202359169874, guid: 56569b7746471f84d9a8e2761880d142, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5029137072988402227, guid: 56569b7746471f84d9a8e2761880d142, type: 3}
       propertyPath: m_Name
       value: BOSS
@@ -4885,8 +4893,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5368853935789712517, guid: 56569b7746471f84d9a8e2761880d142, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7186647253216001966, guid: 56569b7746471f84d9a8e2761880d142, type: 3}
       propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7505829604267536876, guid: 56569b7746471f84d9a8e2761880d142, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8248530213354042861, guid: 56569b7746471f84d9a8e2761880d142, type: 3}
@@ -4900,7 +4916,7 @@ PrefabInstance:
     - target: {fileID: 8248530213354042861, guid: 56569b7746471f84d9a8e2761880d142, type: 3}
       propertyPath: damageParticles
       value: 
-      objectReference: {fileID: 900208674}
+      objectReference: {fileID: 1310078335}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
