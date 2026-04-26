@@ -26,3 +26,11 @@ public class Phase2BossFightStateMachine : BossStateMachine
     public override AbstractBossState CreateAttackState() =>
     new Phase2AttackState(this);
 }
+
+public class BossPassiveStateMachine : BossStateMachine
+{
+    public BossPassiveStateMachine(EnemyBoss boss) : base(boss)
+    {
+        CurrentState = new BossPassiveState(this);
+    }
+}

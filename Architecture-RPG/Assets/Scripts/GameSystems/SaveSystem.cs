@@ -58,6 +58,7 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
     public void LoadGame()
     {
         var interactor = ServiceLocator.Get<GameInteractor>();
+        var settings = ServiceLocator.Get<ISettingsLoader>();
         
         PlayerData data = interactor.LoadGame();
 
@@ -83,7 +84,7 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
             {
                 GameObject newEnemy = Instantiate(prefab, savedEnemy.Position, Quaternion.identity);
                 Enemy enemy = newEnemy.GetComponent<Enemy>();
-                enemy?.Construct(_playerObject.transform);
+                enemy?.Construct(_playerObject.transform, settings.LoadPlayMode());
                 enemy.GetHealthController().RestoreHealth((int)savedEnemy.CurrentHp);
             }
         }

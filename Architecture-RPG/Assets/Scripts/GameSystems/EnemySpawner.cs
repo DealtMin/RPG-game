@@ -19,6 +19,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void Spawn()
     {
+        var settings = ServiceLocator.Get<ISettingsLoader>();
         if (_playerTransform == null)
         {
             _playerTransform = FindAnyObjectByType<PlayerController>().transform;
@@ -31,7 +32,7 @@ public class EnemySpawner : MonoBehaviour
                 
                 GameObject newEnemy = Instantiate(_enemies[i], newpos, Quaternion.identity);
                 Enemy enemy = newEnemy.GetComponent<Enemy>();
-                enemy.Construct(_playerTransform);
+                enemy.Construct(_playerTransform, settings.LoadPlayMode());
             }
         }
     }

@@ -9,6 +9,17 @@ public class BossStayState : AbstractBossState
             _stateMachine.ChangeState(new BossAggresiveState(_stateMachine));
     }
 }
+public class BossPassiveState : AbstractBossState
+{
+    public BossPassiveState(BossStateMachine stateMachine) : base(stateMachine) { }
+    public override void Enter() =>
+   _stateMachine.Boss.Animator.SetTrigger("Idle");
+    public override void LogicUpdate()
+    {
+        if (_stateMachine.Boss.wasAttaked)
+            _stateMachine.ChangeState(new BossAggresiveState(_stateMachine));
+    }
+}
 public class BossAggresiveState : AbstractBossState
 {
 

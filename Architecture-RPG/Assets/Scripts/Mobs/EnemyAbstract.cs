@@ -4,48 +4,54 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour, IDamagable, IMobController
 {
-    [SerializeField] private GameObject magicAttack;
-    [SerializeField] private Transform magicSpawmPoint;
     public GameObject MagicAttackPrefab => magicAttack;
     public Animator Animator { get; private set; }
+    [SerializeField] private GameObject magicAttack;
+    [SerializeField] private Transform magicSpawmPoint;
     [SerializeField] bool isRange = true;
     [SerializeField] private int MaxHealth = 120;
     [SerializeField] private float attackCoolDown = 1.5f;
     [SerializeField] private float noticeDistance = 10;
     [SerializeField] private float damageInvincibility = 1.5f;
-    private EnemyStateMachine _stateMachine;
-    private Transform target;
-    private NavMeshAgent _agent;
-    private bool attackReady = true;
-    private bool _canDamage = true;
-    private EnemyHealthController healthController;
     [SerializeField] private AudioClip hitClip;
     [SerializeField] private ParticleSystem damageParticles;
+    private EnemyStateMachine _stateMachine;
+    private Transform _target;
+    private NavMeshAgent _agent;
+    private bool _attackReady = true;
+    private bool _canDamage = true;
+    private EnemyHealthController _healthController;
+
     private IAudioService _audio;
-    private ISettingsLoader settings;
-    private AbstractEnemyState initialState;
-    public void Construct(Transform transform) => target=transform;
-    
+    public void Construct(Transform transform, int gamemode)
+    {
+        _target = transform;
+        CreateStateMachine(gamemode);
+    }
+
     void Awake()
     {
-        healthController = new EnemyHealthController(MaxHealth);
-        _audio = ServiceLocator.Get<IAudioService>();
-        settings = ServiceLocator.Get<ISettingsLoader>();
-        _agent = GetComponent<NavMeshAgent>();
         Animator = GetComponentInChildren<Animator>();
-        _stateMachine = CreateStateMachine(settings.GetPlayModeIndex());
-        healthController.DeathEvent += Death;
+
+        _audio = ServiceLocator.Get<IAudioService>();
+        _agent = GetComponent<NavMeshAgent>();
+        _healthController = new EnemyHealthController(MaxHealth);
+        _healthController.DeathEvent += Death;
     }
-    EnemyStateMachine CreateStateMachine(int index)
+    void CreateStateMachine(int mode)
     {
-        if (index == 0) return new EnemyPassiveStateMachine(this);
-        return new EnemyStateMachine(this);
+        if (mode == (int)GameMode.easy)
+        {
+            _stateMachine = new EnemyPassiveStateMachine(this);
+            return;
+        }
+        _stateMachine = new EnemyStateMachine(this);
     }
     void Update()
     {
         _stateMachine?.CurrentState.LogicUpdate();
     }
-    void OnDestroy() => healthController.DeathEvent -= Death;
+    void OnDestroy() => _healthController.DeathEvent -= Death;
     public void Damage(int damage)
     {
         if (_canDamage)
@@ -54,8 +60,13 @@ public class Enemy : MonoBehaviour, IDamagable, IMobController
             StartCoroutine(DamageCountDown(damageInvincibility));
             damageParticles.Play();
             _audio.PlaySound(hitClip);
-            healthController.Damage(damage);
+            _healthController.Damage(damage);
         }
+    }
+    private IEnumerator DamageCountDown(float coolDown)
+    {
+        yield return new WaitForSeconds(coolDown);
+        _canDamage = true;
     }
     public void Attack()
     {
@@ -63,12 +74,26 @@ public class Enemy : MonoBehaviour, IDamagable, IMobController
         {
             GameObject newMagicBall = Instantiate(magicAttack, magicSpawmPoint.position, Quaternion.identity);
             MagicAttackBehaivour magicBeh = newMagicBall.GetComponent<MagicAttackBehaivour>();
-            magicBeh.Construct(target, gameObject.transform);
+            magicBeh.Construct(_target, gameObject.transform);
         }
+    }
+    public bool IsAttackReady() => _attackReady;
+    public void SetAttackCoolDown()
+    {
+        if (_attackReady)
+        {
+            _attackReady = false;
+            StartCoroutine(AttackPermission(attackCoolDown));
+        }
+    }
+    private IEnumerator AttackPermission(float coolDown)
+    {
+        yield return new WaitForSeconds(coolDown);
+        _attackReady = true;
     }
     public void Flee()
     {
-        Vector3 direction = (transform.position - target.position).normalized;
+        Vector3 direction = (transform.position - _target.position).normalized;
         Vector3 fleePosition = transform.position + direction * noticeDistance;
 
         NavMeshHit hit;
@@ -80,29 +105,16 @@ public class Enemy : MonoBehaviour, IDamagable, IMobController
     }
     public bool IsPlayerInView()
     {
-        return Vector3.Distance(target.position, transform.position) < noticeDistance; ;
+        return Vector3.Distance(_target.position, transform.position) < noticeDistance; ;
     }
     public bool IsPlayerNear()
     {
-        return Vector3.Distance(target.position, transform.position) < _agent.stoppingDistance;
+        return Vector3.Distance(_target.position, transform.position) < _agent.stoppingDistance;
     }
-    public bool IsAttackReady() => attackReady;
-    public void SetAttackCoolDown()
-    {
-        if (attackReady)
-        {
-            attackReady = false;
-            StartCoroutine(AttackPermission(attackCoolDown));
-        }
-    }
-    private IEnumerator AttackPermission(float coolDown)
-    {
-        yield return new WaitForSeconds(coolDown);
-        attackReady = true;
-    }
+
     public void ChasePlayer()
     {
-        _agent.destination = target.position;
+        _agent.destination = _target.position;
     }
     public void SetChaising(bool flag)
     {
@@ -112,16 +124,12 @@ public class Enemy : MonoBehaviour, IDamagable, IMobController
     {
         _stateMachine.ChangeState(new EnemyDeathState(_stateMachine));
         damageParticles.Play();
-        
+
     }
 
     public IHealthController GetHealthController()
     {
-        return healthController;
+        return _healthController;
     }
-    private IEnumerator DamageCountDown(float coolDown)
-    {
-        yield return new WaitForSeconds(coolDown);
-        _canDamage = true;
-    }
+
 }
