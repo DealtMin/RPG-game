@@ -107,9 +107,9 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
                 foreach (var ePrefab in _enemies)
                 {
                     var ai = ePrefab.GetComponent<Enemy>();
-                    if (ai != null && ai.MagicAttackPrefab != null && ai.MagicAttackPrefab.name == pData.Type)
+                    if (ai != null && ai.magicAttackPrefab != null && ai.magicAttackPrefab.name == pData.Type)
                     {
-                        finalPrefab = ai.MagicAttackPrefab;
+                        finalPrefab = ai.magicAttackPrefab;
                         target = _playerObject.transform; // Вражеской магии нужен таргет
                         break;
                     }

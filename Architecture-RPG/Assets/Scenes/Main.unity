@@ -3794,7 +3794,7 @@ MonoBehaviour:
   enemies:
   - {fileID: 587124131627780011, guid: 0095ec4698096894e857826a0788e25a, type: 3}
   - {fileID: 2084805061245644690, guid: f606b3868f4aca54c83edc80cacc8c5c, type: 3}
-  enemiesCount: 0000000000000000
+  enemiesCount: 1900000000000000
   maxBound: {fileID: 78114932}
   minBound: {fileID: 421735757}
   mainTheme: {fileID: 8300000, guid: c5515ede317232049b4101be962561ad, type: 3}

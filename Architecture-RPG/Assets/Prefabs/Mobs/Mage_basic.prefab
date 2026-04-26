@@ -122,7 +122,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 597fb27fc88883e4b9d7c110e0aa8931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  magicAttack: {fileID: 9026441651615635683, guid: 2d897bbc98b26e1449140aa73a0a2dc2, type: 3}
+  magicAttacks:
+  - {fileID: 9026441651615635683, guid: 2d897bbc98b26e1449140aa73a0a2dc2, type: 3}
+  - {fileID: 8092937987898722596, guid: d532ae0e9fd7e50408311a1d56b3aa04, type: 3}
+  - {fileID: 5347065549276226913, guid: 636e55e7a8dab844aa1044286b73262a, type: 3}
   magicSpawmPoint: {fileID: 8790784006324362290}
   isRange: 1
   MaxHealth: 100

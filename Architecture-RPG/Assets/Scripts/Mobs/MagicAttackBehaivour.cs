@@ -44,7 +44,7 @@ public class MagicAttackBehaivour : MonoBehaviour
         _rb.AddForce(_direction * speed, ForceMode.Force);
     }
     
-    void OnTriggerEnter()
+    void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
     }
