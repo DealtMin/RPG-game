@@ -4,7 +4,7 @@ using System.Collections;
 
 public class PlayerLifecycle : MonoBehaviour, IDamagable
 {
-    public event Action<int> TakeDamage;
+    public event Action<int, int> TakeDamage;
     public event Action DeathEvent;
     private PlayerInputHandler _inputHandler;
     private bool _canDamage;
@@ -13,6 +13,7 @@ public class PlayerLifecycle : MonoBehaviour, IDamagable
     [SerializeField] private float damageInvincibility = 2f;
     [SerializeField] private ParticleSystem damageParticles;
     [SerializeField] private AudioClip hitClip;
+    public int maxHealth { private set; get; }
     
     
     void Start()
@@ -20,13 +21,14 @@ public class PlayerLifecycle : MonoBehaviour, IDamagable
         _canDamage = true;
         _inputHandler = GetComponent<PlayerInputHandler>();
         _audio = ServiceLocator.Get<IAudioService>();
-        }
+        maxHealth = health;
+    }
 
     public void Damage(int damage)
     {
         if (_canDamage)
         {
-            TakeDamage.Invoke(health);
+            TakeDamage.Invoke(health, maxHealth);
             health = Math.Clamp(health - damage, 0, 100);
             _canDamage = false;
             damageParticles.Play();
@@ -62,6 +64,6 @@ public class PlayerLifecycle : MonoBehaviour, IDamagable
 // Позволяет загрузить ХП и обновить UI
     public void RestoreHealth(int value) {
         health = value;
-        TakeDamage.Invoke(value);
+        TakeDamage.Invoke(value, maxHealth);
     }
 }

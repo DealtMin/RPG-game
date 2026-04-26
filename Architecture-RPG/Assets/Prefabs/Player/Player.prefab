@@ -2419,6 +2419,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimationEvent
   playerUI: {fileID: 4864823010122338514}
+  playerLifecycle: {fileID: 5841020326807775313}
 --- !u!4 &4887176325522956499 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6819763103175150598, guid: f60a3645777fb264991dc365d076ee26, type: 3}

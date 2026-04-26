@@ -18,9 +18,9 @@ public class MobsUIController : MonoBehaviour
         _mobsLifecycle.TakeDamage += ReduceHealth;      
     }
 
-    public void ReduceHealth(int currHealth)
+    public void ReduceHealth(int currHealth, int maxHealth)
     {
-        _uiService.SetFillAmountImage(healthBar, currHealth);
+        _uiService.SetFillAmountImage(healthBar, currHealth, maxHealth);
     }
     void OnDestroy()
     {

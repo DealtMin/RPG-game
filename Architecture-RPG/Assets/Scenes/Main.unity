@@ -1732,7 +1732,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5841020326807775313, guid: b0a7e6d8378c77540963a52415cbf3bd, type: 3}
       propertyPath: health
-      value: 200
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5841020326807775313, guid: b0a7e6d8378c77540963a52415cbf3bd, type: 3}
       propertyPath: damageInvincibility

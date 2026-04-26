@@ -7,9 +7,9 @@ using UnityEngine.SceneManagement;
 public class UIService : MonoBehaviour, IUIService
 {
    
-    public void SetFillAmountImage(Image fillImage, int value)
+    public void SetFillAmountImage(Image fillImage, int value, int maxValue)
     {
-        fillImage.fillAmount = value * 0.01f;
+        fillImage.fillAmount = value * 1f /maxValue;
     }
 
     public void SetTMPRoText<T>(TMP_Text targetText, T value)
