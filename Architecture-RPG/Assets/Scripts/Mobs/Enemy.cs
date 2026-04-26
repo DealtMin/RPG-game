@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour, IDamagable, IMobController
     void Awake()
     {
         Animator = GetComponentInChildren<Animator>();
-        magicAttackPrefab = magicAttacks[RandomBetween(0, magicAttacks.Length)];
+        if (isRange) magicAttackPrefab = magicAttacks[RandomBetween(0, magicAttacks.Length)];
         _audio = ServiceLocator.Get<IAudioService>();
         _agent = GetComponent<NavMeshAgent>();
         _healthController = new EnemyHealthController(MaxHealth);

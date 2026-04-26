@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6286518322726943054}
   - component: {fileID: 3856067944095710382}
   m_Layer: 6
-  m_Name: Skeleton_basic
+  m_Name: Skeleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 597fb27fc88883e4b9d7c110e0aa8931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  magicAttack: {fileID: 0}
+  magicAttacks: []
   magicSpawmPoint: {fileID: 0}
   isRange: 0
   MaxHealth: 100
@@ -212,8 +212,16 @@ PrefabInstance:
       value: Wooden_sword_prefab
       objectReference: {fileID: 0}
     - target: {fileID: 2912134270354073008, guid: 47a01554c0926c44b9fd08c0693b25af, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912134270354073008, guid: 47a01554c0926c44b9fd08c0693b25af, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701099159948201423, guid: 47a01554c0926c44b9fd08c0693b25af, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 64
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -238,6 +246,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 765350592923161558}
     m_Modifications:
+    - target: {fileID: 4370928490158291897, guid: da93e26acc489904c80fc2ce62f49bb2, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 7182424009862230716, guid: da93e26acc489904c80fc2ce62f49bb2, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.007320757
@@ -293,6 +305,10 @@ PrefabInstance:
     - target: {fileID: 7558949174623037446, guid: da93e26acc489904c80fc2ce62f49bb2, type: 3}
       propertyPath: m_Name
       value: Metal_sword_prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 7558949174623037446, guid: da93e26acc489904c80fc2ce62f49bb2, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7558949174623037446, guid: da93e26acc489904c80fc2ce62f49bb2, type: 3}
       propertyPath: m_IsActive
