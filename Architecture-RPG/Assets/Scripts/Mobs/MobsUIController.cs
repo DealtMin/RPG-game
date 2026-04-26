@@ -13,8 +13,7 @@ public class MobsUIController : MonoBehaviour
     }
     private void Initialize()
     {
-        IMobController mobController = GetComponent<IMobController>();
-        _mobsLifecycle = mobController.GetHealthController();
+        _mobsLifecycle = GetComponent<IMobController>().GetHealthController();
         _uiService = ServiceLocator.Get<IUIService>();  
         _mobsLifecycle.TakeDamage += ReduceHealth;      
     }

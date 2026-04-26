@@ -9,9 +9,41 @@ public class EnemyStayState : AbstractEnemyState
             _stateMachine.ChangeState(new EnemyAggresiveState(_stateMachine));
     }
 }
+public class EnemyPassiveState : AbstractEnemyState
+{
+    public EnemyPassiveState(EnemyStateMachine stateMachine) : base(stateMachine) { }
+    public override void Enter() =>
+   _stateMachine.Enemy.Animator.SetTrigger("Idle");
+    public override void LogicUpdate()
+    {
+        if (_stateMachine.Enemy.IsPlayerInView())
+            _stateMachine.ChangeState(new EnemyScareState(_stateMachine));
+    }
+}
+public class EnemyScareState : AbstractEnemyState
+{
+    public EnemyScareState(EnemyStateMachine stateMachine) : base(stateMachine) { }
+    public override void Enter()
+    {
+        _stateMachine.Enemy.SetChaising(true);
+        _stateMachine.Enemy.Animator.SetTrigger("Walk");
+    }
+    public override void Exit()
+    {
+        _stateMachine.Enemy.SetChaising(false);
+    }
+
+    public override void LogicUpdate()
+    {
+        _stateMachine.Enemy.Flee();
+        if (!_stateMachine.Enemy.IsPlayerInView())
+        {
+            _stateMachine.ChangeState(new EnemyPassiveState(_stateMachine));
+        }
+    }
+}
 public class EnemyAggresiveState : AbstractEnemyState
 {
-
     public EnemyAggresiveState(EnemyStateMachine stateMachine) : base(stateMachine) { }
     public override void Enter()
     {
@@ -38,7 +70,7 @@ public class EnemyAttackState : AbstractEnemyState
 {
     public EnemyAttackState(EnemyStateMachine stateMachine) : base(stateMachine) { }
     public override void Enter() =>
-    _stateMachine.Enemy.Animator.SetTrigger("RangeAttack");
+    _stateMachine.Enemy.Animator.SetTrigger("Attack");
     public override void LogicUpdate()
     {
         if (!_stateMachine.Enemy.IsAttackReady())

@@ -38,7 +38,7 @@ public class EnemyBoss : MonoBehaviour, IDamagable, IMobController
     {
         _stateMachine?.CurrentState.LogicUpdate();
     }
-    void Oestroy() => healthController.SecondPhase -= SecondPhase;
+    void OnDestroy() => healthController.SecondPhase -= SecondPhase;
     public void Damage(int damage)
     {
         if (_canDamage)

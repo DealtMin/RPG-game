@@ -124,12 +124,12 @@ MonoBehaviour:
   magicAttack: {fileID: 0}
   magicSpawmPoint: {fileID: 0}
   isRange: 0
-  MaxHealth: 120
-  attackCoolDown: 1.5
+  MaxHealth: 100
+  attackCoolDown: 3
   noticeDistance: 10
-  damageInvincibility: 1.5
-  hitClip: {fileID: 0}
-  damageParticles: {fileID: 0}
+  damageInvincibility: 3
+  hitClip: {fileID: 8300000, guid: 65aa2de912d43f14e9d752055192cb88, type: 3}
+  damageParticles: {fileID: 2719340516017133943}
 --- !u!1001 &2599072206187076654
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5485,6 +5485,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13d745186b7a53246b713c5d0b7956a1, type: 3}
+--- !u!198 &2719340516017133943 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 9122568938028607551, guid: 13d745186b7a53246b713c5d0b7956a1, type: 3}
+  m_PrefabInstance: {fileID: 6567631267157930312}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7868471787201011100 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3897448427574717652, guid: 13d745186b7a53246b713c5d0b7956a1, type: 3}

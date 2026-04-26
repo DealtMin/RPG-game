@@ -61,13 +61,6 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
         
         PlayerData data = interactor.LoadGame();
 
-        // Проверка: если данных нет или позиция нулевая - выходим
-        if (data == null || data.Position == Vector3.zero) 
-        {
-            Debug.LogWarning("[SaveSystem] Не удалось получить данные из LoadGame()");
-            return;
-        }
-
         if (data == null || data.Position == Vector3.zero) return;
 
         // --- ОЧИСТКА ---
@@ -91,7 +84,7 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
                 GameObject newEnemy = Instantiate(prefab, savedEnemy.Position, Quaternion.identity);
                 Enemy enemy = newEnemy.GetComponent<Enemy>();
                 enemy?.Construct(_playerObject.transform);
-                enemy.GetHealthController()?.Damage((int)savedEnemy.CurrentHp);
+                enemy.GetHealthController().RestoreHealth((int)savedEnemy.CurrentHp);
             }
         }
 

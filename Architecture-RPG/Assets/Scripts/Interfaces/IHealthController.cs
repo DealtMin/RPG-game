@@ -7,4 +7,5 @@ public interface IHealthController
     event Action DeathEvent;
     void Damage(int damage);
     int GetHealth();
+    void RestoreHealth(int value);
 }

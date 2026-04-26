@@ -122,15 +122,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 597fb27fc88883e4b9d7c110e0aa8931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  magicAttack: {fileID: 0}
-  magicSpawmPoint: {fileID: 0}
+  magicAttack: {fileID: 9026441651615635683, guid: 2d897bbc98b26e1449140aa73a0a2dc2, type: 3}
+  magicSpawmPoint: {fileID: 8790784006324362290}
   isRange: 1
-  MaxHealth: 120
-  attackCoolDown: 1.5
-  noticeDistance: 10
-  damageInvincibility: 1.5
-  hitClip: {fileID: 0}
-  damageParticles: {fileID: 0}
+  MaxHealth: 100
+  attackCoolDown: 3
+  noticeDistance: 15
+  damageInvincibility: 3
+  hitClip: {fileID: 8300000, guid: 65aa2de912d43f14e9d752055192cb88, type: 3}
+  damageParticles: {fileID: 2822229034176777714}
 --- !u!1 &2586865222322792152
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,6 +239,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e441bd9830d3a0f479f14ece3ce968ba, type: 3}
+--- !u!198 &2822229034176777714 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 706910001049880045, guid: e441bd9830d3a0f479f14ece3ce968ba, type: 3}
+  m_PrefabInstance: {fileID: 3379354193945511967}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8832593116374557607 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6086135614402046904, guid: e441bd9830d3a0f479f14ece3ce968ba, type: 3}

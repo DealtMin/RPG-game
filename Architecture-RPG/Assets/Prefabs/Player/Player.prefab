@@ -374,8 +374,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   rb: {fileID: 3697413577388513348}
-  moveSpeed: 3.9
-  sprintSpeed: 5
+  moveSpeed: 5
+  sprintSpeed: 10
   cameraTransform: {fileID: 728758888116559760}
   orientation: {fileID: 223946950301636109}
 --- !u!114 &3698553752205535708
@@ -471,7 +471,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2352046bf7922b4d8ecb0593ccff318, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimation
-  animator: {fileID: 7171711571150948030}
 --- !u!1 &6585194382964897877
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,7 +500,7 @@ Transform:
   m_GameObject: {fileID: 6585194382964897877}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 58.322334, y: 6.33, z: 40.391098}
+  m_LocalPosition: {x: 2.5500011, y: 6.33, z: -10.100002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2423,11 +2422,6 @@ MonoBehaviour:
 --- !u!4 &4887176325522956499 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6819763103175150598, guid: f60a3645777fb264991dc365d076ee26, type: 3}
-  m_PrefabInstance: {fileID: 2122909088062680277}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &7171711571150948030 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 9147126662107654763, guid: f60a3645777fb264991dc365d076ee26, type: 3}
   m_PrefabInstance: {fileID: 2122909088062680277}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &7349278648385802604 stripped
