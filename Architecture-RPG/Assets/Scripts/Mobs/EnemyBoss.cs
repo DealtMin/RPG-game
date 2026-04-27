@@ -141,6 +141,11 @@ public class EnemyBoss : MonoBehaviour, IDamagable, IMobController
     {
         return _healthController;
     }
+    
+    public void RestoreHealth(int health)
+    {
+        _healthController.RestoreHealth(health);
+    }
     private void SetFightStateMachine(BossStateMachine fightSM)
     {
         _stateMachine = fightSM;

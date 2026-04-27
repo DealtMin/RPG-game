@@ -70,6 +70,7 @@ public class Enemy : MonoBehaviour, IDamagable, IMobController
             _healthController.Damage(damage);
         }
     }
+    
     private IEnumerator DamageCountDown(float coolDown)
     {
         yield return new WaitForSeconds(coolDown);

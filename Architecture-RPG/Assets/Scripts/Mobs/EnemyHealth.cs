@@ -29,8 +29,9 @@ public class EnemyHealthController : IHealthController
 
     public int GetHealth() => _health;
 
-    public void RestoreHealth(int value)
+    public void RestoreHealth(int value) //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     {
         _health = value;
+        TakeDamage.Invoke(value, _maxHealth);
     }
 }

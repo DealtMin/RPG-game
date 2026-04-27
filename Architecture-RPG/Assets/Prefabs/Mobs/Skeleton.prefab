@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2124046831915090636}
   - component: {fileID: 8046070794624587673}
+  - component: {fileID: 6286518322726943054}
   - component: {fileID: 3711706822537348270}
   - component: {fileID: 8219304595920373043}
   - component: {fileID: 2017776298861053821}
-  - component: {fileID: 6286518322726943054}
   - component: {fileID: 3856067944095710382}
   m_Layer: 6
   m_Name: Skeleton
@@ -62,6 +62,27 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &6286518322726943054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2084805061245644690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597fb27fc88883e4b9d7c110e0aa8931, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  magicAttacks: []
+  magicSpawmPoint: {fileID: 0}
+  isRange: 0
+  MaxHealth: 100
+  attackCoolDown: 3
+  noticeDistance: 10
+  damageInvincibility: 3
+  hitClip: {fileID: 8300000, guid: 65aa2de912d43f14e9d752055192cb88, type: 3}
+  damageParticles: {fileID: 2719340516017133943}
 --- !u!114 &3711706822537348270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,27 +131,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b4bcc52dfbe4b74b8334a41dc5f4001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIControllerBase
---- !u!114 &6286518322726943054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2084805061245644690}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 597fb27fc88883e4b9d7c110e0aa8931, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  magicAttacks: []
-  magicSpawmPoint: {fileID: 0}
-  isRange: 0
-  MaxHealth: 100
-  attackCoolDown: 3
-  noticeDistance: 10
-  damageInvincibility: 3
-  hitClip: {fileID: 8300000, guid: 65aa2de912d43f14e9d752055192cb88, type: 3}
-  damageParticles: {fileID: 2719340516017133943}
 --- !u!114 &3856067944095710382
 MonoBehaviour:
   m_ObjectHideFlags: 0

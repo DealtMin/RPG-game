@@ -33,6 +33,10 @@ public class EnemySpawner : MonoBehaviour
                 GameObject newEnemy = Instantiate(_enemies[i], newpos, Quaternion.identity);
                 Enemy enemy = newEnemy.GetComponent<Enemy>();
                 enemy.Construct(_playerTransform, settings.LoadPlayMode());
+                if (enemy.TryGetComponent(out MultipleMobsWeaponsController weaponsController))
+                {
+                    weaponsController.SelectWeapon(-1);
+                }
             }
         }
     }
