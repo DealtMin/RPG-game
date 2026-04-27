@@ -4,11 +4,9 @@ using UnityEngine.AI;
 
 public class EnemyBoss : MonoBehaviour, IDamagable, IMobController
 {
-    public GameObject MagicAttackPrefab => magicAttack;
     public Animator Animator { get; protected set; }
     public bool wasAttaked { get; protected set; }
-    [SerializeField] private GameObject magicAttack;
-    [SerializeField] private Transform magicSpawmPoint;
+    [SerializeField] private GameObject[] magicAttacks;
     [SerializeField] private float secondPhaseStoppingDistance = 2f;
     [SerializeField] private int MaxHealth = 120;
     [SerializeField] private float attackCoolDown = 1.5f;
@@ -16,6 +14,7 @@ public class EnemyBoss : MonoBehaviour, IDamagable, IMobController
     [SerializeField] private float damageInvincibility = 1.5f;
     [SerializeField] private AudioClip hitClip;
     [SerializeField] private ParticleSystem damageParticles;
+    [SerializeField] private Transform[] magicSpawmPoints;
     private BossStateMachine _stateMachine;
     private Transform _target;
     private NavMeshAgent _agent;
@@ -23,6 +22,7 @@ public class EnemyBoss : MonoBehaviour, IDamagable, IMobController
     private bool _canDamage = true;
     private BossHealthController _healthController;
     private ISettingsLoader _settings;
+
 
     private IAudioService _audio;
     void Awake()
@@ -79,10 +79,24 @@ public class EnemyBoss : MonoBehaviour, IDamagable, IMobController
 
     public void RangeAttack()
     {
-        GameObject newMagicBall = Instantiate(magicAttack, magicSpawmPoint.position, Quaternion.identity);
-        MushroomBallBehaviour mushroomBall = newMagicBall.GetComponent<MushroomBallBehaviour>();
-
-        mushroomBall.Construct(_target, gameObject.transform);
+        int indx = RandomBetween(0, magicAttacks.Length);
+        foreach (Transform magicSpawmPoint in magicSpawmPoints)
+        {
+            GameObject newMagicBall = Instantiate(magicAttacks[indx],
+                magicSpawmPoint.position, Quaternion.identity);
+            if (newMagicBall.gameObject.TryGetComponent(out MushroomBallBehaviour mushroomBall))
+            {
+                mushroomBall.Construct(_target, gameObject.transform);
+            }
+            else
+            {
+                newMagicBall.GetComponent<MagicAttackBehaivour>().Construct(_target, gameObject.transform);
+            }
+        }
+    }
+    int RandomBetween(int min, int max)
+    {
+        return Random.Range(min, max);
     }
     public bool IsAttackReady() => _attackReady;
     public void SetAttackCoolDown()
@@ -126,6 +140,11 @@ public class EnemyBoss : MonoBehaviour, IDamagable, IMobController
     public IHealthController GetHealthController()
     {
         return _healthController;
+    }
+    
+    public void RestoreHealth(int health)
+    {
+        _healthController.RestoreHealth(health);
     }
     private void SetFightStateMachine(BossStateMachine fightSM)
     {

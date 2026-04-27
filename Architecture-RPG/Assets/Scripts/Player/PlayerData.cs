@@ -5,7 +5,9 @@ public class EnemySaveData
 {
     public string Type; 
     public Vector3 Position;
+    public Quaternion Rotation;
     public float CurrentHp;
+    public int WeaponIndex=-1;
 }
 [System.Serializable]
 public class ProjectileSaveData
@@ -21,6 +23,8 @@ public class PlayerData
     public float Hp;
     public float MaxHp;
     public Vector3 Position;
+    public Quaternion Rotation;
+
 
     
     public List<EnemySaveData> Enemies = new List<EnemySaveData>();

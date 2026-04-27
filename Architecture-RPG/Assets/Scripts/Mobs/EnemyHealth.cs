@@ -2,22 +2,24 @@ using System;
 
 public class EnemyHealthController : IHealthController
 {
-    public event Action<int> TakeDamage;
+    public event Action<int, int> TakeDamage;
     public event Action DeathEvent;
-    private int health;
+    private int _health;
+    private int _maxHealth;
 
     public EnemyHealthController(int health)
     {
-        this.health = health;
+        _health = health;
+        _maxHealth = health;
     }
     public void Damage(int damage)
     {
-        health -= damage;
-        if (health <= 0)
+        _health -= damage;
+        if (_health <= 0)
         {
             Death();
         }
-        TakeDamage.Invoke(health);
+        TakeDamage.Invoke(_health, _maxHealth);
     }
 
     public void Death()
@@ -25,10 +27,11 @@ public class EnemyHealthController : IHealthController
         DeathEvent.Invoke();
     }
 
-    public int GetHealth() => health;
+    public int GetHealth() => _health;
 
-    public void RestoreHealth(int value)
+    public void RestoreHealth(int value) //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     {
-        health = value;
+        _health = value;
+        TakeDamage.Invoke(value, _maxHealth);
     }
 }

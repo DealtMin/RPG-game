@@ -4,9 +4,8 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour, IDamagable, IMobController
 {
-    public GameObject MagicAttackPrefab => magicAttack;
     public Animator Animator { get; private set; }
-    [SerializeField] private GameObject magicAttack;
+    [SerializeField] private GameObject[] magicAttacks;
     [SerializeField] private Transform magicSpawmPoint;
     [SerializeField] bool isRange = true;
     [SerializeField] private int MaxHealth = 120;
@@ -22,17 +21,25 @@ public class Enemy : MonoBehaviour, IDamagable, IMobController
     private bool _canDamage = true;
     private EnemyHealthController _healthController;
 
+    public GameObject magicAttackPrefab { get; private set; }
+
     private IAudioService _audio;
     public void Construct(Transform transform, int gamemode)
     {
         _target = transform;
         CreateStateMachine(gamemode);
+        
+    }
+    
+    int RandomBetween(int min, int max)
+    {
+        return Random.Range(min, max);
     }
 
     void Awake()
     {
         Animator = GetComponentInChildren<Animator>();
-
+        if (isRange) magicAttackPrefab = magicAttacks[RandomBetween(0, magicAttacks.Length)];
         _audio = ServiceLocator.Get<IAudioService>();
         _agent = GetComponent<NavMeshAgent>();
         _healthController = new EnemyHealthController(MaxHealth);
@@ -63,6 +70,7 @@ public class Enemy : MonoBehaviour, IDamagable, IMobController
             _healthController.Damage(damage);
         }
     }
+    
     private IEnumerator DamageCountDown(float coolDown)
     {
         yield return new WaitForSeconds(coolDown);
@@ -72,7 +80,7 @@ public class Enemy : MonoBehaviour, IDamagable, IMobController
     {
         if (isRange)
         {
-            GameObject newMagicBall = Instantiate(magicAttack, magicSpawmPoint.position, Quaternion.identity);
+            GameObject newMagicBall = Instantiate(magicAttackPrefab, magicSpawmPoint.position, Quaternion.identity);
             MagicAttackBehaivour magicBeh = newMagicBall.GetComponent<MagicAttackBehaivour>();
             magicBeh.Construct(_target, gameObject.transform);
         }

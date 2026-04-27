@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: -6929158911217906857}
   - component: {fileID: 905433705043531245}
   - component: {fileID: 603377179401357003}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GrassMagicBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4974,6 +4974,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MagicAttackBehaivour
   speed: 2
+  scalingTime: 0.5
 --- !u!114 &603377179401357003
 MonoBehaviour:
   m_ObjectHideFlags: 0

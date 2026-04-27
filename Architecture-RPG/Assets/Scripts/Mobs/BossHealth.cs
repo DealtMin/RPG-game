@@ -2,27 +2,27 @@ using System;
 
 public class BossHealthController : IHealthController
 {
-    public event Action<int> TakeDamage;
+    public event Action<int, int> TakeDamage;
     public event Action DeathEvent;
     public event Action SecondPhase;
-    private int maxHealth;
-    private int health;
+    private int _maxHealth;
+    private int _health;
 
     public BossHealthController(int health)
     {
-        maxHealth = health;
-        this.health = health;
+        _maxHealth = health;
+        _health = health;
     }
     public void Damage(int damage)
     {
-        health -= damage;
-        if (health <= maxHealth/2)
+        _health -= damage;
+        if (_health <= _maxHealth/2)
             SecondPhase.Invoke();
-        if (health <= 0)
+        if (_health <= 0)
         {
             Death();
         }
-        TakeDamage.Invoke(health);
+        TakeDamage.Invoke(_health, _maxHealth);
     }
 
     public void Death()
@@ -30,11 +30,12 @@ public class BossHealthController : IHealthController
         DeathEvent.Invoke();
     }
 
-    public int GetHealth() => health;
+    public int GetHealth() => _health;
 
-    public void RestoreHealth(int value)
+    public void RestoreHealth(int value) //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     {
-        health = value;
-        TakeDamage.Invoke(value);
+        _health = value;
+        TakeDamage.Invoke(value, _maxHealth);
+        if (_health <= _maxHealth/2) SecondPhase.Invoke();
     }
 }
