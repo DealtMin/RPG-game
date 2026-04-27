@@ -15,7 +15,8 @@ public class MobsUIController : MonoBehaviour
     {
         _mobsLifecycle = GetComponent<IMobController>().GetHealthController();
         _uiService = ServiceLocator.Get<IUIService>();  
-        _mobsLifecycle.TakeDamage += ReduceHealth;      
+        _mobsLifecycle.TakeDamage += ReduceHealth; 
+        ReduceHealth(_mobsLifecycle.GetHealth(), _mobsLifecycle.GetMaxHealth());     
     }
 
     public void ReduceHealth(int currHealth, int maxHealth)

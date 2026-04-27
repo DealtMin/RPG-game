@@ -31,11 +31,11 @@ public class BossHealthController : IHealthController
     }
 
     public int GetHealth() => _health;
+    public int GetMaxHealth() => _maxHealth;
 
-    public void RestoreHealth(int value) //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    public void RestoreHealth(int value)
     {
         _health = value;
-        TakeDamage.Invoke(value, _maxHealth);
         if (_health <= _maxHealth/2) SecondPhase.Invoke();
     }
 }
