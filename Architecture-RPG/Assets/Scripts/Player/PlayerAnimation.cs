@@ -19,7 +19,7 @@ public class PlayerAnimation : MonoBehaviour
         _playerInputHandler.OnMoveInput += Walk;
         _playerInputHandler.OnSprintPressed += SprintStart;
         _playerInputHandler.OnSprintReleased += SprintStop;
-        _playerLifecycle.PlayerDeath += Death;
+        _playerLifecycle.DeathEvent += Death;
         _playerCombat.PlayerAttackPhysical += PhysicAttack;
         _playerCombat.PlayerAttackMagic += MagicAttack;
     }
@@ -53,7 +53,7 @@ public class PlayerAnimation : MonoBehaviour
         _playerInputHandler.OnMoveInput -= Walk;
         _playerInputHandler.OnSprintPressed -= SprintStart;
         _playerInputHandler.OnSprintReleased -= SprintStop;
-        _playerLifecycle.PlayerDeath -= Death;
+        _playerLifecycle.DeathEvent -= Death;
         _playerCombat.PlayerAttackPhysical -= PhysicAttack;
         _playerCombat.PlayerAttackMagic -= MagicAttack;
     }

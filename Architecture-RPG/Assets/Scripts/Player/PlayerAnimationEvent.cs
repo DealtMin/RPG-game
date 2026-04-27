@@ -9,6 +9,6 @@ public class PlayerAnimationEvent : MonoBehaviour
     }
     public void StartDeath()
     {
-        playerUI.ReduceHealth(0);
+        playerUI.ReduceHealth(0, 1);
     }
 }

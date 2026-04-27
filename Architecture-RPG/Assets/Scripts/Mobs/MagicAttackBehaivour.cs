@@ -6,7 +6,7 @@ public class MagicAttackBehaivour : MonoBehaviour
     private Transform _playerTransform;
     [SerializeField] private float speed = 1f;
     [SerializeField] private float scalingTime=0.2f;
-    private Rigidbody _rb;
+    protected Rigidbody _rb;
     private Vector3 _direction;
     private Transform _parentObject;
 
@@ -44,7 +44,7 @@ public class MagicAttackBehaivour : MonoBehaviour
         _rb.AddForce(_direction * speed, ForceMode.Force);
     }
     
-    void OnTriggerEnter()
+    void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
     }

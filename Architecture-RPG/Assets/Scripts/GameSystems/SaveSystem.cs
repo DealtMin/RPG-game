@@ -4,11 +4,13 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
 {
     private GameObject _playerObject;
     private GameObject[] _enemies;
+    private GameObject[] _allMagicAttacks;
 
-    public void Construct(GameObject player, GameObject[] enemies)
+    public void Construct(GameObject player, GameObject[] enemies, GameObject[] allMagicAttacks)
     {
         _playerObject = player;
         _enemies = enemies;
+        _allMagicAttacks = allMagicAttacks;
     }
     
     
@@ -20,27 +22,56 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
         PlayerData data = new PlayerData();
         data.Position = _playerObject.transform.position;
         data.Hp = playerLC.GetHealth();
+        data.Rotation = playerLC.transform.rotation;
 
         // 1. СОХРАНЯЕМ МОБОВ
         data.Enemies.Clear();
-        MobsLifecycle[] sceneMobs = Object.FindObjectsByType<MobsLifecycle>(FindObjectsSortMode.None);
+        Enemy[] sceneMobs = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
         foreach (var mob in sceneMobs)
         {
-            if (mob.GetHealth() > 0)
+            if (mob.GetHealthController().GetHealth() > 0)
             {
+                mob.TryGetComponent(out MultipleMobsWeaponsController weaponsController);
+                int weaponInx = -1;
+                if (weaponsController) weaponInx = weaponsController.weaponInx;
+
                 data.Enemies.Add(new EnemySaveData
                 {
                     Type = mob.gameObject.name.Replace("(Clone)", "").Trim(),
                     Position = mob.transform.position,
-                    CurrentHp = mob.GetHealth()
+                    Rotation = mob.transform.rotation,
+                    CurrentHp = mob.GetHealthController().GetHealth(),
+                    WeaponIndex = weaponInx
                 });
             }
+        }
+        
+        EnemyBoss boss = FindAnyObjectByType<EnemyBoss>();
+        if (boss != null)
+        {
+            data.Enemies.Add(new EnemySaveData
+            {
+                Type = boss.gameObject.name.Replace("(Clone)", "").Trim(),
+                Position = boss.transform.position,
+                CurrentHp = boss.GetHealthController().GetHealth()
+            });
         }
 
         // 2. СОХРАНЯЕМ СНАРЯДЫ (Автоматически)
         data.Projectiles.Clear();
         MagicAttackBehaivour[] activeProjectiles =
             Object.FindObjectsByType<MagicAttackBehaivour>(FindObjectsSortMode.None);
+        foreach (var p in activeProjectiles)
+        {
+            data.Projectiles.Add(new ProjectileSaveData
+            {
+                Type = p.gameObject.name.Replace("(Clone)", "").Trim(),
+                Position = p.transform.position,
+                Direction = p.transform.forward
+            });
+        }
+        MushroomBallBehaviour[] activeMushroomProjectiles =
+            Object.FindObjectsByType<MushroomBallBehaviour>(FindObjectsSortMode.None);
         foreach (var p in activeProjectiles)
         {
             data.Projectiles.Add(new ProjectileSaveData
@@ -58,18 +89,24 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
     public void LoadGame()
     {
         var interactor = ServiceLocator.Get<GameInteractor>();
-        interactor.LoadGame();
-        PlayerData data = interactor.Data;
+        var settings = ServiceLocator.Get<ISettingsLoader>();
+        
+        PlayerData data = interactor.LoadGame();
 
         if (data == null || data.Position == Vector3.zero) return;
 
         // --- ОЧИСТКА ---
-        foreach (var m in Object.FindObjectsByType<MobsLifecycle>(FindObjectsSortMode.None)) Destroy(m.gameObject);
+        foreach (var m in Object.FindObjectsByType<Enemy>(FindObjectsSortMode.None)) Destroy(m.gameObject);
         foreach (var p in Object.FindObjectsByType<MagicAttackBehaivour>(FindObjectsSortMode.None))
             Destroy(p.gameObject);
+        foreach (var p in Object.FindObjectsByType<MushroomBallBehaviour>(FindObjectsSortMode.None))
+            Destroy(p.gameObject);
+        foreach (var p in Object.FindObjectsByType<EnemyBoss>(FindObjectsSortMode.None)) Destroy(p.gameObject);
+        
 
         // 1. ИГРОК
         _playerObject.transform.position = data.Position;
+        _playerObject.transform.rotation = data.Rotation;
         _playerObject.GetComponent<PlayerLifecycle>().RestoreHealth((int)data.Hp);
 
         // Достаем префаб магии игрока для сравнения
@@ -81,9 +118,20 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
             GameObject prefab = System.Array.Find(_enemies, e => e.name == savedEnemy.Type);
             if (prefab != null)
             {
-                GameObject newEnemy = Instantiate(prefab, savedEnemy.Position, Quaternion.identity);
-                newEnemy.GetComponent<EnemyAI>()?.Construct(_playerObject.transform);
-                newEnemy.GetComponent<MobsLifecycle>()?.RestoreHealth((int)savedEnemy.CurrentHp);
+                GameObject newEnemy = Instantiate(prefab, savedEnemy.Position, savedEnemy.Rotation);
+                if (newEnemy.TryGetComponent(out Enemy enemy))
+                {
+                    enemy.Construct(_playerObject.transform, settings.LoadPlayMode());
+                    enemy.GetHealthController().RestoreHealth((int)savedEnemy.CurrentHp);
+                    if (savedEnemy.WeaponIndex!=-1)
+                    {
+                        enemy.GetComponent<MultipleMobsWeaponsController>().SelectWeapon(savedEnemy.WeaponIndex);
+                    }
+                }
+                else
+                {
+                    newEnemy.GetComponent<EnemyBoss>().RestoreHealth((int)savedEnemy.CurrentHp);
+                }
             }
         }
 
@@ -102,12 +150,11 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
             else
             {
                 // ПРОВЕРКА: Если не игрока, ищем во врагах из массива
-                foreach (var ePrefab in _enemies)
+                foreach (var magic in _allMagicAttacks)
                 {
-                    var ai = ePrefab.GetComponent<EnemyAI>();
-                    if (ai != null && ai.MagicAttackPrefab != null && ai.MagicAttackPrefab.name == pData.Type)
+                    if (magic.name == pData.Type)
                     {
-                        finalPrefab = ai.MagicAttackPrefab;
+                        finalPrefab = magic;
                         target = _playerObject.transform; // Вражеской магии нужен таргет
                         break;
                     }
@@ -118,7 +165,14 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
             if (finalPrefab != null)
             {
                 GameObject newBall = Instantiate(finalPrefab, pData.Position, Quaternion.identity);
-                newBall.GetComponent<MagicAttackBehaivour>().Restore(target, pData.Direction);
+                if (newBall.TryGetComponent(out MagicAttackBehaivour magicBeh))
+                {
+                    magicBeh.Restore(target, pData.Direction);
+                }
+                else
+                {
+                    newBall.GetComponent<MushroomBallBehaviour>().Restore(target, pData.Direction);
+                }
             }
         }
 

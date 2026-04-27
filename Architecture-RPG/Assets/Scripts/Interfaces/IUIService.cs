@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 public interface IUIService
 {
-    void SetFillAmountImage(Image fillImage, int value);
+    void SetFillAmountImage(Image fillImage, int value, int maxValue);
 
 
     public void SetTMPRoText<T>(TMP_Text targetText, T value);

@@ -22,11 +22,21 @@ public class Bootstrapper : MonoBehaviour
 
     [Header("Other")]
     [SerializeField] private AudioClip mainTheme;
+
+    [SerializeField] private GameObject[] magicBalls;
     
     private void Awake()
     {
         ServiceLocator.Register<IAudioService>(new AudioService(source, slider, mixer));
+        
+        ServiceLocator.Register<ISettingsService>(new SettingsServicePP());
+        
+        ServiceLocator.Register<ISettingsSaver>(new SettingsControllerSaver());
+        
+        ServiceLocator.Register<ISettingsLoader>(new SettingsControllerLoader());
+        
         ServiceLocator.Get<IAudioService>().PlayMusic(mainTheme);
+        
         GameObject uiBase = new GameObject("Ui controller service");
         UIService uiServ = uiBase.AddComponent<UIService>();
         ServiceLocator.Register<IUIService>(uiServ);
@@ -39,13 +49,14 @@ public class Bootstrapper : MonoBehaviour
 
         GameObject spawnerObj = new GameObject("EnemiesSpawner");
         EnemySpawner spawner = spawnerObj.AddComponent<EnemySpawner>();
-        spawner.Construct(enemies, enemiesCount, maxBound, minBound, playerObject.transform);
+        spawner.Construct(enemies[..^1], enemiesCount, maxBound, minBound, playerObject.transform);
         spawner.Spawn();
 
         GameObject saverObj = new GameObject("Saver");
         SaveSystem saver = saverObj.AddComponent<SaveSystem>();
-        saver.Construct(playerObject, enemies);
+        saver.Construct(playerObject, enemies, magicBalls);
         ServiceLocator.Register<ISaveSystem>(saver);
+        
         
         Time.timeScale = 1f;
         //LoadGameScene();

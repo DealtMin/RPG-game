@@ -1,9 +1,6 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using TMPro;
-
 public class PlayerUIController : MonoBehaviour
 {
     [SerializeField] private GameObject pausePanel;
@@ -19,10 +16,11 @@ public class PlayerUIController : MonoBehaviour
     private void Start()
     {
         _playerLifeCycle = GetComponent<PlayerLifecycle>();
-        _playerLifeCycle.PlayerTakeDamage += ReduceHealth;
+        _playerLifeCycle.TakeDamage += ReduceHealth;
         _audio = ServiceLocator.Get<IAudioService>();
         _uiService = ServiceLocator.Get<IUIService>();
         _saver = ServiceLocator.Get<ISaveSystem>();
+        ServiceLocator.Get<ISettingsLoader>().LoadAllSettings();
     }
 
     public void Pause(bool pauseOn)
@@ -69,15 +67,15 @@ public class PlayerUIController : MonoBehaviour
         Time.timeScale = 0f;
     }
     
-    public void ReduceHealth(int health)
+    public void ReduceHealth(int health, int _maxHealth)
     {
-        _uiService.SetFillAmountImage(healthBar, health);
+        _uiService.SetFillAmountImage(healthBar, health, _maxHealth);
         _uiService.SetTMPRoText(hpText, health);
     }
     
     public void MagicTimerUI(float coolDown)
     {
-        _uiService.SetFillAmountImage(shootTimer, 0);
+        _uiService.SetFillAmountImage(shootTimer, 0, 1);
         _uiService.StartFillCoroutine(shootTimer, coolDown);
     }
     
@@ -92,6 +90,6 @@ public class PlayerUIController : MonoBehaviour
     }
     void OnDestroy()
     {
-        _playerLifeCycle.PlayerTakeDamage -= ReduceHealth;
+        _playerLifeCycle.TakeDamage -= ReduceHealth;
     }
 }
