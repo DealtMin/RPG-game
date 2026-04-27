@@ -32,6 +32,8 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
             if (mob.GetHealthController().GetHealth() > 0)
             {
                 mob.TryGetComponent(out MultipleMobsWeaponsController weaponsController);
+                int weaponInx = -1;
+                if (weaponsController) weaponInx = weaponsController.weaponInx;
 
                 data.Enemies.Add(new EnemySaveData
                 {
@@ -39,7 +41,7 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
                     Position = mob.transform.position,
                     Rotation = mob.transform.rotation,
                     CurrentHp = mob.GetHealthController().GetHealth(),
-                    WeaponIndex = weaponsController.weaponInx
+                    WeaponIndex = weaponInx
                 });
             }
         }
