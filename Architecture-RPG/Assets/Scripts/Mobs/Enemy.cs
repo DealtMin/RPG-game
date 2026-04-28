@@ -132,6 +132,7 @@ public class Enemy : MonoBehaviour, IDamagable, IMobController
     private void Death()
     {
         ServiceLocator.Get<IScoreService>().AddScore(scoreValue);
+        ServiceLocator.Get<IGameEventService>().NotifyEnemyDeath();
         _stateMachine.ChangeState(new EnemyDeathState(_stateMachine));
         damageParticles.Play();
 
