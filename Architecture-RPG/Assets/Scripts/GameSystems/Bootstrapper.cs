@@ -34,6 +34,8 @@ public class Bootstrapper : MonoBehaviour
         ServiceLocator.Register<ISettingsSaver>(new SettingsControllerSaver());
         
         ServiceLocator.Register<ISettingsLoader>(new SettingsControllerLoader());
+
+        ServiceLocator.Register<IScoreService>(new ScoreService());
         
         ServiceLocator.Get<IAudioService>().PlayMusic(mainTheme);
         

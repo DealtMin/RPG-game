@@ -8,10 +8,12 @@ public class PlayerUIController : MonoBehaviour
     [SerializeField] private Image healthBar;
     [SerializeField] private Image shootTimer;
     [SerializeField] private TMP_Text hpText;
+    [SerializeField] private TMP_Text scoreText;
     [SerializeField] private float uiScaleFactor=1.07f;
     private IAudioService _audio;
     private IUIService _uiService;
     private PlayerLifecycle _playerLifeCycle;
+    private IScoreService _scoreService;
     private ISaveSystem _saver;
     private void Start()
     {
@@ -20,7 +22,10 @@ public class PlayerUIController : MonoBehaviour
         _audio = ServiceLocator.Get<IAudioService>();
         _uiService = ServiceLocator.Get<IUIService>();
         _saver = ServiceLocator.Get<ISaveSystem>();
+        _scoreService = ServiceLocator.Get<IScoreService>();
         ServiceLocator.Get<ISettingsLoader>().LoadAllSettings();
+        _scoreService.OnScoreChanged += UpdateScoreUI;
+        UpdateScoreUI(_scoreService.CurrentScore);
     }
 
     public void Pause(bool pauseOn)
@@ -66,7 +71,11 @@ public class PlayerUIController : MonoBehaviour
         _uiService.ShowHideElement(deathPanel, true);
         Time.timeScale = 0f;
     }
-    
+
+    public void UpdateScoreUI(int currentScore)
+    {
+        scoreText.text = currentScore.ToString("D3");
+    }
     public void ReduceHealth(int health, int _maxHealth)
     {
         _uiService.SetFillAmountImage(healthBar, health, _maxHealth);

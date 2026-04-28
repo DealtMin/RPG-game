@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour, IDamagable, IMobController
     [SerializeField] private float damageInvincibility = 1.5f;
     [SerializeField] private AudioClip hitClip;
     [SerializeField] private ParticleSystem damageParticles;
+    [SerializeField] private int scoreValue=20;
     private EnemyStateMachine _stateMachine;
     private Transform _target;
     private NavMeshAgent _agent;
@@ -130,6 +131,7 @@ public class Enemy : MonoBehaviour, IDamagable, IMobController
     }
     private void Death()
     {
+        ServiceLocator.Get<IScoreService>().AddScore(scoreValue);
         _stateMachine.ChangeState(new EnemyDeathState(_stateMachine));
         damageParticles.Play();
 
