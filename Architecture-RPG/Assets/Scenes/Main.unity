@@ -3870,6 +3870,7 @@ MonoBehaviour:
   enemies:
   - {fileID: 587124131627780011, guid: 0095ec4698096894e857826a0788e25a, type: 3}
   - {fileID: 2084805061245644690, guid: f606b3868f4aca54c83edc80cacc8c5c, type: 3}
+  - {fileID: 5029137072988402227, guid: 56569b7746471f84d9a8e2761880d142, type: 3}
   enemiesCount: 0a0000000a000000
   maxBound: {fileID: 78114932}
   minBound: {fileID: 421735757}

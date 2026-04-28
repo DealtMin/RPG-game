@@ -17,6 +17,12 @@ public class ScoreService : IScoreService
     public void ResetScore()
     {
         CurrentScore = 0;
-        OnScoreChanged?.Invoke(0);
+        OnScoreChanged?.Invoke(CurrentScore);
+    }
+
+    public void SetScore(int value)
+    {
+        CurrentScore = value;
+        OnScoreChanged?.Invoke(CurrentScore);
     }
 }

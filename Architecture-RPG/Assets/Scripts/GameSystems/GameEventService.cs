@@ -10,6 +10,7 @@ public class GameEventService : IGameEventService
 
     public int CurrentKillCount { get; private set; } = 0;
 
+
     public void NotifyEnemyDeath()
     {
         CurrentKillCount++;
@@ -17,21 +18,38 @@ public class GameEventService : IGameEventService
         OnEnemyKilled?.Invoke();
         OnKillCountChanged?.Invoke(CurrentKillCount);
 
-        if (CurrentKillCount == 3)
-        {
-            OnBossShouldSpawn?.Invoke();
-            
-        }
-
-        if (CurrentKillCount == 5)
-        {
-            OnVictoryConditionMet?.Invoke();
-            
-        }
+        CheckConditions();
     }
 
     public void ResetKillCount()
     {
         CurrentKillCount = 0;
+        OnKillCountChanged?.Invoke(CurrentKillCount);
+
+
     }
+
+    public void SetKillCount(int value)
+    {
+        CurrentKillCount = value;
+        OnKillCountChanged?.Invoke(CurrentKillCount);
+
+    }
+
+
+    private void CheckConditions()
+    {
+        if ( CurrentKillCount >= 3)
+        {
+        
+            OnBossShouldSpawn?.Invoke();
+        }
+
+        if ( CurrentKillCount >= 5)
+        {
+            
+            OnVictoryConditionMet?.Invoke();
+        }
+    }
+
 }

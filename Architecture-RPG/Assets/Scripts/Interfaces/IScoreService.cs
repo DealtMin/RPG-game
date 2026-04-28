@@ -6,6 +6,6 @@ public interface IScoreService
     
     void AddScore(int points);
     void ResetScore();
-
+    void SetScore(int value);
     event Action<int> OnScoreChanged;
 }

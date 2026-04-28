@@ -24,6 +24,7 @@ public class EnemySpawner : MonoBehaviour
 
         _eventService = ServiceLocator.Get<IGameEventService>();
         _eventService.OnBossShouldSpawn += SpawnBoss;
+        
     }
     
 

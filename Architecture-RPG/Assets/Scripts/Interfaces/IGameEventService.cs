@@ -9,6 +9,12 @@ public interface IGameEventService
     event Action OnVictoryConditionMet;
 
     void NotifyEnemyDeath();
+
     int CurrentKillCount { get; }
+
     void ResetKillCount();
+
+    void SetKillCount(int value); 
+
+   
 }

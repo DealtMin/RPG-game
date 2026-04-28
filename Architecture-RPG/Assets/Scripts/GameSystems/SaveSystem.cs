@@ -19,11 +19,23 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
         var interactor = ServiceLocator.Get<GameInteractor>();
         var playerLC = _playerObject.GetComponent<PlayerLifecycle>();
 
+        
+
         PlayerData data = new PlayerData();
+
         data.Position = _playerObject.transform.position;
         data.Hp = playerLC.GetHealth();
         data.Rotation = playerLC.transform.rotation;
 
+        
+        var scoreService = ServiceLocator.Get<IScoreService>();
+        var eventService = ServiceLocator.Get<IGameEventService>();
+
+        data.Score = scoreService.CurrentScore;
+        data.KillCount = eventService.CurrentKillCount;
+
+        
+       
         // 1. СОХРАНЯЕМ МОБОВ
         data.Enemies.Clear();
         Enemy[] sceneMobs = FindObjectsByType<Enemy>(FindObjectsSortMode.None);
@@ -109,6 +121,17 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
         _playerObject.transform.rotation = data.Rotation;
         _playerObject.GetComponent<PlayerLifecycle>().RestoreHealth((int)data.Hp);
 
+        var scoreService = ServiceLocator.Get<IScoreService>();
+        var eventService = ServiceLocator.Get<IGameEventService>();
+
+       
+        scoreService.SetScore(data.Score);
+
+       
+        
+        eventService.SetKillCount(data.KillCount);
+
+        //eventService.ForceCheck();
         // Достаем префаб магии игрока для сравнения
         GameObject playerMagicPrefab = _playerObject.GetComponent<PlayerCombat>().MagicAttackPrefab;
 
