@@ -45,7 +45,7 @@ public class Bootstrapper : MonoBehaviour
         
         GameObject controllerObj = new GameObject("[Controller] GameController");
         GameController controller = controllerObj.AddComponent<GameController>();
-        controller.Construct(victoryMusic);
+        controller.Construct(mainTheme, victoryMusic);
         
         
         ServiceLocator.Get<IAudioService>().PlayMusic(mainTheme);

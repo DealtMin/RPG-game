@@ -123,13 +123,18 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
 
         var scoreService = ServiceLocator.Get<IScoreService>();
         var eventService = ServiceLocator.Get<IGameEventService>();
+        var gameController = FindAnyObjectByType<GameController>(); // Находим GameController
 
        
         scoreService.SetScore(data.Score);
-
        
-        
         eventService.SetKillCount(data.KillCount);
+
+        
+        if (gameController != null)
+        {
+            gameController.RestoreMusicState(data.KillCount); 
+        }
 
         //eventService.ForceCheck();
         // Достаем префаб магии игрока для сравнения
