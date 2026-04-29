@@ -83,7 +83,7 @@ MonoBehaviour:
   MaxHealth: 100
   attackCoolDown: 3
   noticeDistance: 15
-  damageInvincibility: 3
+  damageInvincibility: 1
   hitClip: {fileID: 8300000, guid: 65aa2de912d43f14e9d752055192cb88, type: 3}
   damageParticles: {fileID: 2822229034176777714}
   scoreValue: 30
@@ -773,6 +773,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a6ad7a8fcd00fc478f24c19c9a4678f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimationEventController
+  colliders:
+  - {fileID: 8843009830202772564}
+  - {fileID: 8503565536538181852}
 --- !u!4 &1001464763188472644 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8943390692435094723, guid: 34ed41cc4b7095f499e7ec4c74d7f62c, type: 3}

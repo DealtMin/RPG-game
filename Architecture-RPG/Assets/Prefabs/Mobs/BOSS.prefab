@@ -856,6 +856,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a6ad7a8fcd00fc478f24c19c9a4678f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAnimationEvent
+  colliders:
+  - {fileID: 7074816595235122571}
 --- !u!114 &4759566511325869059
 MonoBehaviour:
   m_ObjectHideFlags: 0

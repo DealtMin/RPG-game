@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
     private IGameEventService _eventService;
     private IAudioService _audioService;
 
-    // ВОЗВРАЩАЕМ CONSTRUCT, чтобы принимать AudioClip'ы
+    
     public void Construct(AudioClip mainThemeClip, AudioClip victoryClip)
     {
         _mainTheme = mainThemeClip;

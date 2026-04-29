@@ -31,7 +31,7 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
         data.Score = scoreService.CurrentScore;
         data.KillCount = eventService.CurrentKillCount;
 
-        // Находим EnemySpawner через ServiceLocator (предполагаем, что он уже зарегистрирован)
+        // Находим EnemySpawner через ServiceLocator
         EnemySpawner spawner = ServiceLocator.Get<EnemySpawner>(); 
         if (spawner != null)
         {
@@ -116,7 +116,7 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
         if (data == null || data.Position == Vector3.zero) return;
 
         // --- ОЧИСТКА ---
-       foreach (var m in Object.FindObjectsByType<Enemy>(FindObjectsSortMode.None)) Destroy(m.gameObject);
+        foreach (var m in Object.FindObjectsByType<Enemy>(FindObjectsSortMode.None)) Destroy(m.gameObject);
         foreach (var p in Object.FindObjectsByType<MagicAttackBehaivour>(FindObjectsSortMode.None)) Destroy(p.gameObject);
         foreach (var p in Object.FindObjectsByType<MushroomBallBehaviour>(FindObjectsSortMode.None)) Destroy(p.gameObject);
         foreach (var p in Object.FindObjectsByType<EnemyBoss>(FindObjectsSortMode.None)) Destroy(p.gameObject);
@@ -139,7 +139,8 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
 
         if (enemySpawner != null)
         {
-            enemySpawner.SetBossSpawned(data.BossSpawned); // Используем новый сеттер
+            
+            enemySpawner.enabled=false; 
             Debug.Log($"[Load] Состояние спавна босса восстановлено: {data.BossSpawned}");
         }
 
@@ -149,7 +150,7 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
         }
 
         //eventService.ForceCheck();
-        // Достаем префаб магии игрока для сравнения
+        //Достаем префаб магии игрока для сравнения
         GameObject playerMagicPrefab = _playerObject.GetComponent<PlayerCombat>().MagicAttackPrefab;
 
         
