@@ -9,13 +9,32 @@ public class EnemySpawner : MonoBehaviour
 
     private Transform _playerTransform;
 
-    public void Construct(GameObject[] enemies, int[] enemiesCount, Transform maxBound, Transform minBound, Transform playerTransform)
+    private GameObject _bossPrefab;
+    private Transform _bossSpawnPoint;
+    private IGameEventService _eventService;
+    private bool _bossSpawned = false;
+
+    public bool HasBossSpawned => _bossSpawned;
+
+    
+    public void SetBossSpawned(bool spawned)
+    {
+        _bossSpawned = spawned;
+    }
+    public void Construct(GameObject[] enemies, int[] enemiesCount, Transform maxBound, Transform minBound, Transform playerTransform, Transform bossSpawnPoint, GameObject bossPrefab)
     {
         _enemies = enemies;
         _enemiesCount = enemiesCount;
         _maxBound = maxBound;
         _minBound = minBound;
+        _bossSpawnPoint = bossSpawnPoint;
+        _bossPrefab = bossPrefab;
+
+        _eventService = ServiceLocator.Get<IGameEventService>();
+        _eventService.OnBossShouldSpawn += SpawnBoss;
+        
     }
+    
 
     public void Spawn()
     {
@@ -41,6 +60,19 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    private void SpawnBoss()
+    {
+        if (_bossSpawned || _bossPrefab == null) return;
+
+        _bossSpawned = true;
+        //случайный спавн
+        //Vector3 spawnPos = RandomPosition(_minBound, _maxBound);
+
+
+        Instantiate(_bossPrefab, _bossSpawnPoint.position, Quaternion.identity);
+        Debug.Log("Босс заспавнен!");
+    }
+
 
     Vector3 RandomPosition(Transform minBound, Transform maxBound)
     {
@@ -53,5 +85,11 @@ public class EnemySpawner : MonoBehaviour
     float RandomBetween(float min, float max)
     {
         return Random.Range(min, max);
+    }
+
+    private void OnDestroy()
+    {
+        if (_eventService != null)
+            _eventService.OnBossShouldSpawn -= SpawnBoss;
     }
 }

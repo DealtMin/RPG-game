@@ -19,9 +19,12 @@ public class Bootstrapper : MonoBehaviour
     [SerializeField] private int[] enemiesCount;
     [SerializeField] private Transform maxBound;
     [SerializeField] private Transform minBound;
+    [SerializeField] private GameObject bossPrefab;
+    [SerializeField] private Transform bossSpawnPoint;
 
     [Header("Other")]
     [SerializeField] private AudioClip mainTheme;
+    [SerializeField] private AudioClip victoryMusic;
 
     [SerializeField] private GameObject[] magicBalls;
     
@@ -34,6 +37,16 @@ public class Bootstrapper : MonoBehaviour
         ServiceLocator.Register<ISettingsSaver>(new SettingsControllerSaver());
         
         ServiceLocator.Register<ISettingsLoader>(new SettingsControllerLoader());
+
+        ServiceLocator.Register<IGameEventService>(new GameEventService());
+
+        ServiceLocator.Register<IScoreService>(new ScoreService());
+        
+        
+        GameObject controllerObj = new GameObject("[Controller] GameController");
+        GameController controller = controllerObj.AddComponent<GameController>();
+        controller.Construct(mainTheme, victoryMusic);
+        
         
         ServiceLocator.Get<IAudioService>().PlayMusic(mainTheme);
         
@@ -49,7 +62,8 @@ public class Bootstrapper : MonoBehaviour
 
         GameObject spawnerObj = new GameObject("EnemiesSpawner");
         EnemySpawner spawner = spawnerObj.AddComponent<EnemySpawner>();
-        spawner.Construct(enemies[..^1], enemiesCount, maxBound, minBound, playerObject.transform);
+        spawner.Construct(enemies[..^1], enemiesCount, maxBound, minBound, playerObject.transform, bossSpawnPoint, bossPrefab );
+        ServiceLocator.Register<EnemySpawner>(spawner);
         spawner.Spawn();
 
         GameObject saverObj = new GameObject("Saver");

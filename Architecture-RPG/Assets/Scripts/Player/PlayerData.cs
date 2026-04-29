@@ -25,6 +25,9 @@ public class PlayerData
     public Vector3 Position;
     public Quaternion Rotation;
 
+    public int Score;
+    public int KillCount;
+    public bool BossSpawned;
 
     
     public List<EnemySaveData> Enemies = new List<EnemySaveData>();
