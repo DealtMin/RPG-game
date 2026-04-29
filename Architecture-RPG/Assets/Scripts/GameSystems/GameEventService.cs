@@ -32,7 +32,6 @@ public class GameEventService : IGameEventService
     {
         CurrentKillCount = value;
         OnKillCountChanged?.Invoke(CurrentKillCount);
-        CheckConditions(); 
     }
 
     private void CheckConditions()

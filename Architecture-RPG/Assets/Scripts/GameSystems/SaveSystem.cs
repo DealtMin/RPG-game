@@ -136,18 +136,12 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
         scoreService.SetScore(data.Score);
        
         eventService.SetKillCount(data.KillCount);
-
-        if (enemySpawner != null)
-        {
-            
-            enemySpawner.enabled=false; 
-            Debug.Log($"[Load] Состояние спавна босса восстановлено: {data.BossSpawned}");
-        }
-
+        
         if (gameController != null)
         {
             gameController.RestoreMusicState(data.KillCount); 
         }
+        enemySpawner.SetBossSpawned(data.BossSpawned);
 
         //eventService.ForceCheck();
         //Достаем префаб магии игрока для сравнения
