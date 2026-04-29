@@ -22,6 +22,7 @@ public class EnemyBoss : MonoBehaviour, IDamagable, IMobController
     private bool _canDamage = true;
     private BossHealthController _healthController;
     private ISettingsLoader _settings;
+    [SerializeField] private int scoreValue=20;
 
 
     private IAudioService _audio;
@@ -132,6 +133,8 @@ public class EnemyBoss : MonoBehaviour, IDamagable, IMobController
     }
     private void Death()
     {
+        ServiceLocator.Get<IScoreService>().AddScore(scoreValue);
+        ServiceLocator.Get<IGameEventService>().NotifyEnemyDeath();
         _stateMachine.ChangeState(new BossDeathState(_stateMachine));
         damageParticles.Play();
 

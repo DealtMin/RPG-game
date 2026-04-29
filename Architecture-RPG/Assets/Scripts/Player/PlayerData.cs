@@ -27,7 +27,7 @@ public class PlayerData
 
     public int Score;
     public int KillCount;
-
+    public bool BossSpawned;
 
     
     public List<EnemySaveData> Enemies = new List<EnemySaveData>();

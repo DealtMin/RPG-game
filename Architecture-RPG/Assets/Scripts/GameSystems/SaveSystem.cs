@@ -16,10 +16,8 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
     
     public void SaveGame()
     {
-        var interactor = ServiceLocator.Get<GameInteractor>();
+       var interactor = ServiceLocator.Get<GameInteractor>();
         var playerLC = _playerObject.GetComponent<PlayerLifecycle>();
-
-        
 
         PlayerData data = new PlayerData();
 
@@ -27,14 +25,24 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
         data.Hp = playerLC.GetHealth();
         data.Rotation = playerLC.transform.rotation;
 
-        
         var scoreService = ServiceLocator.Get<IScoreService>();
         var eventService = ServiceLocator.Get<IGameEventService>();
 
         data.Score = scoreService.CurrentScore;
         data.KillCount = eventService.CurrentKillCount;
 
-        
+        // Находим EnemySpawner через ServiceLocator (предполагаем, что он уже зарегистрирован)
+        EnemySpawner spawner = ServiceLocator.Get<EnemySpawner>(); 
+        if (spawner != null)
+        {
+            data.BossSpawned = spawner.HasBossSpawned; 
+            Debug.Log($"[SaveSystem] Saving BossSpawned: {data.BossSpawned}");
+        }
+        else
+        {
+            data.BossSpawned = false; 
+            Debug.LogWarning("[SaveSystem] EnemySpawner not found during save, BossSpawned set to false.");
+        }
        
         // 1. СОХРАНЯЕМ МОБОВ
         data.Enemies.Clear();
@@ -108,13 +116,12 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
         if (data == null || data.Position == Vector3.zero) return;
 
         // --- ОЧИСТКА ---
-        foreach (var m in Object.FindObjectsByType<Enemy>(FindObjectsSortMode.None)) Destroy(m.gameObject);
-        foreach (var p in Object.FindObjectsByType<MagicAttackBehaivour>(FindObjectsSortMode.None))
-            Destroy(p.gameObject);
-        foreach (var p in Object.FindObjectsByType<MushroomBallBehaviour>(FindObjectsSortMode.None))
-            Destroy(p.gameObject);
+       foreach (var m in Object.FindObjectsByType<Enemy>(FindObjectsSortMode.None)) Destroy(m.gameObject);
+        foreach (var p in Object.FindObjectsByType<MagicAttackBehaivour>(FindObjectsSortMode.None)) Destroy(p.gameObject);
+        foreach (var p in Object.FindObjectsByType<MushroomBallBehaviour>(FindObjectsSortMode.None)) Destroy(p.gameObject);
         foreach (var p in Object.FindObjectsByType<EnemyBoss>(FindObjectsSortMode.None)) Destroy(p.gameObject);
-        
+        Debug.Log("[SaveSystem] Все существующие враги, снаряды и боссы очищены перед загрузкой.");
+
 
         // 1. ИГРОК
         _playerObject.transform.position = data.Position;
@@ -124,13 +131,18 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
         var scoreService = ServiceLocator.Get<IScoreService>();
         var eventService = ServiceLocator.Get<IGameEventService>();
         var gameController = FindAnyObjectByType<GameController>(); // Находим GameController
-
+        var enemySpawner = FindAnyObjectByType<EnemySpawner>();
        
         scoreService.SetScore(data.Score);
        
         eventService.SetKillCount(data.KillCount);
 
-        
+        if (enemySpawner != null)
+        {
+            enemySpawner.SetBossSpawned(data.BossSpawned); // Используем новый сеттер
+            Debug.Log($"[Load] Состояние спавна босса восстановлено: {data.BossSpawned}");
+        }
+
         if (gameController != null)
         {
             gameController.RestoreMusicState(data.KillCount); 
@@ -140,6 +152,7 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
         // Достаем префаб магии игрока для сравнения
         GameObject playerMagicPrefab = _playerObject.GetComponent<PlayerCombat>().MagicAttackPrefab;
 
+        
         // 2. МОБЫ
         foreach (var savedEnemy in data.Enemies)
         {
@@ -205,6 +218,7 @@ public class SaveSystem : MonoBehaviour, ISaveSystem
         }
 
         Debug.Log("[Load] Все данные восстановлены автоматически!");
+        //eventService.NotifyEnemyDeath();
     }
 
 }

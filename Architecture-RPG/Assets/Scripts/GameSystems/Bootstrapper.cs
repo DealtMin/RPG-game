@@ -63,6 +63,7 @@ public class Bootstrapper : MonoBehaviour
         GameObject spawnerObj = new GameObject("EnemiesSpawner");
         EnemySpawner spawner = spawnerObj.AddComponent<EnemySpawner>();
         spawner.Construct(enemies[..^1], enemiesCount, maxBound, minBound, playerObject.transform, bossSpawnPoint, bossPrefab );
+        ServiceLocator.Register<EnemySpawner>(spawner);
         spawner.Spawn();
 
         GameObject saverObj = new GameObject("Saver");

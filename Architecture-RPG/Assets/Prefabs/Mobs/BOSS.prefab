@@ -144,6 +144,7 @@ MonoBehaviour:
   - {fileID: 3075092331481180614}
   - {fileID: 9146470889405590634}
   - {fileID: 8864098466018357126}
+  scoreValue: 100
 --- !u!195 &4402402518694586855
 NavMeshAgent:
   m_ObjectHideFlags: 0
